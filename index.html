@@ -1,139 +1,2715 @@
-<!doctype <!doctype html>
+<!doctype html>
+
 <html lang="th">
+
 <head>
+
 <meta charset="utf-8">
+
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>LUIMOTOR - ข้อมูลลูกค้า</title>
+
+<title>LUIMOTOR - ระบบข้อมูลลูกค้า V2</title>
+
 <style>
-:root{--bg:#090909;--card:#151515;--red:#e00000;--red2:#ff3030;--text:#f5f5f5;--muted:#a7a7a7;--line:#292929}
-*{box-sizing:border-box} body{margin:0;background:linear-gradient(145deg,#080808,#160000);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif}
-header{padding:24px 18px 16px;text-align:center;border-bottom:1px solid #300000;position:sticky;top:0;background:#090909ee;backdrop-filter:blur(10px);z-index:5}
-.logo{font-weight:900;letter-spacing:2px;font-size:30px}.logo span{color:var(--red)}
-.subtitle{color:var(--muted);margin-top:3px}
-main{max-width:760px;margin:auto;padding:18px}
-.card{background:linear-gradient(180deg,#171717,#101010);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:0 8px 30px #0008}
-h2{font-size:18px;margin:0 0 12px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-button{width:100%;border:0;border-radius:14px;padding:15px 12px;font-size:16px;font-weight:700;color:white;background:#222;cursor:pointer}
-button.primary{background:linear-gradient(135deg,#c40000,#ff1e1e)} button:active{transform:scale(.98)}
-input,textarea{width:100%;background:#0b0b0b;color:#fff;border:1px solid #333;border-radius:12px;padding:13px;font-size:16px;outline:none;margin-bottom:10px}
-input:focus,textarea:focus{border-color:var(--red)} textarea{min-height:80px;resize:vertical}
-.hidden{display:none}.result{padding:12px;border:1px solid #333;border-radius:12px;margin-top:10px;background:#0d0d0d}
-.badge{display:inline-block;padding:4px 9px;border-radius:99px;background:#350000;color:#ff6b6b;font-size:12px}
-.item{padding:12px 0;border-bottom:1px solid #252525}.item:last-child{border-bottom:0}
-.small{font-size:13px;color:var(--muted)} .price{font-weight:800;color:#ff5555}
-.danger{background:#310000}.empty{color:#888;text-align:center;padding:20px}
-@media(max-width:520px){.grid{grid-template-columns:1fr 1fr}.logo{font-size:27px}}
+
+:root{
+
+ --bg:#090909;
+
+ --card:#151515;
+
+ --card2:#101010;
+
+ --red:#e00000;
+
+ --red2:#ff3030;
+
+ --text:#f5f5f5;
+
+ --muted:#a7a7a7;
+
+ --line:#292929;
+
+ --green:#00b86b;
+
+}
+
+*{box-sizing:border-box}
+
+body{
+
+ margin:0;
+
+ background:linear-gradient(145deg,#080808,#160000);
+
+ color:var(--text);
+
+ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif;
+
+}
+
+header{
+
+ padding:22px 18px 16px;
+
+ text-align:center;
+
+ border-bottom:1px solid #300000;
+
+ position:sticky;
+
+ top:0;
+
+ background:#090909ee;
+
+ backdrop-filter:blur(10px);
+
+ z-index:10;
+
+}
+
+.logo{
+
+ font-weight:900;
+
+ letter-spacing:2px;
+
+ font-size:30px;
+
+}
+
+.logo span{
+
+ color:var(--red);
+
+}
+
+.subtitle{
+
+ color:var(--muted);
+
+ margin-top:4px;
+
+}
+
+.version{
+
+ display:inline-block;
+
+ margin-top:8px;
+
+ padding:5px 12px;
+
+ border-radius:20px;
+
+ background:#450000;
+
+ color:#ff6b6b;
+
+ font-size:12px;
+
+ font-weight:800;
+
+}
+
+main{
+
+ max-width:760px;
+
+ margin:auto;
+
+ padding:18px;
+
+}
+
+.card{
+
+ background:linear-gradient(180deg,#171717,#101010);
+
+ border:1px solid var(--line);
+
+ border-radius:18px;
+
+ padding:16px;
+
+ margin-bottom:14px;
+
+ box-shadow:0 8px 30px #0008;
+
+}
+
+h2{
+
+ font-size:18px;
+
+ margin:0 0 12px;
+
+}
+
+h3{
+
+ margin:10px 0;
+
+}
+
+.grid{
+
+ display:grid;
+
+ grid-template-columns:repeat(2,1fr);
+
+ gap:10px;
+
+}
+
+button{
+
+ width:100%;
+
+ border:0;
+
+ border-radius:14px;
+
+ padding:14px 12px;
+
+ font-size:16px;
+
+ font-weight:700;
+
+ color:white;
+
+ background:#222;
+
+ cursor:pointer;
+
+}
+
+button.primary{
+
+ background:linear-gradient(135deg,#c40000,#ff1e1e);
+
+}
+
+button.secondary{
+
+ background:#292929;
+
+}
+
+button.danger{
+
+ background:#450000;
+
+}
+
+button.green{
+
+ background:#075b3c;
+
+}
+
+button:active{
+
+ transform:scale(.98);
+
+}
+
+input,textarea,select{
+
+ width:100%;
+
+ background:#0b0b0b;
+
+ color:#fff;
+
+ border:1px solid #333;
+
+ border-radius:12px;
+
+ padding:13px;
+
+ font-size:16px;
+
+ outline:none;
+
+ margin-bottom:10px;
+
+}
+
+input:focus,
+
+textarea:focus,
+
+select:focus{
+
+ border-color:var(--red);
+
+}
+
+textarea{
+
+ min-height:80px;
+
+ resize:vertical;
+
+}
+
+.hidden{
+
+ display:none!important;
+
+}
+
+.result{
+
+ padding:12px;
+
+ border:1px solid #333;
+
+ border-radius:12px;
+
+ margin-top:10px;
+
+ background:#0d0d0d;
+
+}
+
+.clickable{
+
+ cursor:pointer;
+
+}
+
+.badge{
+
+ display:inline-block;
+
+ padding:5px 10px;
+
+ border-radius:99px;
+
+ background:#350000;
+
+ color:#ff6b6b;
+
+ font-size:13px;
+
+ font-weight:700;
+
+}
+
+.item{
+
+ padding:14px 0;
+
+ border-bottom:1px solid #252525;
+
+}
+
+.item:last-child{
+
+ border-bottom:0;
+
+}
+
+.small{
+
+ font-size:13px;
+
+ color:var(--muted);
+
+}
+
+.price{
+
+ font-weight:800;
+
+ color:#ff5555;
+
+}
+
+.empty{
+
+ color:#888;
+
+ text-align:center;
+
+ padding:20px;
+
+}
+
+.actions{
+
+ display:grid;
+
+ grid-template-columns:1fr 1fr;
+
+ gap:8px;
+
+ margin-top:10px;
+
+}
+
+hr{
+
+ border:0;
+
+ border-top:1px solid #252525;
+
+ margin:15px 0;
+
+}
+
+.stat{
+
+ display:grid;
+
+ grid-template-columns:repeat(3,1fr);
+
+ gap:8px;
+
+ margin-top:12px;
+
+}
+
+.statBox{
+
+ background:#0b0b0b;
+
+ border:1px solid #292929;
+
+ border-radius:12px;
+
+ padding:12px 5px;
+
+ text-align:center;
+
+}
+
+.statNumber{
+
+ font-size:20px;
+
+ font-weight:800;
+
+ color:#ff5555;
+
+}
+
+.statLabel{
+
+ font-size:12px;
+
+ color:#999;
+
+}
+
+.notice{
+
+ padding:11px;
+
+ border-radius:12px;
+
+ background:#241900;
+
+ border:1px solid #493400;
+
+ color:#ffc85c;
+
+ font-size:13px;
+
+ margin-bottom:12px;
+
+}
+
+.cameraBox{
+
+ background:#050505;
+
+ border:1px solid #333;
+
+ border-radius:14px;
+
+ padding:10px;
+
+ margin-bottom:10px;
+
+}
+
+#cameraPreview{
+
+ width:100%;
+
+ border-radius:10px;
+
+ display:block;
+
+ background:#000;
+
+ max-height:320px;
+
+ object-fit:cover;
+
+}
+
+.label{
+
+ font-size:13px;
+
+ color:#aaa;
+
+ margin:3px 0 6px;
+
+}
+
+.expired{
+
+ opacity:.55;
+
+}
+
+@media(max-width:520px){
+
+ .grid{
+
+  grid-template-columns:1fr 1fr;
+
+ }
+
+ .logo{
+
+  font-size:27px;
+
+ }
+
+ .actions{
+
+  grid-template-columns:1fr 1fr;
+
+ }
+
+ .statNumber{
+
+  font-size:18px;
+
+ }
+
+}
+
 </style>
+
 </head>
+
 <body>
-<header><div class="logo">LUI<span>MOTOR</span></div><div class="subtitle">ระบบข้อมูลลูกค้า V1</div></header>
+
+<header>
+
+ <div class="logo">LUI<span>MOTOR</span></div>
+
+ <div class="subtitle">ระบบข้อมูลลูกค้า V2</div>
+
+ <div class="version">VERSION 2</div>
+
+</header>
+
 <main>
-<section class="card">
-<h2>🔎 ค้นหาข้อมูล</h2>
-<input id="search" placeholder="ทะเบียน / ชื่อลูกค้า / เบอร์โทร" oninput="searchCustomers()">
-<div id="results" class="empty">ยังไม่มีข้อมูลลูกค้า</div>
-</section>
+
+<!-- ================= SEARCH ================= -->
 
 <section class="card">
-<h2>⚡ เมนูด่วน</h2>
-<div class="grid">
-<button class="primary" onclick="show('customerForm')">➕ เพิ่มลูกค้า</button>
-<button onclick="show('vehicleForm')">🏍️ เพิ่มรถ</button>
-<button onclick="startScan()">📷 สแกนทะเบียน</button>
-<button onclick="showAll()">📋 ลูกค้าทั้งหมด</button>
+
+<h2>🔎 ค้นหาข้อมูลลูกค้า</h2>
+
+<input
+
+ id="search"
+
+ placeholder="ทะเบียน / ชื่อลูกค้า / เบอร์โทร"
+
+ oninput="searchCustomers()">
+
+<div id="results" class="empty">
+
+ยังไม่มีข้อมูลลูกค้า
+
 </div>
+
 </section>
 
-<section id="customerForm" class="card hidden">
-<h2>👤 เพิ่มลูกค้าใหม่</h2>
-<input id="cname" placeholder="ชื่อลูกค้า *">
-<input id="cphone" placeholder="เบอร์โทร">
-<textarea id="cnote" placeholder="หมายเหตุ"></textarea>
-<button class="primary" onclick="addCustomer()">บันทึกลูกค้า</button>
+<!-- ================= QUICK MENU ================= -->
+
+<section class="card">
+
+<h2>⚡ เมนูด่วน</h2>
+
+<div class="grid">
+
+<button class="primary" onclick="show('customerVehicleForm')">
+
+➕ ลูกค้าใหม่ + รถใหม่
+
+</button>
+
+<button onclick="show('vehicleForm')">
+
+🏍️ เพิ่มรถให้ลูกค้าเดิม
+
+</button>
+
+<button onclick="openScanner()">
+
+📷 สแกนทะเบียน
+
+</button>
+
+<button onclick="showAll()">
+
+📋 ลูกค้าทั้งหมด
+
+</button>
+
+</div>
+
 </section>
+
+<!-- ================= NEW CUSTOMER + VEHICLE ================= -->
+
+<section id="customerVehicleForm" class="card hidden">
+
+<h2>👤 เพิ่มลูกค้าใหม่ + 🏍️ รถใหม่</h2>
+
+<div class="notice">
+
+ลูกค้าใหม่ต้องมาพร้อมรถ 1 คัน ระบบจะบันทึกข้อมูลลูกค้าและรถไว้ด้วยกัน
+
+</div>
+
+<div class="label">ชื่อลูกค้า *</div>
+
+<input id="ncName" placeholder="เช่น สมชาย ใจดี">
+
+<div class="label">เบอร์โทร</div>
+
+<input id="ncPhone" placeholder="เบอร์โทรศัพท์">
+
+<div class="label">หมายเหตุลูกค้า</div>
+
+<textarea id="ncNote" placeholder="หมายเหตุเพิ่มเติม"></textarea>
+
+<hr>
+
+<h3>🏍️ ข้อมูลรถ</h3>
+
+<div class="label">ทะเบียนรถ *</div>
+
+<input id="ncPlate" placeholder="เช่น 1กข 1234 พิษณุโลก">
+
+<div class="grid">
+
+<div>
+
+<div class="label">ยี่ห้อ</div>
+
+<input id="ncBrand" placeholder="Honda">
+
+</div>
+
+<div>
+
+<div class="label">รุ่น</div>
+
+<input id="ncModel" placeholder="Wave 110i">
+
+</div>
+
+</div>
+
+<div class="grid">
+
+<div>
+
+<div class="label">สี</div>
+
+<input id="ncColor" placeholder="ดำ">
+
+</div>
+
+<div>
+
+<div class="label">เลขไมล์</div>
+
+<input id="ncMileage" placeholder="เช่น 25000">
+
+</div>
+
+</div>
+
+<button class="primary" onclick="addCustomerAndVehicle()">
+
+💾 บันทึกลูกค้า + รถ
+
+</button>
+
+</section>
+
+<!-- ================= ADD VEHICLE OLD CUSTOMER ================= -->
 
 <section id="vehicleForm" class="card hidden">
-<h2>🏍️ เพิ่มรถให้ลูกค้า</h2>
+
+<h2>🏍️ เพิ่มรถให้ลูกค้าเดิม</h2>
+
 <input id="vcustomer" placeholder="ชื่อลูกค้า *">
+
 <input id="vplate" placeholder="ทะเบียนรถ *">
+
+<div class="grid">
+
 <input id="vbrand" placeholder="ยี่ห้อ">
+
 <input id="vmodel" placeholder="รุ่น">
+
+</div>
+
+<div class="grid">
+
 <input id="vcolor" placeholder="สี">
+
 <input id="vmileage" placeholder="เลขไมล์">
-<button class="primary" onclick="addVehicle()">บันทึกรถ</button>
+
+</div>
+
+<button class="primary" onclick="addVehicle()">
+
+💾 บันทึกรถ
+
+</button>
+
 </section>
+
+<!-- ================= SCANNER ================= -->
+
+<section id="scanner" class="card hidden">
+
+<h2>📷 สแกนทะเบียนรถ</h2>
+
+<div class="notice">
+
+เปิดกล้องเพื่อถ่ายภาพป้ายทะเบียน จากนั้นกรอกเลขทะเบียนที่อ่านได้ลงในช่องด้านล่าง
+
+</div>
+
+<div class="cameraBox">
+
+<video
+
+ id="cameraPreview"
+
+ autoplay
+
+ playsinline>
+
+</video>
+
+</div>
+
+<div class="grid">
+
+<button class="primary" onclick="startCamera()">
+
+📷 เปิดกล้อง
+
+</button>
+
+<button class="secondary" onclick="stopCamera()">
+
+⏹️ ปิดกล้อง
+
+</button>
+
+</div>
+
+<br>
+
+<button class="green" onclick="takePhoto()">
+
+📸 ถ่ายภาพป้ายทะเบียน
+
+</button>
+
+<canvas id="cameraCanvas" class="hidden"></canvas>
+
+<div id="photoResult" class="hidden">
+
+<hr>
+
+<h3>ภาพที่ถ่าย</h3>
+
+<img
+
+ id="capturedPhoto"
+
+ style="width:100%;border-radius:12px;display:block;">
+
+</div>
+
+<hr>
+
+<h3>ทะเบียนที่อ่านจากภาพ</h3>
+
+<input
+
+ id="scannedPlate"
+
+ placeholder="กรอกทะเบียนที่เห็นจากภาพ">
+
+<button
+
+ class="primary"
+
+ onclick="useScannedPlate()">
+
+✅ ใช้ทะเบียนนี้
+
+</button>
+
+</section>
+
+<!-- ================= PROFILE ================= -->
 
 <section id="profile" class="card hidden"></section>
 
+<!-- ================= DATA ================= -->
+
 <section class="card">
-<h2>💾 ข้อมูล</h2>
+
+<h2>💾 จัดการข้อมูล</h2>
+
 <div class="grid">
-<button onclick="exportData()">ส่งออกข้อมูล</button>
-<button onclick="importData()">นำเข้าข้อมูล</button>
+
+<button onclick="exportData()">
+
+📤 ส่งออกข้อมูล
+
+</button>
+
+<button onclick="importData()">
+
+📥 นำเข้าข้อมูล
+
+</button>
+
 </div>
-<input id="file" type="file" accept=".json" class="hidden" onchange="loadData(event)">
-<p class="small">V1 เก็บข้อมูลไว้ในเครื่องนี้ด้วย LocalStorage ข้อมูลจะไม่ถูกส่งขึ้นอินเทอร์เน็ต</p>
+
+<input
+
+ id="file"
+
+ type="file"
+
+ accept=".json"
+
+ class="hidden"
+
+ onchange="loadData(event)">
+
+<p class="small">
+
+ข้อมูลจะเก็บในเครื่องนี้ด้วย LocalStorage และ V2 ใช้ฐานข้อมูลเดียวกับ V1 เพื่อให้ข้อมูลเดิมสามารถใช้งานต่อได้
+
+</p>
+
+<p class="small">
+
+ระบบเก็บข้อมูลย้อนหลังได้ 1 ปี โดยข้อมูลเก่ากว่า 1 ปีจะไม่ถูกนำมาแสดงในรายการหลัก
+
+</p>
+
 </section>
+
 </main>
 
 <script>
-const KEY='luimotor_v1';
-let db=JSON.parse(localStorage.getItem(KEY)||'{"customers":[]}');
-function save(){localStorage.setItem(KEY,JSON.stringify(db))}
-function show(id){document.getElementById(id).classList.remove('hidden');document.getElementById(id).scrollIntoView({behavior:'smooth'})}
-function esc(s=''){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function addCustomer(){
- let name=cname.value.trim(); if(!name)return alert('กรุณาใส่ชื่อลูกค้า');
- db.customers.push({id:Date.now(),name,phone:cphone.value.trim(),note:cnote.value.trim(),vehicles:[]});
- save(); cname.value=cphone.value=cnote.value=''; alert('บันทึกลูกค้าแล้ว'); searchCustomers();
+
+/* =========================================================
+
+   DATABASE
+
+   ========================================================= */
+
+/*
+
+ V2 ใช้ KEY เดียวกับ V1
+
+ เพื่อให้ข้อมูลลูกค้าเดิมบนเครื่องยังอยู่
+
+*/
+
+const KEY = 'luimotor_v1';
+
+let db = {
+
+ customers:[]
+
+};
+
+try{
+
+ const oldData = localStorage.getItem(KEY);
+
+ if(oldData){
+
+  db = JSON.parse(oldData);
+
+  if(!Array.isArray(db.customers)){
+
+   db.customers=[];
+
+  }
+
+ }
+
+}catch(e){
+
+ db={
+
+  customers:[]
+
+ };
+
 }
+
+/* =========================================================
+
+   SAVE
+
+   ========================================================= */
+
+function save(){
+
+ localStorage.setItem(
+
+  KEY,
+
+  JSON.stringify(db)
+
+ );
+
+}
+
+/* =========================================================
+
+   ESCAPE
+
+   ========================================================= */
+
+function esc(s=''){
+
+ return String(s).replace(
+
+  /[&<>"']/g,
+
+  m=>({
+
+   '&':'&amp;',
+
+   '<':'&lt;',
+
+   '>':'&gt;',
+
+   '"':'&quot;',
+
+   "'":'&#39;'
+
+  }[m])
+
+ );
+
+}
+
+/* =========================================================
+
+   SHOW
+
+   ========================================================= */
+
+function show(id){
+
+ const el=document.getElementById(id);
+
+ el.classList.remove('hidden');
+
+ el.scrollIntoView({
+
+  behavior:'smooth'
+
+ });
+
+}
+
+/* =========================================================
+
+   HIDE
+
+   ========================================================= */
+
+function hide(id){
+
+ document
+
+ .getElementById(id)
+
+ .classList.add('hidden');
+
+}
+
+/* =========================================================
+
+   NEW CUSTOMER + VEHICLE
+
+   ========================================================= */
+
+function addCustomerAndVehicle(){
+
+ const name=
+
+ document.getElementById('ncName')
+
+ .value.trim();
+
+ const phone=
+
+ document.getElementById('ncPhone')
+
+ .value.trim();
+
+ const note=
+
+ document.getElementById('ncNote')
+
+ .value.trim();
+
+ const plate=
+
+ document.getElementById('ncPlate')
+
+ .value.trim();
+
+ const brand=
+
+ document.getElementById('ncBrand')
+
+ .value.trim();
+
+ const model=
+
+ document.getElementById('ncModel')
+
+ .value.trim();
+
+ const color=
+
+ document.getElementById('ncColor')
+
+ .value.trim();
+
+ const mileage=
+
+ document.getElementById('ncMileage')
+
+ .value.trim();
+
+ if(!name){
+
+  alert('กรุณาใส่ชื่อลูกค้า');
+
+  return;
+
+ }
+
+ if(!plate){
+
+  alert('กรุณาใส่ทะเบียนรถ');
+
+  return;
+
+ }
+
+ const existing =
+
+ db.customers.find(
+
+  c=>c.name.trim().toLowerCase()
+
+  ===name.toLowerCase()
+
+ );
+
+ if(existing){
+
+  alert(
+
+   'มีชื่อลูกค้านี้อยู่แล้ว\n\n' +
+
+   'กรุณาใช้เมนู "เพิ่มรถให้ลูกค้าเดิม"'
+
+  );
+
+  return;
+
+ }
+
+ const now = Date.now();
+
+ const customer={
+
+  id:now,
+
+  name:name,
+
+  phone:phone,
+
+  note:note,
+
+  createdAt:now,
+
+  vehicles:[{
+
+   id:now+1,
+
+   plate:plate,
+
+   brand:brand,
+
+   model:model,
+
+   color:color,
+
+   mileage:mileage,
+
+   history:[]
+
+  }]
+
+ };
+
+ db.customers.push(customer);
+
+ save();
+
+ [
+
+  'ncName',
+
+  'ncPhone',
+
+  'ncNote',
+
+  'ncPlate',
+
+  'ncBrand',
+
+  'ncModel',
+
+  'ncColor',
+
+  'ncMileage'
+
+ ].forEach(id=>{
+
+  document.getElementById(id).value='';
+
+ });
+
+ alert(
+
+  'บันทึกลูกค้าและรถเรียบร้อยแล้ว'
+
+ );
+
+ searchCustomers();
+
+ profile(customer.id);
+
+}
+
+/* =========================================================
+
+   ADD VEHICLE
+
+   ========================================================= */
+
 function addVehicle(){
- let name=vcustomer.value.trim(), plate=vplate.value.trim(); if(!name||!plate)return alert('กรุณาใส่ชื่อลูกค้าและทะเบียน');
- let c=db.customers.find(x=>x.name===name);
- if(!c){c={id:Date.now(),name,phone:'',note:'',vehicles:[]};db.customers.push(c)}
- c.vehicles.push({id:Date.now(),plate,brand:vbrand.value.trim(),model:vmodel.value.trim(),color:vcolor.value.trim(),mileage:vmileage.value.trim(),history:[]});
- save(); ['vcustomer','vplate','vbrand','vmodel','vcolor','vmileage'].forEach(id=>document.getElementById(id).value='');
- alert('บันทึกรถแล้ว'); searchCustomers();
+
+ const name=
+
+ document.getElementById('vcustomer')
+
+ .value.trim();
+
+ const plate=
+
+ document.getElementById('vplate')
+
+ .value.trim();
+
+ if(!name || !plate){
+
+  alert(
+
+   'กรุณาใส่ชื่อลูกค้าและทะเบียนรถ'
+
+  );
+
+  return;
+
+ }
+
+ const c=
+
+ db.customers.find(
+
+  x=>x.name.trim().toLowerCase()
+
+  ===name.toLowerCase()
+
+ );
+
+ if(!c){
+
+  alert(
+
+   'ไม่พบชื่อลูกค้านี้\n\n' +
+
+   'ถ้าเป็นลูกค้าใหม่ให้ใช้เมนู "ลูกค้าใหม่ + รถใหม่"'
+
+  );
+
+  return;
+
+ }
+
+ c.vehicles = c.vehicles || [];
+
+ c.vehicles.push({
+
+  id:Date.now(),
+
+  plate:plate,
+
+  brand:
+
+  document.getElementById('vbrand')
+
+  .value.trim(),
+
+  model:
+
+  document.getElementById('vmodel')
+
+  .value.trim(),
+
+  color:
+
+  document.getElementById('vcolor')
+
+  .value.trim(),
+
+  mileage:
+
+  document.getElementById('vmileage')
+
+  .value.trim(),
+
+  history:[]
+
+ });
+
+ save();
+
+ [
+
+  'vcustomer',
+
+  'vplate',
+
+  'vbrand',
+
+  'vmodel',
+
+  'vcolor',
+
+  'vmileage'
+
+ ].forEach(id=>{
+
+  document.getElementById(id).value='';
+
+ });
+
+ alert('เพิ่มรถให้ลูกค้าแล้ว');
+
+ searchCustomers();
+
 }
+
+/* =========================================================
+
+   ONE YEAR FILTER
+
+   ========================================================= */
+
+function isWithinOneYear(customer){
+
+ if(!customer.createdAt){
+
+  return true;
+
+ }
+
+ const oneYear =
+
+  365*24*60*60*1000;
+
+ return Date.now()-customer.createdAt
+
+ <=oneYear;
+
+}
+
+/* =========================================================
+
+   SEARCH
+
+   ========================================================= */
+
 function searchCustomers(){
- let q=search.value.trim().toLowerCase(), arr=db.customers.filter(c=>
- !q || c.name.toLowerCase().includes(q)||c.phone.toLowerCase().includes(q)||
- c.vehicles.some(v=>v.plate.toLowerCase().includes(q)));
- let box=results;
- if(!arr.length){box.className='empty';box.textContent=q?'ไม่พบข้อมูล':'ยังไม่มีข้อมูลลูกค้า';return}
+
+ const q=
+
+ document.getElementById('search')
+
+ .value
+
+ .trim()
+
+ .toLowerCase();
+
+ const arr=
+
+ db.customers.filter(c=>{
+
+  if(!isWithinOneYear(c)){
+
+   return false;
+
+  }
+
+  const name=
+
+   (c.name||'').toLowerCase();
+
+  const phone=
+
+   (c.phone||'').toLowerCase();
+
+  const vehicles=
+
+   c.vehicles||[];
+
+  return(
+
+   !q ||
+
+   name.includes(q) ||
+
+   phone.includes(q) ||
+
+   vehicles.some(v=>
+
+    (v.plate||'')
+
+    .toLowerCase()
+
+    .includes(q)
+
+   )
+
+  );
+
+ });
+
+ const box=
+
+ document.getElementById('results');
+
+ if(!arr.length){
+
+  box.className='empty';
+
+  box.textContent=
+
+   q
+
+   ?'ไม่พบข้อมูล'
+
+   :'ยังไม่มีข้อมูลลูกค้า';
+
+  return;
+
+ }
+
  box.className='';
- box.innerHTML=arr.map(c=>`<div class="result" onclick="profile(${c.id})"><b>👤 ${esc(c.name)}</b><br><span class="small">📞 ${esc(c.phone||'-')} · รถ ${c.vehicles.length} คัน</span>${c.vehicles.map(v=>`<div class="small">🏍️ <b>${esc(v.plate)}</b> ${esc(v.brand)} ${esc(v.model)}</div>`).join('')}</div>`).join('');
+
+ box.innerHTML=
+
+ arr.map(c=>`
+
+ <div
+
+  class="result clickable"
+
+  onclick="profile(${c.id})">
+
+  <b>
+
+   👤 ${esc(c.name)}
+
+  </b>
+
+  <br>
+
+  <span class="small">
+
+   📞 ${esc(c.phone||'-')}
+
+   · รถ ${(c.vehicles||[]).length} คัน
+
+  </span>
+
+  ${
+
+   (c.vehicles||[])
+
+   .map(v=>`
+
+    <div class="small">
+
+     🏍️
+
+     <b>${esc(v.plate)}</b>
+
+     ${esc(v.brand||'')}
+
+     ${esc(v.model||'')}
+
+    </div>
+
+   `)
+
+   .join('')
+
+  }
+
+ </div>
+
+ `)
+
+ .join('');
+
 }
-function showAll(){search.value='';searchCustomers();document.getElementById('results').scrollIntoView({behavior:'smooth'})}
+
+/* =========================================================
+
+   SHOW ALL
+
+   ========================================================= */
+
+function showAll(){
+
+ document.getElementById('search').value='';
+
+ searchCustomers();
+
+ document
+
+ .getElementById('results')
+
+ .scrollIntoView({
+
+  behavior:'smooth'
+
+ });
+
+}
+
+/* =========================================================
+
+   PROFILE
+
+   ========================================================= */
+
 function profile(id){
- let c=db.customers.find(x=>x.id===id); if(!c)return;
- let p=document.getElementById('profile');p.classList.remove('hidden');
- p.innerHTML=`<h2>👤 ${esc(c.name)}</h2><div class="small">📞 ${esc(c.phone||'-')}</div><div class="small">${esc(c.note||'')}</div><hr style="border-color:#252525"><h2>🏍️ รถของลูกค้า</h2>
- ${c.vehicles.length?c.vehicles.map(v=>`<div class="item"><span class="badge">${esc(v.plate)}</span><br><b>${esc(v.brand)} ${esc(v.model)}</b><div class="small">สี ${esc(v.color||'-')} · ไมล์ ${esc(v.mileage||'-')}</div>
- <button style="margin-top:9px" onclick="addHistory(${c.id},${v.id})">🔧 เพิ่มประวัติซ่อม</button>
- ${v.history.length?'<div style="margin-top:8px">'+v.history.slice().reverse().map(h=>`<div class="result"><b>${esc(h.date)}</b> — ${esc(h.text)} <span class="price">${h.price?esc(h.price)+' บาท':''}</span></div>`).join('')+'</div>':'<div class="small" style="margin-top:8px">ยังไม่มีประวัติซ่อม</div>'}</div>`).join(''):'<div class="empty">ยังไม่มีรถ</div>'}`;
- p.scrollIntoView({behavior:'smooth'});
+
+ const c=
+
+ db.customers.find(
+
+  x=>x.id===id
+
+ );
+
+ if(!c)return;
+
+ c.vehicles=c.vehicles||[];
+
+ const p=
+
+ document.getElementById('profile');
+
+ p.classList.remove('hidden');
+
+ let totalHistory=0;
+
+ c.vehicles.forEach(v=>{
+
+  if(!v.history){
+
+   v.history=[];
+
+  }
+
+  totalHistory+=v.history.length;
+
+ });
+
+ p.innerHTML=`
+
+ <button
+
+  class="secondary"
+
+  onclick="hide('profile')">
+
+  ← กลับ
+
+ </button>
+
+ <h2>
+
+  👤 ${esc(c.name)}
+
+ </h2>
+
+ <div class="small">
+
+  📞 ${esc(c.phone||'-')}
+
+ </div>
+
+ ${
+
+  c.note
+
+  ?
+
+  `<div class="small">
+
+   📝 ${esc(c.note)}
+
+  </div>`
+
+  :
+
+  ''
+
+ }
+
+ <div class="small" style="margin-top:5px">
+
+  📅 ลูกค้าตั้งแต่
+
+  ${formatDate(c.createdAt)}
+
+ </div>
+
+ <div class="stat">
+
+  <div class="statBox">
+
+   <div class="statNumber">
+
+    ${c.vehicles.length}
+
+   </div>
+
+   <div class="statLabel">
+
+    รถ
+
+   </div>
+
+  </div>
+
+  <div class="statBox">
+
+   <div class="statNumber">
+
+    ${totalHistory}
+
+   </div>
+
+   <div class="statLabel">
+
+    ประวัติซ่อม
+
+   </div>
+
+  </div>
+
+  <div class="statBox">
+
+   <div class="statNumber">
+
+    ${c.phone?'✓':'-'}
+
+   </div>
+
+   <div class="statLabel">
+
+    เบอร์โทร
+
+   </div>
+
+  </div>
+
+ </div>
+
+ <div class="actions">
+
+  <button onclick="editCustomer(${c.id})">
+
+   ✏️ แก้ไขลูกค้า
+
+  </button>
+
+  <button
+
+   class="danger"
+
+   onclick="deleteCustomer(${c.id})">
+
+   🗑️ ลบลูกค้า
+
+  </button>
+
+ </div>
+
+ <hr>
+
+ <h2>
+
+  🏍️ รถของลูกค้า
+
+ </h2>
+
+ ${
+
+  c.vehicles.length
+
+  ?
+
+  c.vehicles.map(v=>{
+
+   if(!v.history){
+
+    v.history=[];
+
+   }
+
+   return `
+
+   <div class="item">
+
+    <span class="badge">
+
+     ${esc(v.plate)}
+
+    </span>
+
+    <br><br>
+
+    <b>
+
+     ${esc(v.brand||'')}
+
+     ${esc(v.model||'')}
+
+    </b>
+
+    <div class="small">
+
+     สี ${esc(v.color||'-')}
+
+     · ไมล์ ${esc(v.mileage||'-')}
+
+    </div>
+
+    <div class="actions">
+
+     <button
+
+      onclick="editVehicle(${c.id},${v.id})">
+
+      ✏️ แก้ไขรถ
+
+     </button>
+
+     <button
+
+      class="danger"
+
+      onclick="deleteVehicle(${c.id},${v.id})">
+
+      🗑️ ลบรถ
+
+     </button>
+
+    </div>
+
+    <button
+
+     class="primary"
+
+     style="margin-top:9px"
+
+     onclick="addHistory(${c.id},${v.id})">
+
+     🔧 เพิ่มประวัติซ่อม
+
+    </button>
+
+    ${
+
+     v.history.length
+
+     ?
+
+     `<div style="margin-top:8px">
+
+      ${
+
+       v.history
+
+       .slice()
+
+       .reverse()
+
+       .map((h,index)=>`
+
+        <div class="result">
+
+         <b>
+
+          ${esc(h.date)}
+
+         </b>
+
+         <br>
+
+         ${esc(h.text)}
+
+         ${
+
+          h.price
+
+          ?
+
+          `<span class="price">
+
+           ${esc(h.price)} บาท
+
+          </span>`
+
+          :
+
+          ''
+
+         }
+
+         <br>
+
+         <button
+
+          class="danger"
+
+          style="margin-top:8px;padding:8px;font-size:13px"
+
+          onclick="deleteHistory(
+
+           ${c.id},
+
+           ${v.id},
+
+           ${v.history.length-1-index}
+
+          )">
+
+          🗑️ ลบประวัติ
+
+         </button>
+
+        </div>
+
+       `)
+
+       .join('')
+
+      }
+
+     </div>`
+
+     :
+
+     `<div
+
+      class="small"
+
+      style="margin-top:8px">
+
+      ยังไม่มีประวัติซ่อม
+
+     </div>`
+
+    }
+
+   </div>
+
+   `;
+
+  }).join('')
+
+  :
+
+  `<div class="empty">
+
+   ยังไม่มีรถ
+
+  </div>`
+
+ }
+
+ `;
+
+ p.scrollIntoView({
+
+  behavior:'smooth'
+
+ });
+
 }
+
+/* =========================================================
+
+   FORMAT DATE
+
+   ========================================================= */
+
+function formatDate(timestamp){
+
+ if(!timestamp){
+
+  return '-';
+
+ }
+
+ try{
+
+  return new Date(timestamp)
+
+   .toLocaleDateString('th-TH');
+
+ }catch(e){
+
+  return '-';
+
+ }
+
+}
+
+/* =========================================================
+
+   EDIT CUSTOMER
+
+   ========================================================= */
+
+function editCustomer(id){
+
+ const c=
+
+ db.customers.find(
+
+  x=>x.id===id
+
+ );
+
+ if(!c)return;
+
+ const name=
+
+ prompt(
+
+  'ชื่อลูกค้า',
+
+  c.name
+
+ );
+
+ if(name===null)return;
+
+ const cleanName=
+
+ name.trim();
+
+ if(!cleanName){
+
+  alert('ชื่อลูกค้าห้ามว่าง');
+
+  return;
+
+ }
+
+ const phone=
+
+ prompt(
+
+  'เบอร์โทร',
+
+  c.phone||''
+
+ );
+
+ if(phone===null)return;
+
+ const note=
+
+ prompt(
+
+  'หมายเหตุ',
+
+  c.note||''
+
+ );
+
+ if(note===null)return;
+
+ c.name=cleanName;
+
+ c.phone=phone.trim();
+
+ c.note=note.trim();
+
+ save();
+
+ searchCustomers();
+
+ profile(id);
+
+}
+
+/* =========================================================
+
+   DELETE CUSTOMER
+
+   ========================================================= */
+
+function deleteCustomer(id){
+
+ const c=
+
+ db.customers.find(
+
+  x=>x.id===id
+
+ );
+
+ if(!c)return;
+
+ const ok=
+
+ confirm(
+
+  'ต้องการลบลูกค้า "'+
+
+  c.name+
+
+  '" ใช่หรือไม่?\n\n'+
+
+  'ข้อมูลรถและประวัติซ่อมของลูกค้าคนนี้จะถูกลบด้วย'
+
+ );
+
+ if(!ok)return;
+
+ db.customers=
+
+ db.customers.filter(
+
+  x=>x.id!==id
+
+ );
+
+ save();
+
+ hide('profile');
+
+ searchCustomers();
+
+ alert('ลบข้อมูลลูกค้าแล้ว');
+
+}
+
+/* =========================================================
+
+   EDIT VEHICLE
+
+   ========================================================= */
+
+function editVehicle(cid,vid){
+
+ const c=
+
+ db.customers.find(
+
+  x=>x.id===cid
+
+ );
+
+ if(!c)return;
+
+ const v=
+
+ c.vehicles.find(
+
+  x=>x.id===vid
+
+ );
+
+ if(!v)return;
+
+ const plate=
+
+ prompt(
+
+  'ทะเบียนรถ',
+
+  v.plate
+
+ );
+
+ if(plate===null)return;
+
+ const brand=
+
+ prompt(
+
+  'ยี่ห้อ',
+
+  v.brand||''
+
+ );
+
+ if(brand===null)return;
+
+ const model=
+
+ prompt(
+
+  'รุ่น',
+
+  v.model||''
+
+ );
+
+ if(model===null)return;
+
+ const color=
+
+ prompt(
+
+  'สี',
+
+  v.color||''
+
+ );
+
+ if(color===null)return;
+
+ const mileage=
+
+ prompt(
+
+  'เลขไมล์',
+
+  v.mileage||''
+
+ );
+
+ if(mileage===null)return;
+
+ v.plate=plate.trim();
+
+ v.brand=brand.trim();
+
+ v.model=model.trim();
+
+ v.color=color.trim();
+
+ v.mileage=mileage.trim();
+
+ save();
+
+ searchCustomers();
+
+ profile(cid);
+
+}
+
+/* =========================================================
+
+   DELETE VEHICLE
+
+   ========================================================= */
+
+function deleteVehicle(cid,vid){
+
+ const c=
+
+ db.customers.find(
+
+  x=>x.id===cid
+
+ );
+
+ if(!c)return;
+
+ const v=
+
+ c.vehicles.find(
+
+  x=>x.id===vid
+
+ );
+
+ if(!v)return;
+
+ const ok=
+
+ confirm(
+
+  'ต้องการลบรถทะเบียน '+
+
+  v.plate+
+
+  ' ใช่หรือไม่?\n\n'+
+
+  'ประวัติซ่อมของรถคันนี้จะถูกลบด้วย'
+
+ );
+
+ if(!ok)return;
+
+ c.vehicles=
+
+ c.vehicles.filter(
+
+  x=>x.id!==vid
+
+ );
+
+ save();
+
+ searchCustomers();
+
+ profile(cid);
+
+}
+
+/* =========================================================
+
+   ADD HISTORY
+
+   ========================================================= */
+
 function addHistory(cid,vid){
- let text=prompt('รายการซ่อม / งานที่ทำ'); if(text===null)return;
- let price=prompt('ราคา (บาท) — ถ้าไม่มีให้เว้นว่าง','');
- let c=db.customers.find(x=>x.id===cid),v=c.vehicles.find(x=>x.id===vid);
- v.history.push({date:new Date().toLocaleDateString('th-TH'),text,price});
- save();profile(cid);
+
+ const text=
+
+ prompt(
+
+  'รายการซ่อม / งานที่ทำ'
+
+ );
+
+ if(text===null)return;
+
+ const cleanText=
+
+ text.trim();
+
+ if(!cleanText){
+
+  alert('กรุณาใส่รายการซ่อม');
+
+  return;
+
+ }
+
+ const price=
+
+ prompt(
+
+  'ราคา (บาท) — ถ้าไม่มีให้เว้นว่าง',
+
+  ''
+
+ );
+
+ if(price===null)return;
+
+ const c=
+
+ db.customers.find(
+
+  x=>x.id===cid
+
+ );
+
+ if(!c)return;
+
+ const v=
+
+ c.vehicles.find(
+
+  x=>x.id===vid
+
+ );
+
+ if(!v)return;
+
+ if(!v.history){
+
+  v.history=[];
+
+ }
+
+ v.history.push({
+
+  date:
+
+   new Date()
+
+   .toLocaleDateString('th-TH'),
+
+  timestamp:
+
+   Date.now(),
+
+  text:
+
+   cleanText,
+
+  price:
+
+   price.trim()
+
+ });
+
+ save();
+
+ profile(cid);
+
 }
-function startScan(){
- alert('V1 นี้เตรียมเมนูสแกนทะเบียนไว้แล้ว แต่การอ่านป้ายทะเบียนด้วยกล้อง/OCR จะเพิ่มใน V2 เพื่อให้ใช้งานได้แม่นยำบน iPhone');
+
+/* =========================================================
+
+   DELETE HISTORY
+
+   ========================================================= */
+
+function deleteHistory(cid,vid,index){
+
+ const c=
+
+ db.customers.find(
+
+  x=>x.id===cid
+
+ );
+
+ if(!c)return;
+
+ const v=
+
+ c.vehicles.find(
+
+  x=>x.id===vid
+
+ );
+
+ if(!v)return;
+
+ const ok=
+
+ confirm(
+
+  'ต้องการลบประวัติซ่อมรายการนี้หรือไม่?'
+
+ );
+
+ if(!ok)return;
+
+ v.history.splice(
+
+  index,
+
+  1
+
+ );
+
+ save();
+
+ profile(cid);
+
 }
+
+/* =========================================================
+
+   CAMERA
+
+   ========================================================= */
+
+let cameraStream=null;
+
+function openScanner(){
+
+ show('scanner');
+
+ startCamera();
+
+}
+
+/* =========================================================
+
+   START CAMERA
+
+   ========================================================= */
+
+async function startCamera(){
+
+ const video=
+
+ document.getElementById('cameraPreview');
+
+ if(cameraStream){
+
+  return;
+
+ }
+
+ try{
+
+  cameraStream=
+
+   await navigator.mediaDevices.getUserMedia({
+
+    video:{
+
+     facingMode:{
+
+      ideal:'environment'
+
+     }
+
+    },
+
+    audio:false
+
+   });
+
+  video.srcObject=
+
+   cameraStream;
+
+ }catch(e){
+
+  alert(
+
+   'ไม่สามารถเปิดกล้องได้\n\n'+
+
+   'กรุณาอนุญาตให้เว็บไซต์เข้าถึงกล้อง และตรวจสอบว่าเปิดเว็บไซต์ผ่าน HTTPS'
+
+  );
+
+ }
+
+}
+
+/* =========================================================
+
+   STOP CAMERA
+
+   ========================================================= */
+
+function stopCamera(){
+
+ if(cameraStream){
+
+  cameraStream
+
+  .getTracks()
+
+  .forEach(track=>track.stop());
+
+  cameraStream=null;
+
+ }
+
+ const video=
+
+ document.getElementById('cameraPreview');
+
+ video.srcObject=null;
+
+}
+
+/* =========================================================
+
+   TAKE PHOTO
+
+   ========================================================= */
+
+function takePhoto(){
+
+ const video=
+
+ document.getElementById('cameraPreview');
+
+ const canvas=
+
+ document.getElementById('cameraCanvas');
+
+ if(!video.srcObject){
+
+  alert('กรุณาเปิดกล้องก่อน');
+
+  return;
+
+ }
+
+ if(!video.videoWidth){
+
+  alert('กำลังเปิดกล้อง กรุณารอสักครู่แล้วลองใหม่');
+
+  return;
+
+ }
+
+ canvas.width=
+
+  video.videoWidth;
+
+ canvas.height=
+
+  video.videoHeight;
+
+ const ctx=
+
+  canvas.getContext('2d');
+
+ ctx.drawImage(
+
+  video,
+
+  0,
+
+  0,
+
+  canvas.width,
+
+  canvas.height
+
+ );
+
+ const data=
+
+  canvas.toDataURL(
+
+   'image/jpeg',
+
+   .9
+
+  );
+
+ document
+
+ .getElementById('capturedPhoto')
+
+ .src=data;
+
+ document
+
+ .getElementById('photoResult')
+
+ .classList.remove('hidden');
+
+}
+
+/* =========================================================
+
+   USE SCANNED PLATE
+
+   ========================================================= */
+
+function useScannedPlate(){
+
+ const plate=
+
+ document.getElementById('scannedPlate')
+
+ .value.trim();
+
+ if(!plate){
+
+  alert(
+
+   'กรุณากรอกทะเบียนที่อ่านได้จากภาพ'
+
+  );
+
+  return;
+
+ }
+
+ document
+
+ .getElementById('ncPlate')
+
+ .value=plate;
+
+ hide('scanner');
+
+ show('customerVehicleForm');
+
+}
+
+/* =========================================================
+
+   EXPORT
+
+   ========================================================= */
+
 function exportData(){
- let blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),a=document.createElement('a');
- a.href=URL.createObjectURL(blob);a.download='LUIMOTOR_backup.json';a.click();URL.revokeObjectURL(a.href);
+
+ const blob=
+
+  new Blob(
+
+   [
+
+    JSON.stringify(
+
+     db,
+
+     null,
+
+     2
+
+    )
+
+   ],
+
+   {
+
+    type:'application/json'
+
+   }
+
+  );
+
+ const a=
+
+  document.createElement('a');
+
+ a.href=
+
+  URL.createObjectURL(blob);
+
+ a.download=
+
+  'LUIMOTOR_backup_V2.json';
+
+ a.click();
+
+ URL.revokeObjectURL(
+
+  a.href
+
+ );
+
 }
-function importData(){file.click()}
+
+/* =========================================================
+
+   IMPORT
+
+   ========================================================= */
+
+function importData(){
+
+ document
+
+ .getElementById('file')
+
+ .click();
+
+}
+
+/* =========================================================
+
+   LOAD DATA
+
+   ========================================================= */
+
 function loadData(e){
- let f=e.target.files[0]; if(!f)return;let r=new FileReader();
- r.onload=()=>{try{let x=JSON.parse(r.result);if(!x.customers)throw 0;db=x;save();searchCustomers();alert('นำเข้าข้อมูลแล้ว')}catch{alert('ไฟล์ข้อมูลไม่ถูกต้อง')}};r.readAsText(f);
+
+ const f=
+
+  e.target.files[0];
+
+ if(!f)return;
+
+ const r=
+
+  new FileReader();
+
+ r.onload=()=>{
+
+  try{
+
+   const x=
+
+    JSON.parse(
+
+     r.result
+
+    );
+
+   if(!x.customers)
+
+    throw new Error();
+
+   if(!confirm(
+
+    'นำเข้าข้อมูลชุดนี้หรือไม่?\n\nข้อมูลปัจจุบันในเครื่องจะถูกแทนที่'
+
+   )){
+
+    return;
+
+   }
+
+   db=x;
+
+   db.customers=
+
+    db.customers||[];
+
+   save();
+
+   searchCustomers();
+
+   alert(
+
+    'นำเข้าข้อมูลเรียบร้อยแล้ว'
+
+   );
+
+  }catch(e){
+
+   alert(
+
+    'ไฟล์ข้อมูลไม่ถูกต้อง'
+
+   );
+
+  }
+
+ };
+
+ r.readAsText(f);
+
 }
+
+/* =========================================================
+
+   INITIALIZE OLD DATA
+
+   ========================================================= */
+
+function normalizeDatabase(){
+
+ db.customers.forEach(c=>{
+
+  if(!c.vehicles){
+
+   c.vehicles=[];
+
+  }
+
+  if(!c.createdAt){
+
+   /*
+
+    ลูกค้าเก่าจาก V1
+
+    จะถือว่าเป็นข้อมูลเก่าที่มีอยู่แล้ว
+
+    และไม่ถูกลบทิ้ง
+
+   */
+
+   c.createdAt=Date.now();
+
+  }
+
+  c.vehicles.forEach(v=>{
+
+   if(!v.history){
+
+    v.history=[];
+
+   }
+
+  });
+
+ });
+
+ save();
+
+}
+
+/* =========================================================
+
+   START
+
+   ========================================================= */
+
+normalizeDatabase();
+
 searchCustomers();
+
 </script>
+
 </body>
+
 </html>
