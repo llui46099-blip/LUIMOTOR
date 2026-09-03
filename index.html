@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LUIMOTOR - ข้อมูลลูกค้า</title>
+<style>
+:root{--bg:#090909;--card:#151515;--red:#e00000;--red2:#ff3030;--text:#f5f5f5;--muted:#a7a7a7;--line:#292929}
+*{box-sizing:border-box} body{margin:0;background:linear-gradient(145deg,#080808,#160000);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif}
+header{padding:24px 18px 16px;text-align:center;border-bottom:1px solid #300000;position:sticky;top:0;background:#090909ee;backdrop-filter:blur(10px);z-index:5}
+.logo{font-weight:900;letter-spacing:2px;font-size:30px}.logo span{color:var(--red)}
+.subtitle{color:var(--muted);margin-top:3px}
+main{max-width:760px;margin:auto;padding:18px}
+.card{background:linear-gradient(180deg,#171717,#101010);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:0 8px 30px #0008}
+h2{font-size:18px;margin:0 0 12px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+button{width:100%;border:0;border-radius:14px;padding:15px 12px;font-size:16px;font-weight:700;color:white;background:#222;cursor:pointer}
+button.primary{background:linear-gradient(135deg,#c40000,#ff1e1e)} button:active{transform:scale(.98)}
+input,textarea{width:100%;background:#0b0b0b;color:#fff;border:1px solid #333;border-radius:12px;padding:13px;font-size:16px;outline:none;margin-bottom:10px}
+input:focus,textarea:focus{border-color:var(--red)} textarea{min-height:80px;resize:vertical}
+.hidden{display:none}.result{padding:12px;border:1px solid #333;border-radius:12px;margin-top:10px;background:#0d0d0d}
+.badge{display:inline-block;padding:4px 9px;border-radius:99px;background:#350000;color:#ff6b6b;font-size:12px}
+.item{padding:12px 0;border-bottom:1px solid #252525}.item:last-child{border-bottom:0}
+.small{font-size:13px;color:var(--muted)} .price{font-weight:800;color:#ff5555}
+.danger{background:#310000}.empty{color:#888;text-align:center;padding:20px}
+@media(max-width:520px){.grid{grid-template-columns:1fr 1fr}.logo{font-size:27px}}
+</style>
+</head>
+<body>
+<header><div class="logo">LUI<span>MOTOR</span></div><div class="subtitle">ระบบข้อมูลลูกค้า V1</div></header>
+<main>
+<section class="card">
+<h2>🔎 ค้นหาข้อมูล</h2>
+<input id="search" placeholder="ทะเบียน / ชื่อลูกค้า / เบอร์โทร" oninput="searchCustomers()">
+<div id="results" class="empty">ยังไม่มีข้อมูลลูกค้า</div>
+</section>
+
+<section class="card">
+<h2>⚡ เมนูด่วน</h2>
+<div class="grid">
+<button class="primary" onclick="show('customerForm')">➕ เพิ่มลูกค้า</button>
+<button onclick="show('vehicleForm')">🏍️ เพิ่มรถ</button>
+<button onclick="startScan()">📷 สแกนทะเบียน</button>
+<button onclick="showAll()">📋 ลูกค้าทั้งหมด</button>
+</div>
+</section>
+
+<section id="customerForm" class="card hidden">
+<h2>👤 เพิ่มลูกค้าใหม่</h2>
+<input id="cname" placeholder="ชื่อลูกค้า *">
+<input id="cphone" placeholder="เบอร์โทร">
+<textarea id="cnote" placeholder="หมายเหตุ"></textarea>
+<button class="primary" onclick="addCustomer()">บันทึกลูกค้า</button>
+</section>
+
+<section id="vehicleForm" class="card hidden">
+<h2>🏍️ เพิ่มรถให้ลูกค้า</h2>
+<input id="vcustomer" placeholder="ชื่อลูกค้า *">
+<input id="vplate" placeholder="ทะเบียนรถ *">
+<input id="vbrand" placeholder="ยี่ห้อ">
+<input id="vmodel" placeholder="รุ่น">
+<input id="vcolor" placeholder="สี">
+<input id="vmileage" placeholder="เลขไมล์">
+<button class="primary" onclick="addVehicle()">บันทึกรถ</button>
+</section>
+
+<section id="profile" class="card hidden"></section>
+
+<section class="card">
+<h2>💾 ข้อมูล</h2>
+<div class="grid">
+<button onclick="exportData()">ส่งออกข้อมูล</button>
+<button onclick="importData()">นำเข้าข้อมูล</button>
+</div>
+<input id="file" type="file" accept=".json" class="hidden" onchange="loadData(event)">
+<p class="small">V1 เก็บข้อมูลไว้ในเครื่องนี้ด้วย LocalStorage ข้อมูลจะไม่ถูกส่งขึ้นอินเทอร์เน็ต</p>
+</section>
+</main>
+
+<script>
+const KEY='luimotor_v1';
+let db=JSON.parse(localStorage.getItem(KEY)||'{"customers":[]}');
+function save(){localStorage.setItem(KEY,JSON.stringify(db))}
+function show(id){document.getElementById(id).classList.remove('hidden');document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+function esc(s=''){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function addCustomer(){
+ let name=cname.value.trim(); if(!name)return alert('กรุณาใส่ชื่อลูกค้า');
+ db.customers.push({id:Date.now(),name,phone:cphone.value.trim(),note:cnote.value.trim(),vehicles:[]});
+ save(); cname.value=cphone.value=cnote.value=''; alert('บันทึกลูกค้าแล้ว'); searchCustomers();
+}
+function addVehicle(){
+ let name=vcustomer.value.trim(), plate=vplate.value.trim(); if(!name||!plate)return alert('กรุณาใส่ชื่อลูกค้าและทะเบียน');
+ let c=db.customers.find(x=>x.name===name);
+ if(!c){c={id:Date.now(),name,phone:'',note:'',vehicles:[]};db.customers.push(c)}
+ c.vehicles.push({id:Date.now(),plate,brand:vbrand.value.trim(),model:vmodel.value.trim(),color:vcolor.value.trim(),mileage:vmileage.value.trim(),history:[]});
+ save(); ['vcustomer','vplate','vbrand','vmodel','vcolor','vmileage'].forEach(id=>document.getElementById(id).value='');
+ alert('บันทึกรถแล้ว'); searchCustomers();
+}
+function searchCustomers(){
+ let q=search.value.trim().toLowerCase(), arr=db.customers.filter(c=>
+ !q || c.name.toLowerCase().includes(q)||c.phone.toLowerCase().includes(q)||
+ c.vehicles.some(v=>v.plate.toLowerCase().includes(q)));
+ let box=results;
+ if(!arr.length){box.className='empty';box.textContent=q?'ไม่พบข้อมูล':'ยังไม่มีข้อมูลลูกค้า';return}
+ box.className='';
+ box.innerHTML=arr.map(c=>`<div class="result" onclick="profile(${c.id})"><b>👤 ${esc(c.name)}</b><br><span class="small">📞 ${esc(c.phone||'-')} · รถ ${c.vehicles.length} คัน</span>${c.vehicles.map(v=>`<div class="small">🏍️ <b>${esc(v.plate)}</b> ${esc(v.brand)} ${esc(v.model)}</div>`).join('')}</div>`).join('');
+}
+function showAll(){search.value='';searchCustomers();document.getElementById('results').scrollIntoView({behavior:'smooth'})}
+function profile(id){
+ let c=db.customers.find(x=>x.id===id); if(!c)return;
+ let p=document.getElementById('profile');p.classList.remove('hidden');
+ p.innerHTML=`<h2>👤 ${esc(c.name)}</h2><div class="small">📞 ${esc(c.phone||'-')}</div><div class="small">${esc(c.note||'')}</div><hr style="border-color:#252525"><h2>🏍️ รถของลูกค้า</h2>
+ ${c.vehicles.length?c.vehicles.map(v=>`<div class="item"><span class="badge">${esc(v.plate)}</span><br><b>${esc(v.brand)} ${esc(v.model)}</b><div class="small">สี ${esc(v.color||'-')} · ไมล์ ${esc(v.mileage||'-')}</div>
+ <button style="margin-top:9px" onclick="addHistory(${c.id},${v.id})">🔧 เพิ่มประวัติซ่อม</button>
+ ${v.history.length?'<div style="margin-top:8px">'+v.history.slice().reverse().map(h=>`<div class="result"><b>${esc(h.date)}</b> — ${esc(h.text)} <span class="price">${h.price?esc(h.price)+' บาท':''}</span></div>`).join('')+'</div>':'<div class="small" style="margin-top:8px">ยังไม่มีประวัติซ่อม</div>'}</div>`).join(''):'<div class="empty">ยังไม่มีรถ</div>'}`;
+ p.scrollIntoView({behavior:'smooth'});
+}
+function addHistory(cid,vid){
+ let text=prompt('รายการซ่อม / งานที่ทำ'); if(text===null)return;
+ let price=prompt('ราคา (บาท) — ถ้าไม่มีให้เว้นว่าง','');
+ let c=db.customers.find(x=>x.id===cid),v=c.vehicles.find(x=>x.id===vid);
+ v.history.push({date:new Date().toLocaleDateString('th-TH'),text,price});
+ save();profile(cid);
+}
+function startScan(){
+ alert('V1 นี้เตรียมเมนูสแกนทะเบียนไว้แล้ว แต่การอ่านป้ายทะเบียนด้วยกล้อง/OCR จะเพิ่มใน V2 เพื่อให้ใช้งานได้แม่นยำบน iPhone');
+}
+function exportData(){
+ let blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),a=document.createElement('a');
+ a.href=URL.createObjectURL(blob);a.download='LUIMOTOR_backup.json';a.click();URL.revokeObjectURL(a.href);
+}
+function importData(){file.click()}
+function loadData(e){
+ let f=e.target.files[0]; if(!f)return;let r=new FileReader();
+ r.onload=()=>{try{let x=JSON.parse(r.result);if(!x.customers)throw 0;db=x;save();searchCustomers();alert('นำเข้าข้อมูลแล้ว')}catch{alert('ไฟล์ข้อมูลไม่ถูกต้อง')}};r.readAsText(f);
+}
+searchCustomers();
+</script>
+</body>
+</html>
