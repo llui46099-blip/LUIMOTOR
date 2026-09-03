@@ -1,284 +1,585 @@
 <!doctype html>
+
 <html lang="th">
+
 <head>
+
 <meta charset="utf-8">
+
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 
-<title>LUIMOTOR - ระบบข้อมูลลูกค้า V2.1</title>
+<title>LUIMOTOR - ระบบข้อมูลลูกค้า V2.2</title>
 
-<!-- OCR -->
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 
 <style>
 
 :root{
+
  --bg:#090909;
+
  --card:#151515;
+
  --card2:#101010;
+
  --red:#e00000;
+
  --red2:#ff3030;
+
  --text:#f5f5f5;
+
  --muted:#a7a7a7;
+
  --line:#292929;
+
 }
 
 *{
+
  box-sizing:border-box;
+
+}
+
+html{
+
+ scroll-behavior:smooth;
+
 }
 
 body{
+
  margin:0;
- background:linear-gradient(145deg,#080808,#160000);
+
+ background:
+
+ linear-gradient(145deg,#080808,#160000);
+
  color:var(--text);
+
  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif;
+
 }
 
 header{
+
  padding:24px 18px 16px;
+
  text-align:center;
+
  border-bottom:1px solid #300000;
+
  position:sticky;
+
  top:0;
+
  background:#090909ee;
+
  backdrop-filter:blur(10px);
- z-index:5;
+
+ z-index:10;
+
 }
 
 .logo{
+
  font-weight:900;
+
  letter-spacing:2px;
+
  font-size:30px;
+
 }
 
 .logo span{
+
  color:var(--red);
+
 }
 
 .subtitle{
+
  color:var(--muted);
+
  margin-top:4px;
+
 }
 
 .version{
+
  display:inline-block;
+
  margin-top:8px;
- padding:4px 10px;
+
+ padding:5px 12px;
+
  border-radius:20px;
+
  background:#350000;
- color:#ff6b6b;
+
+ color:#ff7777;
+
  font-size:12px;
- font-weight:700;
+
+ font-weight:800;
+
 }
 
 main{
+
  max-width:760px;
+
  margin:auto;
+
  padding:18px;
+
 }
 
 .card{
+
  background:linear-gradient(180deg,#171717,#101010);
+
  border:1px solid var(--line);
+
  border-radius:18px;
+
  padding:16px;
+
  margin-bottom:14px;
+
  box-shadow:0 8px 30px #0008;
+
 }
 
 h2{
- font-size:18px;
+
+ font-size:19px;
+
  margin:0 0 12px;
+
+}
+
+h3{
+
+ margin:0 0 8px;
+
 }
 
 .grid{
+
  display:grid;
+
  grid-template-columns:repeat(2,1fr);
+
  gap:10px;
+
 }
 
 button{
+
  width:100%;
+
  border:0;
+
  border-radius:14px;
+
  padding:15px 12px;
+
  font-size:16px;
+
  font-weight:700;
+
  color:white;
+
  background:#222;
+
  cursor:pointer;
+
 }
 
 button.primary{
+
  background:linear-gradient(135deg,#c40000,#ff1e1e);
+
 }
 
 button.secondary{
+
  background:#292929;
+
 }
 
 button.danger{
+
  background:#450000;
+
+}
+
+button.success{
+
+ background:#164d22;
+
 }
 
 button:active{
+
  transform:scale(.98);
+
 }
 
 input,textarea{
+
  width:100%;
+
  background:#0b0b0b;
+
  color:#fff;
+
  border:1px solid #333;
+
  border-radius:12px;
+
  padding:13px;
+
  font-size:16px;
+
  outline:none;
+
  margin-bottom:10px;
+
 }
 
-input:focus,textarea:focus{
+input:focus,
+
+textarea:focus{
+
  border-color:var(--red);
+
 }
 
 textarea{
+
  min-height:80px;
+
  resize:vertical;
+
 }
 
 .hidden{
- display:none;
+
+ display:none !important;
+
 }
 
 .result{
+
  padding:12px;
+
  border:1px solid #333;
+
  border-radius:12px;
+
  margin-top:10px;
+
  background:#0d0d0d;
+
 }
 
 .result.clickable{
+
  cursor:pointer;
+
+}
+
+.result.clickable:active{
+
+ background:#1b0000;
+
 }
 
 .badge{
+
  display:inline-block;
- padding:4px 9px;
+
+ padding:5px 10px;
+
  border-radius:99px;
+
  background:#350000;
+
  color:#ff6b6b;
- font-size:12px;
+
+ font-size:13px;
+
+ font-weight:800;
+
 }
 
 .item{
+
  padding:14px 0;
+
  border-bottom:1px solid #252525;
+
 }
 
 .item:last-child{
+
  border-bottom:0;
+
 }
 
 .small{
+
  font-size:13px;
+
  color:var(--muted);
+
 }
 
 .price{
+
  font-weight:800;
+
  color:#ff5555;
+
+ margin-left:5px;
+
 }
 
 .empty{
+
  color:#888;
+
  text-align:center;
+
  padding:20px;
+
 }
 
 .actions{
+
  display:grid;
+
  grid-template-columns:1fr 1fr;
+
  gap:8px;
+
  margin-top:10px;
+
 }
 
 hr{
+
  border:0;
+
  border-top:1px solid #252525;
+
  margin:15px 0;
+
 }
 
 .back{
+
  margin-bottom:12px;
+
 }
 
 .stat{
+
  display:grid;
+
  grid-template-columns:repeat(3,1fr);
+
  gap:8px;
+
  margin-top:12px;
+
 }
 
 .statBox{
+
  background:#0b0b0b;
+
  border:1px solid #292929;
+
  border-radius:12px;
+
  padding:12px 5px;
+
  text-align:center;
+
 }
 
 .statNumber{
+
  font-size:20px;
+
  font-weight:800;
+
  color:#ff5555;
+
 }
 
 .statLabel{
+
  font-size:12px;
+
  color:#999;
+
 }
 
 .scanBox{
+
  border:1px dashed #550000;
+
  border-radius:14px;
+
  padding:14px;
+
  margin-top:10px;
+
  background:#100000;
+
 }
 
 .scanStatus{
+
  color:#ff7777;
+
  font-size:14px;
+
  line-height:1.6;
+
  margin-top:8px;
+
 }
 
 .ocrResult{
- font-size:22px;
+
+ font-size:24px;
+
  font-weight:900;
+
  text-align:center;
+
  letter-spacing:2px;
+
  padding:12px;
+
  color:#ff5555;
+
+}
+
+.preview{
+
+ width:100%;
+
+ max-height:260px;
+
+ object-fit:contain;
+
+ border-radius:12px;
+
+ margin-top:10px;
+
+ background:#000;
+
+ border:1px solid #333;
+
+}
+
+.progress{
+
+ width:100%;
+
+ height:8px;
+
+ background:#292929;
+
+ border-radius:20px;
+
+ overflow:hidden;
+
+ margin-top:12px;
+
+}
+
+.progressBar{
+
+ width:0%;
+
+ height:100%;
+
+ background:linear-gradient(90deg,#c40000,#ff3030);
+
+ transition:.2s;
+
+}
+
+.notice{
+
+ background:#200000;
+
+ border:1px solid #500000;
+
+ border-radius:12px;
+
+ padding:12px;
+
+ margin-top:10px;
+
+ color:#ffb0b0;
+
+ font-size:14px;
+
+ line-height:1.5;
+
+}
+
+.cameraHint{
+
+ color:#aaa;
+
+ font-size:13px;
+
+ line-height:1.6;
+
+ margin-top:8px;
+
+}
+
+.loading{
+
+ pointer-events:none;
+
+ opacity:.65;
+
 }
 
 @media(max-width:520px){
 
  .grid{
+
   grid-template-columns:1fr 1fr;
+
  }
 
  .logo{
+
   font-size:27px;
+
  }
 
  .actions{
+
   grid-template-columns:1fr 1fr;
+
  }
 
 }
 
 </style>
+
 </head>
 
 <body>
@@ -286,42 +587,58 @@ hr{
 <header>
 
 <div class="logo">
+
 LUI<span>MOTOR</span>
+
 </div>
 
 <div class="subtitle">
+
 ระบบข้อมูลลูกค้า V2
+
 </div>
 
 <div class="version">
-VERSION 2.1
+
+VERSION 2.2
+
 </div>
 
 </header>
 
-
 <main>
 
+<!-- =========================
 
-<!-- SEARCH -->
+ SEARCH
+
+========================= -->
 
 <section class="card">
 
 <h2>🔎 ค้นหาข้อมูลลูกค้า</h2>
 
 <input
+
  id="search"
+
  placeholder="ทะเบียน / ชื่อลูกค้า / เบอร์โทร"
+
  oninput="searchCustomers()">
 
 <div id="results" class="empty">
+
 ยังไม่มีข้อมูลลูกค้า
+
 </div>
 
 </section>
 
+<!-- =========================
 
-<!-- QUICK MENU -->
+ QUICK MENU
+
+========================= -->
 
 <section class="card">
 
@@ -330,215 +647,357 @@ VERSION 2.1
 <div class="grid">
 
 <button
+
  class="primary"
+
  onclick="show('customerForm')">
+
 ➕ เพิ่มลูกค้า
+
 </button>
 
-
 <button
+
  onclick="show('vehicleForm')">
+
 🏍️ เพิ่มรถให้ลูกค้า
+
 </button>
 
-
 <button
+
  class="primary"
+
  onclick="startScan()">
+
 📷 สแกนทะเบียน
+
 </button>
 
-
 <button
+
  onclick="showAll()">
+
 📋 ลูกค้าทั้งหมด
+
 </button>
 
 </div>
 
 </section>
 
+<!-- =========================
 
-<!-- SCAN -->
+ SCAN
+
+========================= -->
 
 <section
+
  id="scanSection"
+
  class="card hidden">
 
-<h2>
-📷 สแกนทะเบียน
-</h2>
+<h2>📷 สแกนทะเบียน</h2>
 
 <div class="scanBox">
 
 <div class="small">
-ถ่ายภาพป้ายทะเบียนให้เห็นชัดที่สุด
+
+ถ่ายให้เห็นเฉพาะป้ายทะเบียนชัดที่สุด
+
 </div>
 
 <div
+
  id="scanStatus"
+
  class="scanStatus">
+
 พร้อมสแกนทะเบียน
+
 </div>
 
 <div
+
+ id="progress"
+
+ class="progress hidden">
+
+<div
+
+ id="progressBar"
+
+ class="progressBar">
+
+</div>
+
+</div>
+
+<img
+
+ id="preview"
+
+ class="preview hidden">
+
+<div
+
  id="ocrResult"
+
  class="ocrResult hidden">
+
+</div>
+
+<div
+
+ id="scanActions"
+
+ class="actions hidden">
+
+<button
+
+ class="success"
+
+ onclick="useDetectedPlate()">
+
+✅ ใช้ทะเบียนนี้
+
+</button>
+
+<button
+
+ onclick="retryScan()">
+
+📷 สแกนใหม่
+
+</button>
+
+</div>
+
+<div class="cameraHint">
+
+เคล็ดลับ: ถ่ายใกล้พอให้ตัวอักษรบนป้ายกินพื้นที่ประมาณครึ่งหนึ่งของภาพ และหลีกเลี่ยงแสงสะท้อน
+
 </div>
 
 </div>
 
 <input
+
  id="scanFile"
+
  type="file"
+
  accept="image/*"
+
  capture="environment"
+
  class="hidden"
+
  onchange="processScan(event)">
 
 <button
+
+ id="cameraButton"
+
  class="primary"
+
  style="margin-top:12px"
+
  onclick="openCamera()">
+
 📷 เปิดกล้องถ่ายป้ายทะเบียน
+
 </button>
 
 <button
+
  style="margin-top:8px"
+
  onclick="closeScan()">
+
 ปิด
+
 </button>
 
 </section>
 
+<!-- =========================
 
-<!-- CUSTOMER -->
+ CUSTOMER FORM
+
+========================= -->
 
 <section
+
  id="customerForm"
+
  class="card hidden">
 
-<h2>
-👤 เพิ่มลูกค้าใหม่
-</h2>
+<h2>👤 เพิ่มลูกค้าใหม่</h2>
 
 <input
+
  id="cname"
+
  placeholder="ชื่อลูกค้า *">
 
 <input
+
  id="cphone"
+
  placeholder="เบอร์โทร">
 
 <textarea
+
  id="cnote"
- placeholder="หมายเหตุ">
-</textarea>
+
+ placeholder="หมายเหตุ"></textarea>
 
 <button
+
  class="primary"
+
  onclick="addCustomer()">
+
 💾 บันทึกลูกค้า
+
 </button>
 
 </section>
 
+<!-- =========================
 
-<!-- VEHICLE -->
+ VEHICLE FORM
+
+========================= -->
 
 <section
+
  id="vehicleForm"
+
  class="card hidden">
 
-<h2>
-🏍️ เพิ่มรถให้ลูกค้า
-</h2>
+<h2>🏍️ เพิ่มรถให้ลูกค้า</h2>
 
 <input
+
  id="vcustomer"
+
  placeholder="ชื่อลูกค้า *">
 
 <input
+
  id="vplate"
+
  placeholder="ทะเบียนรถ *">
 
 <input
+
  id="vbrand"
+
  placeholder="ยี่ห้อ">
 
 <input
+
  id="vmodel"
+
  placeholder="รุ่น">
 
 <input
+
  id="vcolor"
+
  placeholder="สี">
 
 <input
+
  id="vmileage"
+
  placeholder="เลขไมล์">
 
 <button
+
  class="primary"
+
  onclick="addVehicle()">
+
 💾 บันทึกรถ
+
 </button>
 
 </section>
 
+<!-- =========================
 
-<!-- PROFILE -->
+ PROFILE
+
+========================= -->
 
 <section
+
  id="profile"
+
  class="card hidden">
+
 </section>
 
+<!-- =========================
 
-<!-- DATA -->
+ DATA
+
+========================= -->
 
 <section class="card">
 
-<h2>
-💾 ข้อมูล
-</h2>
+<h2>💾 ข้อมูล</h2>
 
 <div class="grid">
 
-<button
- onclick="exportData()">
+<button onclick="exportData()">
+
 📤 ส่งออกข้อมูล
+
 </button>
 
-<button
- onclick="importData()">
+<button onclick="importData()">
+
 📥 นำเข้าข้อมูล
+
 </button>
 
 </div>
 
 <input
+
  id="file"
+
  type="file"
+
  accept=".json"
+
  class="hidden"
+
  onchange="loadData(event)">
 
 <p class="small">
-V2.1 ใช้ฐานข้อมูล LocalStorage เดิมของ V1/V2
-ข้อมูลเดิมยังสามารถใช้งานต่อได้
+
+ข้อมูลเก็บอยู่ในเครื่องนี้ด้วย LocalStorage
+
+และยังใช้ฐานข้อมูลเดิมของ LUIMOTOR V1/V2
+
 </p>
 
 </section>
 
-
 </main>
-
 
 <script>
 
 /* ==================================================
-DATABASE
+
+ DATABASE
+
 ================================================== */
 
 const KEY='luimotor_v1';
@@ -548,39 +1007,59 @@ let db;
 try{
 
  db=JSON.parse(
+
   localStorage.getItem(KEY) ||
+
   '{"customers":[]}'
+
  );
 
  if(!db.customers){
+
   db.customers=[];
+
  }
 
 }catch(e){
 
  db={
+
   customers:[]
+
  };
 
 }
 
+/* ==================================================
+
+ OCR STATE
+
+================================================== */
+
+let detectedPlate='';
 
 /* ==================================================
-SAVE
+
+ SAVE
+
 ================================================== */
 
 function save(){
 
  localStorage.setItem(
+
   KEY,
+
   JSON.stringify(db)
+
  );
 
 }
 
-
 /* ==================================================
-SHOW
+
+ SHOW
+
 ================================================== */
 
 function show(id){
@@ -590,40 +1069,75 @@ function show(id){
  el.classList.remove('hidden');
 
  el.scrollIntoView({
-  behavior:'smooth'
+
+  behavior:'smooth',
+
+  block:'start'
+
  });
 
 }
 
+/* ==================================================
+
+ HIDE
+
+================================================== */
+
+function hide(id){
+
+ const el=document.getElementById(id);
+
+ if(el){
+
+  el.classList.add('hidden');
+
+ }
+
+}
 
 /* ==================================================
-ESCAPE
+
+ ESCAPE
+
 ================================================== */
 
 function esc(s=''){
 
  return String(s).replace(
+
   /[&<>"']/g,
+
   m=>({
+
    '&':'&amp;',
+
    '<':'&lt;',
+
    '>':'&gt;',
+
    '"':'&quot;',
+
    "'":'&#39;'
+
   }[m])
+
  );
 
 }
 
-
 /* ==================================================
-ADD CUSTOMER
+
+ ADD CUSTOMER
+
 ================================================== */
 
 function addCustomer(){
 
  let name=
+
  document.getElementById('cname')
+
  .value.trim();
 
  if(!name){
@@ -635,11 +1149,15 @@ function addCustomer(){
  }
 
  let phone=
+
  document.getElementById('cphone')
+
  .value.trim();
 
  let note=
+
  document.getElementById('cnote')
+
  .value.trim();
 
  db.customers.push({
@@ -659,7 +1177,9 @@ function addCustomer(){
  save();
 
  document.getElementById('cname').value='';
+
  document.getElementById('cphone').value='';
+
  document.getElementById('cnote').value='';
 
  alert('บันทึกลูกค้าแล้ว');
@@ -668,25 +1188,32 @@ function addCustomer(){
 
 }
 
-
 /* ==================================================
-ADD VEHICLE
+
+ ADD VEHICLE
+
 ================================================== */
 
 function addVehicle(){
 
  let name=
+
  document.getElementById('vcustomer')
+
  .value.trim();
 
  let plate=
+
  document.getElementById('vplate')
+
  .value.trim();
 
  if(!name || !plate){
 
   alert(
+
    'กรุณาใส่ชื่อลูกค้าและทะเบียน'
+
   );
 
   return;
@@ -694,7 +1221,9 @@ function addVehicle(){
  }
 
  let c=db.customers.find(
-  x=>x.name===name
+
+  x=>normalizePlate(x.name)===normalizePlate(name)
+
  );
 
  if(!c){
@@ -718,7 +1247,39 @@ function addVehicle(){
  }
 
  if(!c.vehicles){
+
   c.vehicles=[];
+
+ }
+
+ /* ป้องกันทะเบียนซ้ำ */
+
+ let duplicate=c.vehicles.find(
+
+  v=>
+
+  normalizePlate(v.plate)===
+
+  normalizePlate(plate)
+
+ );
+
+ if(duplicate){
+
+  alert(
+
+   'ลูกค้าคนนี้มีทะเบียน '+
+
+   duplicate.plate+
+
+   ' อยู่แล้ว'
+
+  );
+
+  profile(c.id);
+
+  return;
+
  }
 
  c.vehicles.push({
@@ -728,19 +1289,27 @@ function addVehicle(){
   plate:plate,
 
   brand:
+
   document.getElementById('vbrand')
+
   .value.trim(),
 
   model:
+
   document.getElementById('vmodel')
+
   .value.trim(),
 
   color:
+
   document.getElementById('vcolor')
+
   .value.trim(),
 
   mileage:
+
   document.getElementById('vmileage')
+
   .value.trim(),
 
   history:[]
@@ -750,12 +1319,19 @@ function addVehicle(){
  save();
 
  [
+
   'vcustomer',
+
   'vplate',
+
   'vbrand',
+
   'vmodel',
+
   'vcolor',
+
   'vmileage'
+
  ].forEach(id=>{
 
   document.getElementById(id).value='';
@@ -768,41 +1344,252 @@ function addVehicle(){
 
 }
 
+/* ==================================================
+
+ NORMALIZE
+
+================================================== */
+
+function normalizePlate(text){
+
+ return String(text||'')
+
+  .replace(/\s+/g,'')
+
+  .replace(/[|]/g,'')
+
+  .replace(/[‐-‒–—]/g,'-')
+
+  .trim()
+
+  .toUpperCase();
+
+}
 
 /* ==================================================
-SEARCH
+
+ OCR TEXT CLEAN
+
+================================================== */
+
+function cleanOCRText(text){
+
+ let t=String(text||'');
+
+ t=t
+
+  .replace(/\r/g,' ')
+
+  .replace(/\n/g,' ')
+
+  .replace(/[|]/g,'I')
+
+  .replace(/[“”"']/g,'');
+
+ return t;
+
+}
+
+/* ==================================================
+
+ EXTRACT PLATE
+
+================================================== */
+
+function extractPlate(text){
+
+ let raw=cleanOCRText(text);
+
+ let compact=
+
+  raw.replace(/\s+/g,'');
+
+ /*
+
+  รูปแบบทั่วไปของทะเบียนไทย เช่น
+
+  กข1234
+
+  1กข234
+
+  กข123
+
+ */
+
+ let patterns=[
+
+  /[ก-ฮ]{1,2}[0-9]{1,4}/g,
+
+  /[0-9]{1,4}[ก-ฮ]{1,2}[0-9]{1,4}/g,
+
+  /[A-Z]{1,3}[0-9]{1,4}/gi,
+
+  /[0-9]{1,4}[A-Z]{1,3}/gi
+
+ ];
+
+ let candidates=[];
+
+ patterns.forEach(pattern=>{
+
+  let found=compact.match(pattern);
+
+  if(found){
+
+   found.forEach(x=>{
+
+    if(x.length>=3){
+
+     candidates.push(x);
+
+    }
+
+   });
+
+  }
+
+ });
+
+ /*
+
+  ถ้าไม่เจอรูปแบบทะเบียน
+
+  ใช้ข้อความที่ OCR อ่านได้
+
+ */
+
+ if(candidates.length){
+
+  candidates.sort(
+
+   (a,b)=>b.length-a.length
+
+  );
+
+  return normalizePlate(
+
+   candidates[0]
+
+  );
+
+ }
+
+ return normalizePlate(
+
+  raw.replace(
+
+   /[^ก-ฮ0-9A-Z]/gi,
+
+   ''
+
+  )
+
+ );
+
+}
+
+/* ==================================================
+
+ FIND VEHICLE
+
+================================================== */
+
+function findVehicleByPlate(plate){
+
+ let target=
+
+ normalizePlate(plate);
+
+ if(!target)return null;
+
+ for(let c of db.customers){
+
+  for(let v of (c.vehicles||[])){
+
+   if(
+
+    normalizePlate(v.plate)===target
+
+   ){
+
+    return{
+
+     customer:c,
+
+     vehicle:v
+
+    };
+
+   }
+
+  }
+
+ }
+
+ return null;
+
+}
+
+/* ==================================================
+
+ SEARCH
+
 ================================================== */
 
 function searchCustomers(){
 
  let q=
+
  document.getElementById('search')
+
  .value
+
  .trim()
+
  .toLowerCase();
 
  let arr=db.customers.filter(c=>{
 
-  let name=(c.name||'').toLowerCase();
+  let name=
 
-  let phone=(c.phone||'').toLowerCase();
+   String(c.name||'')
 
-  let vehicles=c.vehicles||[];
+   .toLowerCase();
+
+  let phone=
+
+   String(c.phone||'')
+
+   .toLowerCase();
+
+  let vehicles=
+
+   c.vehicles||[];
 
   return(
+
    !q ||
+
    name.includes(q) ||
+
    phone.includes(q) ||
+
    vehicles.some(v=>
-    (v.plate||'')
+
+    String(v.plate||'')
+
     .toLowerCase()
+
     .includes(q)
+
    )
+
   );
 
  });
 
  let box=
+
  document.getElementById('results');
 
  if(!arr.length){
@@ -810,9 +1597,12 @@ function searchCustomers(){
   box.className='empty';
 
   box.textContent=
-  q
-  ? 'ไม่พบข้อมูล'
-  : 'ยังไม่มีข้อมูลลูกค้า';
+
+   q
+
+   ? 'ไม่พบข้อมูล'
+
+   : 'ยังไม่มีข้อมูลลูกค้า';
 
   return;
 
@@ -821,14 +1611,19 @@ function searchCustomers(){
  box.className='';
 
  box.innerHTML=
+
  arr.map(c=>`
 
  <div
+
   class="result clickable"
+
   onclick="profile(${c.id})">
 
   <b>
+
    👤 ${esc(c.name)}
+
   </b>
 
   <br>
@@ -842,7 +1637,9 @@ function searchCustomers(){
   </span>
 
   ${
+
    (c.vehicles||[])
+
    .map(v=>`
 
     <div class="small">
@@ -850,7 +1647,9 @@ function searchCustomers(){
      🏍️
 
      <b>
+
       ${esc(v.plate)}
+
      </b>
 
      ${esc(v.brand||'')}
@@ -860,6 +1659,7 @@ function searchCustomers(){
     </div>
 
    `).join('')
+
   }
 
  </div>
@@ -868,9 +1668,10 @@ function searchCustomers(){
 
 }
 
-
 /* ==================================================
-SHOW ALL
+
+ SHOW ALL
+
 ================================================== */
 
 function showAll(){
@@ -880,31 +1681,41 @@ function showAll(){
  searchCustomers();
 
  document
+
  .getElementById('results')
+
  .scrollIntoView({
+
   behavior:'smooth'
+
  });
 
 }
 
-
 /* ==================================================
-PROFILE
+
+ PROFILE
+
 ================================================== */
 
 function profile(id){
 
  let c=db.customers.find(
+
   x=>x.id===id
+
  );
 
  if(!c)return;
 
  if(!c.vehicles){
+
   c.vehicles=[];
+
  }
 
  let p=
+
  document.getElementById('profile');
 
  p.classList.remove('hidden');
@@ -914,107 +1725,129 @@ function profile(id){
  c.vehicles.forEach(v=>{
 
   if(!v.history){
+
    v.history=[];
+
   }
 
   totalHistory+=v.history.length;
 
  });
 
-
  p.innerHTML=`
 
  <button
+
   class="secondary back"
+
   onclick="hideProfile()">
+
   ← กลับ
+
  </button>
 
-
  <h2>
+
  👤 ${esc(c.name)}
+
  </h2>
 
-
  <div class="small">
+
  📞 ${esc(c.phone||'-')}
- </div>
 
+ </div>
 
  <div class="small">
- ${esc(c.note||'')}
- </div>
 
+ ${esc(c.note||'')}
+
+ </div>
 
  <div class="stat">
 
   <div class="statBox">
 
    <div class="statNumber">
+
     ${c.vehicles.length}
+
    </div>
 
    <div class="statLabel">
+
     รถ
+
    </div>
 
   </div>
 
-
   <div class="statBox">
 
    <div class="statNumber">
+
     ${totalHistory}
+
    </div>
 
    <div class="statLabel">
+
     ประวัติซ่อม
+
    </div>
 
   </div>
 
-
   <div class="statBox">
 
    <div class="statNumber">
+
     ${c.phone?'✓':'-'}
+
    </div>
 
    <div class="statLabel">
+
     เบอร์โทร
+
    </div>
 
   </div>
 
  </div>
-
 
  <div class="actions">
 
   <button
+
    onclick="editCustomer(${c.id})">
+
    ✏️ แก้ไขลูกค้า
+
   </button>
 
-
   <button
+
    class="danger"
+
    onclick="deleteCustomer(${c.id})">
+
    🗑️ ลบลูกค้า
+
   </button>
 
  </div>
 
-
  <hr>
 
-
  <h2>
+
  🏍️ รถของลูกค้า
+
  </h2>
 
-
  ${
+
   c.vehicles.length
 
   ?
@@ -1024,68 +1857,89 @@ function profile(id){
   <div class="item">
 
    <span class="badge">
+
     ${esc(v.plate)}
+
    </span>
 
    <br>
 
    <b>
+
     ${esc(v.brand||'')}
+
     ${esc(v.model||'')}
+
    </b>
 
-
    <div class="small">
-    สี ${esc(v.color||'-')}
-    · ไมล์ ${esc(v.mileage||'-')}
-   </div>
 
+    สี ${esc(v.color||'-')}
+
+    · ไมล์ ${esc(v.mileage||'-')}
+
+   </div>
 
    <div class="actions">
 
     <button
+
      onclick="editVehicle(${c.id},${v.id})">
+
      ✏️ แก้ไขรถ
+
     </button>
 
-
     <button
+
      class="danger"
+
      onclick="deleteVehicle(${c.id},${v.id})">
+
      🗑️ ลบรถ
+
     </button>
 
    </div>
 
-
    <button
+
     class="primary"
+
     style="margin-top:9px"
+
     onclick="addHistory(${c.id},${v.id})">
 
     🔧 เพิ่มประวัติซ่อม
 
    </button>
 
-
    ${
+
     v.history.length
 
     ?
 
     `
+
     <div style="margin-top:8px">
 
     ${
+
      v.history
+
      .slice()
+
      .reverse()
+
      .map((h,i)=>`
 
       <div class="result">
 
        <b>
+
         ${esc(h.date)}
+
        </b>
 
        <br>
@@ -1093,22 +1947,31 @@ function profile(id){
        ${esc(h.text)}
 
        ${
-        h.price
-        ?
-        `<span class="price">
-         ${esc(h.price)} บาท
-        </span>`
-        :
-        ''
-       }
 
+        h.price
+
+        ?
+
+        `<span class="price">
+
+         ${esc(h.price)} บาท
+
+        </span>`
+
+        :
+
+        ''
+
+       }
 
        <br>
 
-
        <button
+
         class="danger"
+
         style="margin-top:8px;padding:8px;font-size:13px"
+
         onclick="deleteHistory(${c.id},${v.id},${v.history.length-1-i})">
 
         🗑️ ลบประวัติ
@@ -1118,15 +1981,19 @@ function profile(id){
       </div>
 
      `).join('')
+
     }
 
     </div>
+
     `
 
     :
 
     `<div
+
      class="small"
+
      style="margin-top:8px">
 
      ยังไม่มีประวัติซ่อม
@@ -1142,49 +2009,63 @@ function profile(id){
   :
 
   `<div class="empty">
+
    ยังไม่มีรถ
+
   </div>`
+
  }
 
  `;
 
-
  p.scrollIntoView({
-  behavior:'smooth'
+
+  behavior:'smooth',
+
+  block:'start'
+
  });
 
 }
 
-
 /* ==================================================
-HIDE PROFILE
+
+ HIDE PROFILE
+
 ================================================== */
 
 function hideProfile(){
 
  document
+
  .getElementById('profile')
+
  .classList.add('hidden');
 
 }
 
-
 /* ==================================================
-EDIT CUSTOMER
+
+ EDIT CUSTOMER
+
 ================================================== */
 
 function editCustomer(id){
 
  let c=db.customers.find(
+
   x=>x.id===id
+
  );
 
  if(!c)return;
 
-
  let name=prompt(
+
   'ชื่อลูกค้า',
+
   c.name
+
  );
 
  if(name===null)return;
@@ -1193,35 +2074,37 @@ function editCustomer(id){
 
  if(!name){
 
-  alert(
-   'ชื่อลูกค้าห้ามว่าง'
-  );
+  alert('ชื่อลูกค้าห้ามว่าง');
 
   return;
 
  }
 
-
  let phone=prompt(
+
   'เบอร์โทร',
+
   c.phone||''
+
  );
 
  if(phone===null)return;
 
-
  let note=prompt(
+
   'หมายเหตุ',
+
   c.note||''
+
  );
 
  if(note===null)return;
 
-
  c.name=name;
- c.phone=phone.trim();
- c.note=note.trim();
 
+ c.phone=phone.trim();
+
+ c.note=note.trim();
 
  save();
 
@@ -1231,35 +2114,43 @@ function editCustomer(id){
 
 }
 
-
 /* ==================================================
-DELETE CUSTOMER
+
+ DELETE CUSTOMER
+
 ================================================== */
 
 function deleteCustomer(id){
 
  let c=db.customers.find(
+
   x=>x.id===id
+
  );
 
  if(!c)return;
 
-
  let ok=confirm(
+
   'ต้องการลบลูกค้า "'+
+
   c.name+
+
   '" ใช่หรือไม่?\n\n'+
+
   'ข้อมูลรถและประวัติซ่อมของลูกค้าคนนี้จะถูกลบด้วย'
+
  );
 
  if(!ok)return;
 
-
  db.customers=
- db.customers.filter(
-  x=>x.id!==id
- );
 
+ db.customers.filter(
+
+  x=>x.id!==id
+
+ );
 
  save();
 
@@ -1269,73 +2160,89 @@ function deleteCustomer(id){
 
 }
 
-
 /* ==================================================
-EDIT VEHICLE
+
+ EDIT VEHICLE
+
 ================================================== */
 
 function editVehicle(cid,vid){
 
  let c=db.customers.find(
+
   x=>x.id===cid
+
  );
 
  if(!c)return;
 
-
  let v=c.vehicles.find(
+
   x=>x.id===vid
+
  );
 
  if(!v)return;
 
-
  let plate=prompt(
+
   'ทะเบียนรถ',
+
   v.plate
+
  );
 
  if(plate===null)return;
 
-
  let brand=prompt(
+
   'ยี่ห้อ',
+
   v.brand||''
+
  );
 
  if(brand===null)return;
 
-
  let model=prompt(
+
   'รุ่น',
+
   v.model||''
+
  );
 
  if(model===null)return;
 
-
  let color=prompt(
+
   'สี',
+
   v.color||''
+
  );
 
  if(color===null)return;
 
-
  let mileage=prompt(
+
   'เลขไมล์',
+
   v.mileage||''
+
  );
 
  if(mileage===null)return;
 
-
  v.plate=plate.trim();
- v.brand=brand.trim();
- v.model=model.trim();
- v.color=color.trim();
- v.mileage=mileage.trim();
 
+ v.brand=brand.trim();
+
+ v.model=model.trim();
+
+ v.color=color.trim();
+
+ v.mileage=mileage.trim();
 
  save();
 
@@ -1345,42 +2252,51 @@ function editVehicle(cid,vid){
 
 }
 
-
 /* ==================================================
-DELETE VEHICLE
+
+ DELETE VEHICLE
+
 ================================================== */
 
 function deleteVehicle(cid,vid){
 
  let c=db.customers.find(
+
   x=>x.id===cid
+
  );
 
  if(!c)return;
 
-
  let v=c.vehicles.find(
+
   x=>x.id===vid
+
  );
 
  if(!v)return;
 
-
  let ok=confirm(
+
   'ต้องการลบรถทะเบียน '+
+
   v.plate+
+
   ' ใช่หรือไม่?\n\n'+
+
   'ประวัติซ่อมของรถคันนี้จะถูกลบด้วย'
+
  );
 
  if(!ok)return;
 
-
  c.vehicles=
- c.vehicles.filter(
-  x=>x.id!==vid
- );
 
+ c.vehicles.filter(
+
+  x=>x.id!==vid
+
+ );
 
  save();
 
@@ -1390,15 +2306,18 @@ function deleteVehicle(cid,vid){
 
 }
 
-
 /* ==================================================
-ADD HISTORY
+
+ ADD HISTORY
+
 ================================================== */
 
 function addHistory(cid,vid){
 
  let text=prompt(
+
   'รายการซ่อม / งานที่ทำ'
+
  );
 
  if(text===null)return;
@@ -1407,47 +2326,51 @@ function addHistory(cid,vid){
 
  if(!text){
 
-  alert(
-   'กรุณาใส่รายการซ่อม'
-  );
+  alert('กรุณาใส่รายการซ่อม');
 
   return;
 
  }
 
-
  let price=prompt(
+
   'ราคา (บาท) — ถ้าไม่มีให้เว้นว่าง',
+
   ''
+
  );
 
  if(price===null)return;
 
-
  let c=db.customers.find(
+
   x=>x.id===cid
+
  );
 
  if(!c)return;
 
-
  let v=c.vehicles.find(
+
   x=>x.id===vid
+
  );
 
  if(!v)return;
 
-
  if(!v.history){
-  v.history=[];
- }
 
+  v.history=[];
+
+ }
 
  v.history.push({
 
   date:
-  new Date()
-  .toLocaleDateString('th-TH'),
+
+   new Date()
+
+   .toLocaleDateString('th-TH'),
 
   text:text,
 
@@ -1455,40 +2378,43 @@ function addHistory(cid,vid){
 
  });
 
-
  save();
 
  profile(cid);
 
 }
 
-
 /* ==================================================
-DELETE HISTORY
+
+ DELETE HISTORY
+
 ================================================== */
 
 function deleteHistory(cid,vid,index){
 
  let c=db.customers.find(
+
   x=>x.id===cid
+
  );
 
  if(!c)return;
 
-
  let v=c.vehicles.find(
+
   x=>x.id===vid
+
  );
 
  if(!v)return;
 
-
  let ok=confirm(
+
   'ต้องการลบประวัติซ่อมรายการนี้หรือไม่?'
+
  );
 
  if(!ok)return;
-
 
  v.history.splice(index,1);
 
@@ -1498,251 +2424,595 @@ function deleteHistory(cid,vid,index){
 
 }
 
-
 /* ==================================================
-SCAN
+
+ START SCAN
+
 ================================================== */
 
 function startScan(){
 
  let section=
+
  document.getElementById('scanSection');
 
  section.classList.remove('hidden');
 
  document.getElementById('scanStatus')
+
  .textContent=
+
  'พร้อมสแกนทะเบียน';
 
  document.getElementById('ocrResult')
+
  .classList.add('hidden');
 
+ document.getElementById('scanActions')
+
+ .classList.add('hidden');
+
+ document.getElementById('preview')
+
+ .classList.add('hidden');
+
+ document.getElementById('progress')
+
+ .classList.add('hidden');
+
+ detectedPlate='';
+
  section.scrollIntoView({
+
   behavior:'smooth'
+
  });
 
 }
 
-
 /* ==================================================
-OPEN CAMERA
+
+ OPEN CAMERA
+
 ================================================== */
 
 function openCamera(){
 
  document
+
  .getElementById('scanFile')
+
  .click();
 
 }
 
+/* ==================================================
+
+ RETRY
+
+================================================== */
+
+function retryScan(){
+
+ document
+
+ .getElementById('scanFile')
+
+ .value='';
+
+ document
+
+ .getElementById('ocrResult')
+
+ .classList.add('hidden');
+
+ document
+
+ .getElementById('scanActions')
+
+ .classList.add('hidden');
+
+ document
+
+ .getElementById('preview')
+
+ .classList.add('hidden');
+
+ document
+
+ .getElementById('progress')
+
+ .classList.add('hidden');
+
+ document
+
+ .getElementById('scanStatus')
+
+ .textContent=
+
+ 'พร้อมสแกนทะเบียน';
+
+ openCamera();
+
+}
 
 /* ==================================================
-CLOSE SCAN
+
+ CLOSE SCAN
+
 ================================================== */
 
 function closeScan(){
 
  document
+
  .getElementById('scanSection')
+
  .classList.add('hidden');
 
 }
 
-
 /* ==================================================
-NORMALIZE PLATE
+
+ PREPROCESS IMAGE
+
 ================================================== */
 
-function normalizePlate(text){
+function preprocessImage(file){
 
- return String(text||'')
+ return new Promise((resolve,reject)=>{
 
-  .replace(/\s+/g,'')
+  let img=new Image();
 
-  .replace(/[|]/g,'')
+  img.onload=()=>{
 
-  .trim()
+   let maxWidth=1800;
 
-  .toUpperCase();
+   let scale=
 
-}
+    Math.min(
 
+     maxWidth/img.width,
 
-/* ==================================================
-CLEAN OCR
-================================================== */
+     maxWidth/img.height,
 
-function cleanPlate(text){
+     1.5
 
- let t=String(text||'');
+    );
 
- t=t.replace(/\n/g,' ');
+   let width=
 
- t=t.replace(/[^\u0E00-\u0E7F0-9A-Zก-ฮ]/gi,'');
+    Math.round(img.width*scale);
 
- return normalizePlate(t);
+   let height=
 
-}
+    Math.round(img.height*scale);
 
+   let canvas=
 
-/* ==================================================
-FIND PLATE
-================================================== */
+    document.createElement('canvas');
 
-function findVehicleByPlate(plate){
+   canvas.width=width;
 
- let target=
- normalizePlate(plate);
+   canvas.height=height;
 
- for(let c of db.customers){
+   let ctx=
 
-  for(let v of (c.vehicles||[])){
+    canvas.getContext('2d');
 
-   if(
-    normalizePlate(v.plate)===target
+   ctx.drawImage(
+
+    img,
+
+    0,
+
+    0,
+
+    width,
+
+    height
+
+   );
+
+   /*
+
+    ปรับ contrast และ grayscale
+
+   */
+
+   let data=
+
+    ctx.getImageData(
+
+     0,
+
+     0,
+
+     width,
+
+     height
+
+    );
+
+   for(
+
+    let i=0;
+
+    i<data.data.length;
+
+    i+=4
+
    ){
 
-    return {
-     customer:c,
-     vehicle:v
-    };
+    let r=data.data[i];
+
+    let g=data.data[i+1];
+
+    let b=data.data[i+2];
+
+    let gray=
+
+     0.299*r+
+
+     0.587*g+
+
+     0.114*b;
+
+    /*
+
+     contrast
+
+    */
+
+    gray=
+
+     ((gray-128)*1.35)+128;
+
+    gray=
+
+     Math.max(
+
+      0,
+
+      Math.min(
+
+       255,
+
+       gray
+
+      )
+
+     );
+
+    data.data[i]=gray;
+
+    data.data[i+1]=gray;
+
+    data.data[i+2]=gray;
 
    }
 
-  }
+   ctx.putImageData(
 
- }
+    data,
 
- return null;
+    0,
+
+    0
+
+   );
+
+   canvas.toBlob(
+
+    blob=>{
+
+     if(blob){
+
+      resolve(blob);
+
+     }else{
+
+      reject(
+
+       new Error(
+
+        'ไม่สามารถเตรียมภาพได้'
+
+       )
+
+      );
+
+     }
+
+    },
+
+    'image/jpeg',
+
+    0.95
+
+   );
+
+  };
+
+  img.onerror=()=>{
+
+   reject(
+
+    new Error(
+
+     'เปิดภาพไม่ได้'
+
+    )
+
+   );
+
+  };
+
+  img.src=
+
+   URL.createObjectURL(file);
+
+ });
 
 }
 
-
 /* ==================================================
-OCR SCAN
+
+ OCR SCAN
+
 ================================================== */
 
 async function processScan(event){
 
  let file=
- event.target.files[0];
+
+  event.target.files[0];
 
  if(!file)return;
 
-
  let status=
- document.getElementById('scanStatus');
+
+  document.getElementById('scanStatus');
 
  let result=
- document.getElementById('ocrResult');
 
+  document.getElementById('ocrResult');
+
+ let progress=
+
+  document.getElementById('progress');
+
+ let progressBar=
+
+  document.getElementById('progressBar');
+
+ let preview=
+
+  document.getElementById('preview');
+
+ let actions=
+
+  document.getElementById('scanActions');
 
  result.classList.add('hidden');
 
- status.textContent=
- '⏳ กำลังอ่านป้ายทะเบียน...';
+ actions.classList.add('hidden');
 
+ /*
+
+  แสดงภาพตัวอย่าง
+
+ */
+
+ preview.src=
+
+  URL.createObjectURL(file);
+
+ preview.classList.remove('hidden');
+
+ progress.classList.remove('hidden');
+
+ progressBar.style.width='5%';
+
+ status.textContent=
+
+  '⏳ กำลังเตรียมภาพ...';
 
  try{
 
+  let processed=
+
+   await preprocessImage(file);
+
+  progressBar.style.width='15%';
+
+  status.textContent=
+
+   '⏳ กำลังเปิดระบบอ่านทะเบียน...';
+
+  /*
+
+   OCR
+
+  */
+
   const worker=
+
    await Tesseract.createWorker(
+
     ['tha','eng'],
+
     1,
+
     {
+
      logger:m=>{
 
-      if(m.status){
+      if(
 
-       let percent=
-        m.progress
-        ?
-        Math.round(m.progress*100)
-        :
-        0;
+       m.status==='recognizing text'
+
+      ){
+
+       let p=
+
+        Math.round(
+
+         (m.progress||0)*100
+
+        );
+
+       progressBar.style.width=
+
+        (15+
+
+         Math.round(p*.8))+'%';
 
        status.textContent=
-        '⏳ '+m.status+
-        (percent
-        ? ' '+percent+'%'
-        : '');
+
+        '⏳ กำลังอ่านตัวอักษร '+p+'%';
 
       }
 
      }
+
     }
+
    );
 
+  /*
+
+   อ่านภาพที่ปรับแล้ว
+
+  */
 
   const output=
-   await worker.recognize(file);
 
+   await worker.recognize(
+
+    processed
+
+   );
+
+  let raw=
+
+   output.data.text||'';
 
   await worker.terminate();
 
+  progressBar.style.width='100%';
 
-  let raw=
-   output.data.text||'';
+  console.log(
 
+   'OCR RAW:',
+
+   raw
+
+  );
 
   let plate=
-   cleanPlate(raw);
 
+   extractPlate(raw);
+
+  /*
+
+   ถ้า OCR ไม่ได้
+
+  */
 
   if(!plate){
 
    status.textContent=
+
     '❌ อ่านทะเบียนไม่สำเร็จ';
 
-   alert(
-    'อ่านทะเบียนไม่สำเร็จครับ\n\n'+
-    'ลองถ่ายใหม่ให้ป้ายทะเบียนชัดขึ้น'
+   result.textContent=
+
+    'ไม่พบตัวอักษรทะเบียน';
+
+   result.classList.remove(
+
+    'hidden'
+
    );
 
-   event.target.value='';
+   actions.classList.remove(
+
+    'hidden'
+
+   );
+
+   alert(
+
+    'ยังอ่านทะเบียนไม่ได้ครับ\n\n'+
+
+    'แม้รูปจะชัด แต่ OCR อาจอ่านตัวอักษรไทยบนป้ายผิดได้\n\n'+
+
+    'ลองถ่ายใหม่ให้ป้ายอยู่ตรงกลางภาพและใกล้ขึ้น'
+
+   );
 
    return;
 
   }
 
+  detectedPlate=plate;
 
   result.textContent=
+
    'ทะเบียนที่อ่านได้: '+plate;
 
-  result.classList.remove('hidden');
+  result.classList.remove(
 
+   'hidden'
 
-  status.textContent=
-   '✅ อ่านทะเบียนแล้ว';
+  );
 
+  /*
 
-  /* --------------------------------
-     CHECK EXISTING
-  -------------------------------- */
+   เช็กฐานข้อมูล
 
+  */
 
   let found=
-   findVehicleByPlate(plate);
 
+   findVehicleByPlate(plate);
 
   if(found){
 
    status.textContent=
-    '✅ พบข้อมูลรถคันนี้ในระบบแล้ว';
 
+    '✅ พบทะเบียนนี้ในระบบแล้ว';
+
+   /*
+
+    เปิดข้อมูลทันที
+
+   */
+
+   setTimeout(()=>{
+
+    closeScan();
+
+    profile(
+
+     found.customer.id
+
+    );
+
+   },500);
 
    alert(
+
     'พบทะเบียน '+
+
     found.vehicle.plate+
+
     ' ในระบบแล้ว\n\n'+
+
     'กำลังเปิดข้อมูลลูกค้า'
+
    );
-
-
-   closeScan();
-
-   profile(found.customer.id);
 
    event.target.value='';
 
@@ -1750,178 +3020,314 @@ async function processScan(event){
 
   }
 
+  /*
 
-  /* --------------------------------
-     NEW PLATE
-  -------------------------------- */
+   ยังไม่มีในระบบ
 
-
-  document
-   .getElementById('vplate')
-   .value=plate;
-
+  */
 
   status.textContent=
+
    '🆕 ยังไม่มีทะเบียนนี้ในระบบ';
 
+  actions.classList.remove(
 
-  alert(
-   'ยังไม่พบทะเบียนนี้ในระบบ\n\n'+
-   'ระบบใส่ทะเบียนให้ในช่องกรอกแล้ว\n'+
-   'พี่ตรวจสอบและแก้ไขได้ก่อนบันทึก'
+   'hidden'
+
   );
 
+  alert(
 
-  closeScan();
+   'ยังไม่พบทะเบียนนี้ในระบบ\n\n'+
 
-  show('vehicleForm');
+   'กด "ใช้ทะเบียนนี้" ได้เลย\n'+
 
+   'ระบบจะนำทะเบียนไปใส่ช่องกรอกให้ และสามารถแก้ไขก่อนบันทึกได้'
 
-  document
-   .getElementById('vplate')
-   .focus();
-
-
-  event.target.value='';
-
+  );
 
  }catch(error){
 
-  console.error(error);
+  console.error(
 
+   'OCR ERROR:',
 
-  status.textContent=
-   '❌ เกิดข้อผิดพลาดในการอ่านภาพ';
+   error
 
-
-  alert(
-   'เกิดข้อผิดพลาดในการอ่านป้ายทะเบียน\n\n'+
-   'ลองถ่ายภาพใหม่อีกครั้ง'
   );
 
+  status.textContent=
 
-  event.target.value='';
+   '❌ เกิดข้อผิดพลาดในการอ่านภาพ';
+
+  alert(
+
+   'เกิดข้อผิดพลาดในการอ่านทะเบียนครับ\n\n'+
+
+   'ลองกดสแกนใหม่อีกครั้ง'
+
+  );
 
  }
 
 }
 
+/* ==================================================
+
+ USE DETECTED PLATE
+
+================================================== */
+
+function useDetectedPlate(){
+
+ if(!detectedPlate){
+
+  alert(
+
+   'ยังไม่มีทะเบียนที่อ่านได้'
+
+  );
+
+  return;
+
+ }
+
+ /*
+
+  ใส่ทะเบียนลงช่องรถ
+
+ */
+
+ document
+
+ .getElementById('vplate')
+
+ .value=
+
+ detectedPlate;
+
+ /*
+
+  ปิดตัวสแกน
+
+ */
+
+ closeScan();
+
+ /*
+
+  เปิดฟอร์มรถ
+
+ */
+
+ show('vehicleForm');
+
+ /*
+
+  ให้แก้ไขได้ทันที
+
+ */
+
+ let input=
+
+  document.getElementById('vplate');
+
+ input.focus();
+
+ input.select();
+
+}
 
 /* ==================================================
-EXPORT
+
+ EXPORT
+
 ================================================== */
 
 function exportData(){
 
  let blob=
+
   new Blob(
+
    [
+
     JSON.stringify(
+
      db,
+
      null,
+
      2
+
     )
+
    ],
+
    {
+
     type:'application/json'
+
    }
+
   );
 
-
  let a=
+
   document.createElement('a');
 
+ let url=
 
- a.href=
   URL.createObjectURL(blob);
 
+ a.href=url;
 
  a.download=
+
   'LUIMOTOR_backup.json';
 
+ document.body.appendChild(a);
 
  a.click();
 
+ document.body.removeChild(a);
 
- URL.revokeObjectURL(
-  a.href
- );
+ setTimeout(()=>{
+
+  URL.revokeObjectURL(url);
+
+ },1000);
 
 }
 
-
 /* ==================================================
-IMPORT
+
+ IMPORT
+
 ================================================== */
 
 function importData(){
 
  document
+
   .getElementById('file')
+
   .click();
 
 }
 
-
 /* ==================================================
-LOAD DATA
+
+ LOAD DATA
+
 ================================================== */
 
 function loadData(e){
 
  let f=
+
   e.target.files[0];
 
  if(!f)return;
 
-
  let r=
-  new FileReader();
 
+  new FileReader();
 
  r.onload=()=>{
 
   try{
 
    let x=
-    JSON.parse(r.result);
 
+    JSON.parse(
 
-   if(!x.customers)
+     r.result
+
+    );
+
+   if(
+
+    !x ||
+
+    !Array.isArray(
+
+     x.customers
+
+    )
+
+   ){
+
     throw new Error();
 
+   }
 
    db=x;
 
+   /*
+
+    ซ่อมโครงสร้างข้อมูลเก่า
+
+   */
+
+   db.customers.forEach(c=>{
+
+    if(!c.vehicles){
+
+     c.vehicles=[];
+
+    }
+
+    c.vehicles.forEach(v=>{
+
+     if(!v.history){
+
+      v.history=[];
+
+     }
+
+    });
+
+   });
 
    save();
 
    searchCustomers();
 
-
    alert(
-    'นำเข้าข้อมูลแล้ว'
-   );
 
+    'นำเข้าข้อมูลแล้ว'
+
+   );
 
   }catch{
 
    alert(
+
     'ไฟล์ข้อมูลไม่ถูกต้อง'
+
    );
 
   }
 
  };
 
-
  r.readAsText(f);
+
+ /*
+
+  reset input
+
+ */
+
+ e.target.value='';
 
 }
 
-
 /* ==================================================
-START
+
+ START
+
 ================================================== */
 
 searchCustomers();
@@ -1929,4 +3335,5 @@ searchCustomers();
 </script>
 
 </body>
+
 </html>
