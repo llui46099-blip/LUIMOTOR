@@ -1,19 +1,12 @@
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>LUY MOTOR AI SELLER</title>
 
 <style>
-
 *{
     box-sizing:border-box;
 }
@@ -22,12 +15,8 @@ body{
     margin:0;
     background:#09090b;
     color:#fff;
-    font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    "Noto Sans Thai",
-    sans-serif;
+    font-family:-apple-system,BlinkMacSystemFont,
+    "Segoe UI","Noto Sans Thai",sans-serif;
 }
 
 header{
@@ -266,6 +255,7 @@ select{
     border:1px solid #2a2a2f;
     border-radius:15px;
     overflow:hidden;
+    cursor:pointer;
 }
 
 .image-card.cover{
@@ -292,6 +282,7 @@ select{
     border:1px solid #444;
     border-radius:9px;
     padding:9px 12px;
+    cursor:pointer;
 }
 
 .copy-button{
@@ -300,6 +291,7 @@ select{
     border:1px solid #444;
     border-radius:9px;
     padding:9px 12px;
+    cursor:pointer;
 }
 
 .description-head{
@@ -309,36 +301,141 @@ select{
     gap:10px;
 }
 
+.cover-tools{
+    margin-top:12px;
+}
+
+.cover-tools button{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    background:#222;
+    color:#fff;
+    border:1px solid #444;
+}
+
 .small{
     color:#777;
     font-size:12px;
     line-height:1.5;
 }
 
-.count-buttons{
+
+/* =================================================
+   เลือกจำนวนรูป
+================================================= */
+
+.image-count-buttons{
     display:grid;
-    grid-template-columns:
-    repeat(4,1fr);
-    gap:8px;
-    margin-top:12px;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-top:14px;
 }
 
-.count-button{
-    padding:14px 5px;
-    border-radius:12px;
+.image-count-button{
     border:1px solid #3a3a40;
     background:#0d0d0f;
     color:#aaa;
-    font-size:16px;
-    font-weight:700;
+    border-radius:13px;
+    padding:14px 5px;
+    font-size:17px;
+    font-weight:800;
     cursor:pointer;
 }
 
-.count-button.active{
+.image-count-button.active{
     background:#e60000;
     border-color:#e60000;
     color:#fff;
 }
+
+.selected-count{
+    color:#e60000;
+    font-size:14px;
+    font-weight:700;
+    margin-top:12px;
+}
+
+
+/* =================================================
+   Modal ดูรูปใหญ่
+================================================= */
+
+.image-modal{
+    display:none;
+    position:fixed;
+    z-index:9999;
+    inset:0;
+    background:rgba(0,0,0,.94);
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.image-modal.show{
+    display:flex;
+}
+
+.modal-content{
+    width:100%;
+    max-width:720px;
+    max-height:95vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.modal-image{
+    max-width:100%;
+    max-height:78vh;
+    width:auto;
+    height:auto;
+    object-fit:contain;
+    border-radius:12px;
+    background:#fff;
+}
+
+.modal-buttons{
+    display:flex;
+    gap:10px;
+    width:100%;
+    margin-top:15px;
+}
+
+.modal-save{
+    flex:1;
+    border:0;
+    border-radius:13px;
+    padding:15px;
+    background:#e60000;
+    color:#fff;
+    font-size:16px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.modal-close{
+    width:55px;
+    border:1px solid #555;
+    border-radius:13px;
+    background:#222;
+    color:#fff;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.modal-hint{
+    color:#aaa;
+    font-size:12px;
+    text-align:center;
+    margin-top:9px;
+    line-height:1.5;
+}
+
+
+/* =================================================
+   responsive
+================================================= */
 
 @media(max-width:520px){
 
@@ -354,10 +451,16 @@ select{
         grid-template-columns:1fr;
     }
 
+    .image-count-buttons{
+        gap:7px;
+    }
+
+    .image-count-button{
+        padding:13px 3px;
+    }
 }
 
 </style>
-
 </head>
 
 
@@ -378,7 +481,6 @@ AI PRODUCT SELLER
 
 <div class="container">
 
-
 <section class="hero">
 
 <h1>
@@ -388,17 +490,16 @@ AI PRODUCT SELLER
 
 <p>
 ใส่รูปสินค้า 3 รูป ชื่อสินค้า และรายละเอียดคร่าว ๆ
-จากนั้น AI จะช่วยสร้างภาพสินค้า หน้าปกพร้อมข้อความโฆษณา
+จากนั้น AI จะช่วยทำรูปสินค้า หน้าปกพร้อมข้อความโฆษณา
 และคำบรรยายสินค้า
 </p>
 
 </section>
 
 
-
-<!-- =========================
-     1 รูปสินค้า
-========================= -->
+<!-- =================================================
+     1. รูปสินค้า
+================================================= -->
 
 <section class="box">
 
@@ -410,7 +511,6 @@ AI PRODUCT SELLER
 
 <div class="photos">
 
-
 <label class="photo">
 
 <input
@@ -421,18 +521,12 @@ onchange="selectImage(this,0)"
 
 <img id="preview0">
 
-<div
-id="text0"
-class="photo-text"
->
-
+<div id="text0" class="photo-text">
 <b>＋</b>
 รูปที่ 1
-
 </div>
 
 </label>
-
 
 
 <label class="photo">
@@ -445,18 +539,12 @@ onchange="selectImage(this,1)"
 
 <img id="preview1">
 
-<div
-id="text1"
-class="photo-text"
->
-
+<div id="text1" class="photo-text">
 <b>＋</b>
 รูปที่ 2
-
 </div>
 
 </label>
-
 
 
 <label class="photo">
@@ -469,28 +557,21 @@ onchange="selectImage(this,2)"
 
 <img id="preview2">
 
-<div
-id="text2"
-class="photo-text"
->
-
+<div id="text2" class="photo-text">
 <b>＋</b>
 รูปที่ 3
-
 </div>
 
 </label>
-
 
 </div>
 
 </section>
 
 
-
-<!-- =========================
-     2 ชื่อ
-========================= -->
+<!-- =================================================
+     2. ชื่อสินค้า
+================================================= -->
 
 <section class="box">
 
@@ -504,10 +585,9 @@ placeholder="เช่น น้ำมันเบรก VEL OIL HP BRAKE FLUID 
 </section>
 
 
-
-<!-- =========================
-     3 รายละเอียด
-========================= -->
+<!-- =================================================
+     3. รายละเอียด
+================================================= -->
 
 <section class="box">
 
@@ -521,19 +601,15 @@ placeholder="ใส่ข้อมูลที่พี่รู้ เช่น
 </section>
 
 
-
-<!-- =========================
-     4 คุณภาพ
-========================= -->
+<!-- =================================================
+     4. คุณภาพ
+================================================= -->
 
 <section class="box">
 
 <h2>🎨 4. คุณภาพรูป</h2>
 
-<select
-id="quality"
-onchange="updatePrice()"
->
+<select id="quality" onchange="updatePrice()">
 
 <option value="medium">
 🟡 ปกติ — แนะนำ
@@ -549,24 +625,21 @@ onchange="updatePrice()"
 
 </select>
 
-<div
-id="priceEstimate"
-class="price"
->
-ประมาณตามจำนวนรูปที่เลือก
+<div id="priceEstimate" class="price">
+ประมาณ 1 รูป × ราคาที่เลือก
 </div>
 
 <p class="small">
-ราคาจริงขึ้นกับ API และคุณภาพภาพที่เลือก
+ราคาจริงขึ้นกับการใช้ API และขนาดภาพ
+โปรแกรมนี้แสดงเพียงค่าประมาณ
 </p>
 
 </section>
 
 
-
-<!-- =========================
-     5 จำนวนรูป
-========================= -->
+<!-- =================================================
+     5. จำนวนรูป
+================================================= -->
 
 <section class="box">
 
@@ -577,36 +650,40 @@ class="price"
 ส่วนรูปที่เหลือเป็นรูปสินค้าเพิ่มเติม
 </p>
 
-<div class="count-buttons">
+<div class="image-count-buttons">
 
 <button
-class="count-button"
+type="button"
+class="image-count-button"
 id="count1"
-onclick="setImageCount(1)"
+onclick="selectImageCount(1)"
 >
 1 รูป
 </button>
 
 <button
-class="count-button"
+type="button"
+class="image-count-button active"
 id="count2"
-onclick="setImageCount(2)"
+onclick="selectImageCount(2)"
 >
 2 รูป
 </button>
 
 <button
-class="count-button"
+type="button"
+class="image-count-button"
 id="count3"
-onclick="setImageCount(3)"
+onclick="selectImageCount(3)"
 >
 3 รูป
 </button>
 
 <button
-class="count-button active"
+type="button"
+class="image-count-button"
 id="count4"
-onclick="setImageCount(4)"
+onclick="selectImageCount(4)"
 >
 4 รูป
 </button>
@@ -614,19 +691,18 @@ onclick="setImageCount(4)"
 </div>
 
 <div
-id="countInfo"
-class="price"
+id="selectedCount"
+class="selected-count"
 >
-เลือก 4 รูป
+เลือก 2 รูป
 </div>
 
 </section>
 
 
-
-<!-- =========================
-     6 API KEY
-========================= -->
+<!-- =================================================
+     6. API
+================================================= -->
 
 <section class="box">
 
@@ -647,11 +723,11 @@ API Key จะไม่ถูกเก็บลง localStorage โดยโค�
 
 ⚠️ เวอร์ชัน GitHub Pages นี้เหมาะสำหรับใช้ส่วนตัว
 ถ้าจะเปิดให้คนอื่นใช้ ควรย้าย API Key ไป Backend
+เพื่อความปลอดภัย
 
 </div>
 
 </section>
-
 
 
 <button
@@ -660,57 +736,47 @@ class="main-button"
 onclick="startGenerate()"
 >
 
-✨ สร้าง 4 รูป + คำบรรยาย
+✨ สร้าง 2 รูป + คำบรรยาย
 
 </button>
 
 
+<!-- =================================================
+     loading
+================================================= -->
 
-<div
-id="loading"
-class="loading"
->
+<div id="loading" class="loading">
 
 <div class="spinner"></div>
 
-<div
-id="status"
-class="status"
->
+<div id="status" class="status">
 กำลังเตรียมระบบ...
 </div>
 
 </div>
 
 
+<!-- =================================================
+     error
+================================================= -->
 
-<div
-id="error"
-class="error"
-></div>
+<div id="error" class="error"></div>
 
 
+<!-- =================================================
+     results
+================================================= -->
 
-<section
-id="results"
-class="results"
->
+<section id="results" class="results">
 
 <h2 class="result-title">
 🎨 ผลงานที่สร้าง
 </h2>
 
-<div
-id="imageGrid"
-class="image-grid"
-></div>
+<div id="imageGrid" class="image-grid"></div>
 
 
-
-<section
-class="box"
-style="margin-top:15px"
->
+<section class="box" style="margin-top:15px">
 
 <div class="description-head">
 
@@ -740,20 +806,60 @@ readonly
 </div>
 
 
+<!-- =================================================
+     MODAL ดูรูป
+================================================= -->
+
+<div
+id="imageModal"
+class="image-modal"
+onclick="closeImageModal(event)"
+>
+
+<div class="modal-content">
+
+<img
+id="modalImage"
+class="modal-image"
+>
+
+<div class="modal-buttons">
+
+<button
+id="modalSaveButton"
+class="modal-save"
+onclick="saveModalImage(event)"
+>
+⬇️ บันทึกภาพ
+</button>
+
+<button
+class="modal-close"
+onclick="closeImageModal()"
+>
+✕
+</button>
+
+</div>
+
+<div class="modal-hint">
+บน iPhone หากมีเมนูแชร์ ให้เลือก
+“บันทึกรูปภาพ” เพื่อเก็บเข้าแกลเลอรี่
+</div>
+
+</div>
+
+</div>
+
 
 <script>
 
-
 /* =================================================
-   ตั้งค่า
+   LUY MOTOR AI SELLER
 ================================================= */
 
-const TEXT_MODEL =
-    "gpt-5.6-luna";
-
-const IMAGE_MODEL =
-    "gpt-image-2";
-
+const TEXT_MODEL = "gpt-5.6-luna";
+const IMAGE_MODEL = "gpt-image-2";
 
 let images = [
     null,
@@ -761,25 +867,20 @@ let images = [
     null
 ];
 
-
 let generatedImages = [];
 
+let selectedImageCount = 2;
 
-/*
-จำนวนภาพเริ่มต้น
-*/
-
-let imageCount = 4;
-
+let currentModalImage = null;
 
 
 /* =================================================
-   เลือกจำนวนภาพ
+   จำนวนรูป
 ================================================= */
 
-function setImageCount(count){
+function selectImageCount(count){
 
-    imageCount = count;
+    selectedImageCount = count;
 
 
     for(
@@ -793,23 +894,23 @@ function setImageCount(count){
                 "count"+i
             );
 
-        button.classList.remove(
-            "active"
-        );
+        if(i === count){
+
+            button.classList.add(
+                "active"
+            );
+
+        }else{
+
+            button.classList.remove(
+                "active"
+            );
+        }
     }
 
 
-    document
-    .getElementById(
-        "count"+count
-    )
-    .classList.add(
-        "active"
-    );
-
-
     document.getElementById(
-        "countInfo"
+        "selectedCount"
     ).textContent =
         "เลือก "+count+" รูป";
 
@@ -826,28 +927,17 @@ function setImageCount(count){
 }
 
 
-
 /* =================================================
    รูปสินค้า
 ================================================= */
 
-function selectImage(
-    input,
-    index
-){
+function selectImage(input,index){
 
-    const file =
-        input.files[0];
-
+    const file = input.files[0];
 
     if(!file) return;
 
-
-    if(
-        !file.type.startsWith(
-            "image/"
-        )
-    ){
+    if(!file.type.startsWith("image/")){
 
         alert(
             "กรุณาเลือกไฟล์รูปภาพ"
@@ -890,6 +980,7 @@ function selectImage(
 
             text.style.display =
                 "none";
+
         };
 
 
@@ -897,9 +988,211 @@ function selectImage(
 }
 
 
+/* =================================================
+   แปลงรูปเป็น JPEG
+   แก้ปัญหา HEIC / HEIF / PNG บางชนิด
+================================================= */
+
+async function normalizeImageDataURL(
+    dataURL,
+    index
+){
+
+    return new Promise(
+        (resolve,reject)=>{
+
+            const img =
+                new Image();
+
+
+            img.onload =
+                function(){
+
+                    try{
+
+                        const maxSize =
+                            2048;
+
+
+                        let width =
+                            img.naturalWidth;
+
+
+                        let height =
+                            img.naturalHeight;
+
+
+                        if(
+                            width > maxSize ||
+                            height > maxSize
+                        ){
+
+                            const ratio =
+                                Math.min(
+                                    maxSize /
+                                    width,
+
+                                    maxSize /
+                                    height
+                                );
+
+
+                            width =
+                                Math.round(
+                                    width *
+                                    ratio
+                                );
+
+
+                            height =
+                                Math.round(
+                                    height *
+                                    ratio
+                                );
+                        }
+
+
+                        const canvas =
+                            document.createElement(
+                                "canvas"
+                            );
+
+
+                        canvas.width =
+                            width;
+
+                        canvas.height =
+                            height;
+
+
+                        const ctx =
+                            canvas.getContext(
+                                "2d"
+                            );
+
+
+                        /*
+                        พื้นหลังขาว
+                        เพื่อไม่ให้ PNG โปร่งใส
+                        มีปัญหา
+                        */
+
+                        ctx.fillStyle =
+                            "#ffffff";
+
+
+                        ctx.fillRect(
+                            0,
+                            0,
+                            width,
+                            height
+                        );
+
+
+                        ctx.drawImage(
+                            img,
+                            0,
+                            0,
+                            width,
+                            height
+                        );
+
+
+                        const jpeg =
+                            canvas.toDataURL(
+                                "image/jpeg",
+                                0.90
+                            );
+
+
+                        resolve(jpeg);
+
+                    }catch(error){
+
+                        reject(
+                            new Error(
+                                "ไม่สามารถแปลงรูปสินค้า "+
+                                (index+1)+
+                                " เป็น JPEG ได้"
+                            )
+                        );
+                    }
+
+                };
+
+
+            img.onerror =
+                function(){
+
+                    reject(
+                        new Error(
+                            "iPhone ไม่สามารถอ่านรูปสินค้า "+
+                            (index+1)+
+                            " ได้ กรุณาลองเลือกรูป JPG หรือ PNG"
+                        )
+                    );
+
+                };
+
+
+            img.src =
+                dataURL;
+
+        }
+    );
+}
+
 
 /* =================================================
-   ราคา
+   เตรียมรูปทั้งหมด
+================================================= */
+
+async function prepareImages(){
+
+    const prepared = [];
+
+
+    for(
+        let i=0;
+        i<images.length;
+        i++
+    ){
+
+        if(!images[i]){
+
+            throw new Error(
+                "ไม่พบรูปสินค้า "+
+                (i+1)
+            );
+        }
+
+
+        setStatus(
+            "กำลังเตรียมรูปสินค้า "+
+            (i+1)+
+            " / 3 ..."
+        );
+
+
+        const jpeg =
+            await normalizeImageDataURL(
+                images[i],
+                i
+            );
+
+
+        prepared.push(
+            jpeg
+        );
+    }
+
+
+    return prepared;
+}
+
+
+/* =================================================
+   ราคาโดยประมาณ
 ================================================= */
 
 function updatePrice(){
@@ -930,7 +1223,8 @@ function updatePrice(){
     }else{
 
         qualityText =
-            "🟡 โหมดปกติ — แนะนำ";
+            "🟡 โหมดปกติ";
+
     }
 
 
@@ -939,14 +1233,13 @@ function updatePrice(){
     ).textContent =
         qualityText+
         " — "+
-        imageCount+
+        selectedImageCount+
         " รูป";
 }
 
 
-
 /* =================================================
-   Status
+   status
 ================================================= */
 
 function setStatus(text){
@@ -956,7 +1249,6 @@ function setStatus(text){
     ).textContent =
         text;
 }
-
 
 
 /* =================================================
@@ -976,12 +1268,14 @@ async function callResponses(
                 method:"POST",
 
                 headers:{
+
                     "Content-Type":
                         "application/json",
 
                     "Authorization":
                         "Bearer "+
                         apiKey
+
                 },
 
                 body:JSON.stringify({
@@ -1024,6 +1318,7 @@ async function callResponses(
             data?.error?.message ||
             "Responses API Error"
         );
+
     }
 
 
@@ -1031,9 +1326,8 @@ async function callResponses(
 }
 
 
-
 /* =================================================
-   ดึงข้อความ
+   ดึง output text
 ================================================= */
 
 function getOutputText(data){
@@ -1057,21 +1351,18 @@ function getOutputText(data){
     ){
 
         for(
-            const item
-            of data.output
+            const item of data.output
         ){
 
             if(
-                item.type ===
-                "message" &&
+                item.type === "message" &&
                 Array.isArray(
                     item.content
                 )
             ){
 
                 for(
-                    const part
-                    of item.content
+                    const part of item.content
                 ){
 
                     if(
@@ -1082,10 +1373,15 @@ function getOutputText(data){
                         text +=
                             part.text ||
                             "";
+
                     }
+
                 }
+
             }
+
         }
+
     }
 
 
@@ -1093,13 +1389,13 @@ function getOutputText(data){
 }
 
 
-
 /* =================================================
    วิเคราะห์สินค้า
 ================================================= */
 
 async function analyzeProduct(
-    apiKey
+    apiKey,
+    preparedImages
 ){
 
     const name =
@@ -1123,14 +1419,12 @@ async function analyzeProduct(
 
         text:`
 
-คุณคือผู้เชี่ยวชาญด้านการทำคอนเทนต์
-ขายสินค้าออนไลน์ของร้าน LUY MOTOR
+คุณคือผู้เชี่ยวชาญด้านการทำคอนเทนต์ขายสินค้าออนไลน์
+ของร้าน LUY MOTOR
 
-วิเคราะห์รูปสินค้า 3 รูป
-และข้อมูลจากผู้ใช้
+วิเคราะห์รูปสินค้า 3 รูปและข้อมูลจากผู้ใช้
 
-เป้าหมายคือสร้างสื่อขายสินค้า
-ที่ดูน่าสนใจและเป็นมืออาชีพ
+เป้าหมายคือทำสื่อขายสินค้าให้น่าสนใจ
 แต่ต้องรักษาความถูกต้องของสินค้า
 
 กฎสำคัญ:
@@ -1141,13 +1435,12 @@ async function analyzeProduct(
 4. ห้ามแต่งขนาด
 5. ห้ามแต่งราคา
 6. ห้ามอ้างคุณสมบัติที่ไม่มีหลักฐาน
-7. ถ้าอ่านข้อมูลจากฉลากได้
-   ให้ใช้ข้อมูลอย่างระมัดระวัง
-8. ถ้าไม่แน่ใจให้ใช้ถ้อยคำกลาง ๆ
-9. ใช้ภาษาไทย
+7. ถ้าอ่านข้อมูลจากฉลากได้ ให้ใช้ข้อมูลนั้นอย่างระมัดระวัง
+8. ถ้าไม่แน่ใจ ให้ใช้ถ้อยคำกลาง ๆ
+9. ต้องใช้ภาษาไทย
 10. คำบรรยายประมาณ 250 คำ
-11. เขียนให้น่าสนใจสำหรับขายออนไลน์
-12. หลีกเลี่ยงคำโฆษณาเกินจริง
+11. เขียนให้น่าสนใจสำหรับการขายออนไลน์
+12. หลีกเลี่ยงคำโฆษณาที่เกินจริง
 
 ต้องตอบกลับเป็น JSON เท่านั้น
 
@@ -1163,25 +1456,26 @@ async function analyzeProduct(
  "detail_prompts":[
    "",
    "",
+   "",
    ""
  ]
 }
 
+สำหรับหน้าปก:
+
 cover_headline
-คือข้อความสั้น ๆ ตัวใหญ่
-สำหรับใส่บนหน้าปก
+คือข้อความสั้น ๆ ตัวใหญ่สำหรับใส่บนภาพ
 
 cover_subheadline
 คือข้อความรอง
 
 cover_badge
-คือคำสั้น ๆ
-เช่น "DOT 3"
+คือคำสั้น ๆ เช่น
+"DOT 3"
 "ของแท้"
 "พร้อมส่ง"
 
-ห้ามสร้างข้อมูล
-ที่ไม่มีหลักฐาน
+ห้ามสร้างข้อมูลที่ไม่มีหลักฐาน
 
 ชื่อสินค้า:
 
@@ -1196,8 +1490,7 @@ ${description}
 
 
     for(
-        const image
-        of images
+        const image of preparedImages
     ){
 
         content.push({
@@ -1209,6 +1502,7 @@ ${description}
             detail:"high"
 
         });
+
     }
 
 
@@ -1233,6 +1527,7 @@ ${description}
         throw new Error(
             "AI ไม่ส่งผลวิเคราะห์กลับมา"
         );
+
     }
 
 
@@ -1275,21 +1570,24 @@ ${description}
                 "พร้อมส่ง",
 
             cover_prompt:
-                "สร้างภาพสินค้าแบบสตูดิโอระดับมืออาชีพ โดยใช้สินค้าจริงจากภาพอ้างอิงเป็นพระเอกของภาพ พื้นหลังสะอาด สวย เหมาะสำหรับหน้าร้านออนไลน์",
+                "สร้างภาพสินค้าแบบสตูดิโอระดับมืออาชีพ โดยใช้สินค้าจริงจากภาพอ้างอิงเป็นพระเอกของภาพ พื้นหลังสวยสะอาด เหมาะสำหรับหน้าร้านออนไลน์",
 
             detail_prompts:[
 
-                "สร้างภาพสินค้าอีกมุมหนึ่งแบบมืออาชีพ",
+                "สร้างภาพสินค้าแบบสตูดิโออีกมุมหนึ่ง",
 
                 "สร้างภาพซูมรายละเอียดของสินค้าโดยรักษาของจริง",
 
-                "สร้างภาพสินค้าในบรรยากาศการใช้งานที่เหมาะสม"
+                "สร้างภาพสินค้าในบรรยากาศการใช้งานที่เหมาะสม",
+
+                "สร้างภาพสินค้าแบบโฆษณาระดับมืออาชีพ"
 
             ]
+
         };
+
     }
 }
-
 
 
 /* =================================================
@@ -1331,6 +1629,7 @@ function dataURLtoBlob(
 
         array[i] =
             binary.charCodeAt(i);
+
     }
 
 
@@ -1343,36 +1642,33 @@ function dataURLtoBlob(
 }
 
 
-
 /* =================================================
-   สร้างภาพ
+   สร้างภาพด้วย GPT Image
 ================================================= */
 
 async function generateImage(
     apiKey,
     prompt,
     quality,
-    portrait=false
+    portrait=false,
+    preparedImages=[]
 ){
 
     const form =
         new FormData();
 
 
-    images.forEach(
-        (
-            image,
-            index
-        )=>{
+    /*
+    ส่งรูป JPEG ที่เตรียมไว้แล้ว
+    */
+
+    preparedImages.forEach(
+        (image,index)=>{
 
             form.append(
                 "image[]",
-                dataURLtoBlob(
-                    image
-                ),
-                "product-"+
-                (index+1)+
-                ".jpg"
+                dataURLtoBlob(image),
+                "product-"+(index+1)+".jpg"
             );
 
         }
@@ -1400,8 +1696,8 @@ async function generateImage(
     form.append(
         "size",
         portrait
-        ? "1024x1536"
-        : "1024x1024"
+            ? "1024x1536"
+            : "1024x1024"
     );
 
 
@@ -1413,9 +1709,11 @@ async function generateImage(
                 method:"POST",
 
                 headers:{
+
                     "Authorization":
                         "Bearer "+
                         apiKey
+
                 },
 
                 body:form
@@ -1441,6 +1739,7 @@ async function generateImage(
         throw new Error(
             "Image API ส่งข้อมูลกลับมาไม่ถูกต้อง"
         );
+
     }
 
 
@@ -1450,6 +1749,7 @@ async function generateImage(
             data?.error?.message ||
             "Image API Error"
         );
+
     }
 
 
@@ -1462,6 +1762,7 @@ async function generateImage(
         throw new Error(
             "Image API ไม่ได้ส่งรูปกลับมา"
         );
+
     }
 
 
@@ -1476,12 +1777,12 @@ async function generateImage(
             b64
 
     };
+
 }
 
 
-
 /* =================================================
-   ใส่ข้อความหน้าปก
+   ใส่ข้อความบนหน้าปกด้วย Canvas
 ================================================= */
 
 async function addCoverText(
@@ -1492,10 +1793,7 @@ async function addCoverText(
 ){
 
     return new Promise(
-        (
-            resolve,
-            reject
-        )=>{
+        (resolve,reject)=>{
 
             const img =
                 new Image();
@@ -1628,6 +1926,7 @@ async function addCoverText(
                             35+
                             badgeFont
                         );
+
                     }
 
 
@@ -1669,9 +1968,7 @@ async function addCoverText(
                     );
 
 
-                    if(
-                        subheadline
-                    ){
+                    if(subheadline){
 
                         const subFont =
                             Math.max(
@@ -1701,6 +1998,7 @@ async function addCoverText(
                             subFont*1.3,
                             2
                         );
+
                     }
 
 
@@ -1730,9 +2028,8 @@ async function addCoverText(
 }
 
 
-
 /* =================================================
-   Canvas
+   Canvas helpers
 ================================================= */
 
 function roundRect(
@@ -1746,15 +2043,18 @@ function roundRect(
 
     ctx.beginPath();
 
+
     ctx.moveTo(
         x+radius,
         y
     );
 
+
     ctx.lineTo(
         x+width-radius,
         y
     );
+
 
     ctx.quadraticCurveTo(
         x+width,
@@ -1763,10 +2063,12 @@ function roundRect(
         y+radius
     );
 
+
     ctx.lineTo(
         x+width,
         y+height-radius
     );
+
 
     ctx.quadraticCurveTo(
         x+width,
@@ -1775,10 +2077,12 @@ function roundRect(
         y+height
     );
 
+
     ctx.lineTo(
         x+radius,
         y+height
     );
+
 
     ctx.quadraticCurveTo(
         x,
@@ -1787,10 +2091,12 @@ function roundRect(
         y+height-radius
     );
 
+
     ctx.lineTo(
         x,
         y+radius
     );
+
 
     ctx.quadraticCurveTo(
         x,
@@ -1798,10 +2104,10 @@ function roundRect(
         x+radius,
         y
     );
+
 
     ctx.closePath();
 }
-
 
 
 function wrapText(
@@ -1859,7 +2165,9 @@ function wrapText(
 
             line =
                 test;
+
         }
+
     }
 
 
@@ -1868,6 +2176,7 @@ function wrapText(
         lines.push(
             line.trim()
         );
+
     }
 
 
@@ -1879,10 +2188,7 @@ function wrapText(
 
 
     lines.forEach(
-        (
-            lineText,
-            i
-        )=>{
+        (lineText,i)=>{
 
             ctx.fillText(
                 lineText,
@@ -1894,7 +2200,6 @@ function wrapText(
         }
     );
 }
-
 
 
 /* =================================================
@@ -1909,14 +2214,12 @@ function renderResults(){
         );
 
 
-    grid.innerHTML = "";
+    grid.innerHTML =
+        "";
 
 
     generatedImages.forEach(
-        (
-            image,
-            index
-        )=>{
+        (image,index)=>{
 
             const card =
                 document.createElement(
@@ -1955,9 +2258,14 @@ function renderResults(){
 
             info.textContent =
                 index===0
-                ? "⭐ หน้าปกสินค้า — มีข้อความโฆษณา"
-                : "🖼️ รูปเพิ่มเติม "+index;
+                ? "⭐ หน้าปกสินค้า — กดรูปเพื่อดูใหญ่"
+                : "🖼️ รูปเพิ่มเติม "+index+
+                  " — กดรูปเพื่อดูใหญ่";
 
+
+            /*
+            ปุ่มเดิม
+            */
 
             const save =
                 document.createElement(
@@ -1970,13 +2278,15 @@ function renderResults(){
 
 
             save.textContent =
-                "📱 เปิดรูปเพื่อบันทึก";
+                "⬇️ บันทึกรูป";
 
 
             save.onclick =
-                function(){
+                function(event){
 
-                    saveImage(
+                    event.stopPropagation();
+
+                    openImageModal(
                         image.src,
                         index
                     );
@@ -2006,6 +2316,21 @@ function renderResults(){
             );
 
 
+            /*
+            กดทั้งการ์ดเพื่อดูรูปใหญ่
+            */
+
+            card.onclick =
+                function(){
+
+                    openImageModal(
+                        image.src,
+                        index
+                    );
+
+                };
+
+
             grid.appendChild(
                 card
             );
@@ -2015,137 +2340,271 @@ function renderResults(){
 }
 
 
-
 /* =================================================
-   บันทึกรูปสำหรับ iPhone
+   เปิดรูปใหญ่
 ================================================= */
 
-function saveImage(
+function openImageModal(
     src,
-    index
+    index=0
 ){
 
-    const newWindow =
-        window.open();
+    currentModalImage = {
+        src:src,
+        index:index
+    };
 
 
-    if(!newWindow){
+    document.getElementById(
+        "modalImage"
+    ).src =
+        src;
 
-        alert(
-            "กรุณาอนุญาตให้เว็บไซต์เปิดหน้าต่างใหม่ก่อนครับ"
-        );
+
+    document.getElementById(
+        "imageModal"
+    ).classList.add(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+}
+
+
+/* =================================================
+   ปิด Modal
+================================================= */
+
+function closeImageModal(
+    event
+){
+
+    if(
+        event &&
+        event.target &&
+        event.target.id !==
+        "imageModal"
+    ){
 
         return;
+
     }
 
 
-    newWindow.document.write(`
+    document.getElementById(
+        "imageModal"
+    ).classList.remove(
+        "show"
+    );
 
-<!DOCTYPE html>
 
-<html>
-
-<head>
-
-<meta
-name="viewport"
-content="width=device-width,initial-scale=1.0"
->
-
-<title>
-LUY MOTOR
-</title>
-
-<style>
-
-body{
-
-    margin:0;
-
-    background:#000;
-
-    color:#fff;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    min-height:100vh;
-
-    font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
-
+    document.body.style.overflow =
+        "";
 }
 
-img{
 
-    max-width:96%;
+/* =================================================
+   บันทึกรูปบน iPhone
+================================================= */
 
-    max-height:82vh;
+async function saveModalImage(
+    event
+){
 
-    object-fit:contain;
+    if(event){
 
+        event.stopPropagation();
+
+    }
+
+
+    if(
+        !currentModalImage ||
+        !currentModalImage.src
+    ){
+
+        return;
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "modalSaveButton"
+        );
+
+
+    const originalText =
+        button.textContent;
+
+
+    try{
+
+        button.disabled =
+            true;
+
+
+        button.textContent =
+            "⏳ กำลังเตรียมรูป...";
+
+
+        const response =
+            await fetch(
+                currentModalImage.src
+            );
+
+
+        const blob =
+            await response.blob();
+
+
+        const file =
+            new File(
+                [blob],
+                currentModalImage.index === 0
+                    ? "LUYMOTOR_COVER.jpg"
+                    : "LUYMOTOR_IMAGE_"+
+                      currentModalImage.index+
+                      ".jpg",
+                {
+                    type:
+                        "image/jpeg"
+                }
+            );
+
+
+        /*
+        iPhone / Safari
+        เปิด Share Sheet
+        */
+
+        if(
+            navigator.share &&
+            navigator.canShare &&
+            navigator.canShare({
+                files:[file]
+            })
+        ){
+
+            button.textContent =
+                "📤 กำลังเปิดเมนูบันทึก...";
+
+
+            await navigator.share({
+
+                files:[file],
+
+                title:
+                    "LUY MOTOR",
+
+                text:
+                    "รูปสินค้าจาก LUY MOTOR"
+
+            });
+
+
+            button.textContent =
+                originalText;
+
+
+            return;
+
+        }
+
+
+        /*
+        ถ้า Browser ไม่รองรับ Share
+        ให้ดาวน์โหลดแทน
+        */
+
+        const url =
+            URL.createObjectURL(
+                blob
+            );
+
+
+        const link =
+            document.createElement(
+                "a"
+            );
+
+
+        link.href =
+            url;
+
+
+        link.download =
+            file.name;
+
+
+        document.body.appendChild(
+            link
+        );
+
+
+        link.click();
+
+
+        link.remove();
+
+
+        setTimeout(
+            function(){
+
+                URL.revokeObjectURL(
+                    url
+                );
+
+            },
+            1000
+        );
+
+
+        alert(
+            "บันทึกรูปแล้วครับ หาก iPhone ยังไม่เข้าแกลเลอรี่ ให้เปิดไฟล์ที่ดาวน์โหลดแล้วกดแชร์ → บันทึกรูปภาพ"
+        );
+
+
+    }catch(error){
+
+        /*
+        กดปิด Share Sheet
+        ไม่ต้องแจ้ง Error
+        */
+
+        if(
+            error &&
+            error.name ===
+            "AbortError"
+        ){
+
+            return;
+
+        }
+
+
+        console.error(
+            error
+        );
+
+
+        alert(
+            "ไม่สามารถบันทึกรูปได้ กรุณาลองกดอีกครั้งครับ"
+        );
+
+    }finally{
+
+        button.disabled =
+            false;
+
+
+        button.textContent =
+            originalText;
+
+    }
 }
-
-.text{
-
-    padding:15px;
-
-    text-align:center;
-
-    color:#aaa;
-
-    font-size:14px;
-
-    line-height:1.6;
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<img
-src="${src}"
->
-
-<div class="text">
-
-📱 วิธีบันทึกบน iPhone
-
-<br>
-
-<b>
-กดค้างที่รูป
-</b>
-
-<br>
-
-แล้วเลือก
-<b>
-“บันทึกไปยังรูปภาพ”
-</b>
-
-</div>
-
-</body>
-
-</html>
-
-`);
-
-
-    newWindow.document.close();
-}
-
 
 
 /* =================================================
@@ -2179,13 +2638,13 @@ async function copyDescription(){
         alert(
             "กดค้างที่ข้อความเพื่อคัดลอกครับ"
         );
+
     }
 }
 
 
-
 /* =================================================
-   เริ่มสร้าง
+   เริ่มทำงาน
 ================================================= */
 
 async function startGenerate(){
@@ -2226,7 +2685,7 @@ async function startGenerate(){
 
     if(
         images.some(
-            x=>!x
+            x => !x
         )
     ){
 
@@ -2300,23 +2759,40 @@ async function startGenerate(){
 
     try{
 
-
-        /* ======================
-           1 วิเคราะห์
-        ====================== */
+        /*
+        1
+        เตรียมรูป
+        */
 
         setStatus(
-            "1/"+
-            (imageCount+2)+
-            " กำลังให้ AI วิเคราะห์สินค้า..."
+            "กำลังเตรียมรูปสินค้า..."
+        );
+
+
+        const preparedImages =
+            await prepareImages();
+
+
+        /*
+        2
+        วิเคราะห์สินค้า
+        */
+
+        setStatus(
+            "กำลังให้ AI วิเคราะห์สินค้า..."
         );
 
 
         const plan =
             await analyzeProduct(
-                apiKey
+                apiKey,
+                preparedImages
             );
 
+
+        /*
+        คำบรรยาย
+        */
 
         document.getElementById(
             "resultDescription"
@@ -2324,6 +2800,10 @@ async function startGenerate(){
             plan.description ||
             "";
 
+
+        /*
+        prompts
+        */
 
         const prompts = [
 
@@ -2334,19 +2814,24 @@ async function startGenerate(){
         ];
 
 
+        /*
+        จำนวนที่เลือก
+        */
+
         const selected =
             prompts.slice(
                 0,
-                imageCount
+                selectedImageCount
             );
 
 
-        generatedImages = [];
+        generatedImages =
+            [];
 
 
-        /* ======================
-           สร้างรูป
-        ====================== */
+        /*
+        สร้างเฉพาะจำนวนที่เลือก
+        */
 
         for(
             let i=0;
@@ -2358,7 +2843,7 @@ async function startGenerate(){
                 "กำลังสร้างภาพ "+
                 (i+1)+
                 " / "+
-                imageCount+
+                selected.length+
                 " ..."
             );
 
@@ -2379,13 +2864,11 @@ Do not invent specifications.
 
 Do not invent sizes.
 
-Do not invent prices.
-
 Do not add fake logos.
 
-Do not turn the product into another product.
+Do not alter the product into another product.
 
-Make the real product the main subject.
+Make the product the main subject.
 
 Professional e-commerce photography.
 
@@ -2403,7 +2886,8 @@ Suitable for online product selling.
                     apiKey,
                     selected[i]+extra,
                     quality,
-                    i===0
+                    i===0,
+                    preparedImages
                 );
 
 
@@ -2412,42 +2896,41 @@ Suitable for online product selling.
             );
 
 
-            /* ======================
-               หน้าปก
-            ====================== */
+            /*
+            ถ้าเป็นรูปแรก
+            ใส่ข้อความโฆษณา
+            */
 
             if(i===0){
 
                 setStatus(
-                    "กำลังจัดทำหน้าปก..."
+                    "กำลังจัดทำหน้าปกและใส่ข้อความโฆษณา..."
                 );
 
 
                 const cover =
                     await addCoverText(
                         result.src,
-
                         plan.cover_headline ||
-                        name,
-
+                            name,
                         plan.cover_subheadline ||
-                        "",
-
+                            "",
                         plan.cover_badge ||
-                        ""
+                            ""
                     );
 
 
                 generatedImages[0].src =
                     cover;
+
             }
 
         }
 
 
-        /* ======================
-           แสดงผล
-        ====================== */
+        /*
+        จัดเตรียมผลงาน
+        */
 
         setStatus(
             "กำลังจัดเตรียมผลงาน..."
@@ -2497,17 +2980,15 @@ Suitable for online product selling.
 }
 
 
-
 /* =================================================
    เริ่มต้น
 ================================================= */
 
-setImageCount(4);
+selectImageCount(2);
 
 updatePrice();
 
 </script>
 
 </body>
-
 </html>
