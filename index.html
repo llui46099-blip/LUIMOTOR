@@ -255,7 +255,6 @@ select{
     border:1px solid #2a2a2f;
     border-radius:15px;
     overflow:hidden;
-    cursor:pointer;
 }
 
 .image-card.cover{
@@ -277,12 +276,18 @@ select{
 
 .save-button{
     margin-top:8px;
+    width:100%;
     background:#222;
     color:#fff;
     border:1px solid #444;
     border-radius:9px;
-    padding:9px 12px;
+    padding:11px 12px;
+    font-size:14px;
     cursor:pointer;
+}
+
+.save-button:active{
+    background:#333;
 }
 
 .copy-button{
@@ -291,7 +296,6 @@ select{
     border:1px solid #444;
     border-radius:9px;
     padding:9px 12px;
-    cursor:pointer;
 }
 
 .description-head{
@@ -320,30 +324,25 @@ select{
     line-height:1.5;
 }
 
-
-/* =================================================
-   เลือกจำนวนรูป
-================================================= */
-
-.image-count-buttons{
+.count-buttons{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:10px;
+    gap:9px;
     margin-top:14px;
 }
 
-.image-count-button{
-    border:1px solid #3a3a40;
+.count-button{
+    border:1px solid #444;
+    border-radius:14px;
     background:#0d0d0f;
     color:#aaa;
-    border-radius:13px;
     padding:14px 5px;
-    font-size:17px;
+    font-size:18px;
     font-weight:800;
     cursor:pointer;
 }
 
-.image-count-button.active{
+.count-button.active{
     background:#e60000;
     border-color:#e60000;
     color:#fff;
@@ -351,91 +350,9 @@ select{
 
 .selected-count{
     color:#e60000;
-    font-size:14px;
     font-weight:700;
-    margin-top:12px;
+    margin-top:10px;
 }
-
-
-/* =================================================
-   Modal ดูรูปใหญ่
-================================================= */
-
-.image-modal{
-    display:none;
-    position:fixed;
-    z-index:9999;
-    inset:0;
-    background:rgba(0,0,0,.94);
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-}
-
-.image-modal.show{
-    display:flex;
-}
-
-.modal-content{
-    width:100%;
-    max-width:720px;
-    max-height:95vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-}
-
-.modal-image{
-    max-width:100%;
-    max-height:78vh;
-    width:auto;
-    height:auto;
-    object-fit:contain;
-    border-radius:12px;
-    background:#fff;
-}
-
-.modal-buttons{
-    display:flex;
-    gap:10px;
-    width:100%;
-    margin-top:15px;
-}
-
-.modal-save{
-    flex:1;
-    border:0;
-    border-radius:13px;
-    padding:15px;
-    background:#e60000;
-    color:#fff;
-    font-size:16px;
-    font-weight:800;
-    cursor:pointer;
-}
-
-.modal-close{
-    width:55px;
-    border:1px solid #555;
-    border-radius:13px;
-    background:#222;
-    color:#fff;
-    font-size:22px;
-    cursor:pointer;
-}
-
-.modal-hint{
-    color:#aaa;
-    font-size:12px;
-    text-align:center;
-    margin-top:9px;
-    line-height:1.5;
-}
-
-
-/* =================================================
-   responsive
-================================================= */
 
 @media(max-width:520px){
 
@@ -450,16 +367,7 @@ select{
     .row{
         grid-template-columns:1fr;
     }
-
-    .image-count-buttons{
-        gap:7px;
-    }
-
-    .image-count-button{
-        padding:13px 3px;
-    }
 }
-
 </style>
 </head>
 
@@ -498,7 +406,7 @@ AI PRODUCT SELLER
 
 
 <!-- =================================================
-     1. รูปสินค้า
+     1 รูปสินค้า
 ================================================= -->
 
 <section class="box">
@@ -570,7 +478,7 @@ onchange="selectImage(this,2)"
 
 
 <!-- =================================================
-     2. ชื่อสินค้า
+     2 ชื่อสินค้า
 ================================================= -->
 
 <section class="box">
@@ -586,7 +494,7 @@ placeholder="เช่น น้ำมันเบรก VEL OIL HP BRAKE FLUID 
 
 
 <!-- =================================================
-     3. รายละเอียด
+     3 รายละเอียด
 ================================================= -->
 
 <section class="box">
@@ -602,7 +510,7 @@ placeholder="ใส่ข้อมูลที่พี่รู้ เช่น
 
 
 <!-- =================================================
-     4. คุณภาพ
+     4 คุณภาพรูป
 ================================================= -->
 
 <section class="box">
@@ -626,7 +534,7 @@ placeholder="ใส่ข้อมูลที่พี่รู้ เช่น
 </select>
 
 <div id="priceEstimate" class="price">
-ประมาณ 1 รูป × ราคาที่เลือก
+เลือกจำนวนรูปเพื่อดูจำนวนภาพที่จะสร้าง
 </div>
 
 <p class="small">
@@ -638,7 +546,7 @@ placeholder="ใส่ข้อมูลที่พี่รู้ เช่น
 
 
 <!-- =================================================
-     5. จำนวนรูป
+     5 จำนวนรูป
 ================================================= -->
 
 <section class="box">
@@ -650,11 +558,11 @@ placeholder="ใส่ข้อมูลที่พี่รู้ เช่น
 ส่วนรูปที่เหลือเป็นรูปสินค้าเพิ่มเติม
 </p>
 
-<div class="image-count-buttons">
+<div class="count-buttons">
 
 <button
 type="button"
-class="image-count-button"
+class="count-button"
 id="count1"
 onclick="selectImageCount(1)"
 >
@@ -663,7 +571,7 @@ onclick="selectImageCount(1)"
 
 <button
 type="button"
-class="image-count-button active"
+class="count-button active"
 id="count2"
 onclick="selectImageCount(2)"
 >
@@ -672,7 +580,7 @@ onclick="selectImageCount(2)"
 
 <button
 type="button"
-class="image-count-button"
+class="count-button"
 id="count3"
 onclick="selectImageCount(3)"
 >
@@ -681,7 +589,7 @@ onclick="selectImageCount(3)"
 
 <button
 type="button"
-class="image-count-button"
+class="count-button"
 id="count4"
 onclick="selectImageCount(4)"
 >
@@ -701,7 +609,7 @@ class="selected-count"
 
 
 <!-- =================================================
-     6. API
+     6 API
 ================================================= -->
 
 <section class="box">
@@ -722,7 +630,7 @@ API Key จะไม่ถูกเก็บลง localStorage โดยโค�
 <br><br>
 
 ⚠️ เวอร์ชัน GitHub Pages นี้เหมาะสำหรับใช้ส่วนตัว
-ถ้าจะเปิดให้คนอื่นใช้ ควรย้าย API Key ไป Backend
+ถ้าจะเปิดให้คนอื่นใช้ เราควรย้าย API Key ไป Backend
 เพื่อความปลอดภัย
 
 </div>
@@ -806,52 +714,6 @@ readonly
 </div>
 
 
-<!-- =================================================
-     MODAL ดูรูป
-================================================= -->
-
-<div
-id="imageModal"
-class="image-modal"
-onclick="closeImageModal(event)"
->
-
-<div class="modal-content">
-
-<img
-id="modalImage"
-class="modal-image"
->
-
-<div class="modal-buttons">
-
-<button
-id="modalSaveButton"
-class="modal-save"
-onclick="saveModalImage(event)"
->
-⬇️ บันทึกภาพ
-</button>
-
-<button
-class="modal-close"
-onclick="closeImageModal()"
->
-✕
-</button>
-
-</div>
-
-<div class="modal-hint">
-บน iPhone หากมีเมนูแชร์ ให้เลือก
-“บันทึกรูปภาพ” เพื่อเก็บเข้าแกลเลอรี่
-</div>
-
-</div>
-
-</div>
-
-
 <script>
 
 /* =================================================
@@ -871,23 +733,16 @@ let generatedImages = [];
 
 let selectedImageCount = 2;
 
-let currentModalImage = null;
-
 
 /* =================================================
-   จำนวนรูป
+   เลือกจำนวนรูป
 ================================================= */
 
 function selectImageCount(count){
 
     selectedImageCount = count;
 
-
-    for(
-        let i=1;
-        i<=4;
-        i++
-    ){
+    for(let i=1;i<=4;i++){
 
         const button =
             document.getElementById(
@@ -905,6 +760,7 @@ function selectImageCount(count){
             button.classList.remove(
                 "active"
             );
+
         }
     }
 
@@ -989,209 +845,6 @@ function selectImage(input,index){
 
 
 /* =================================================
-   แปลงรูปเป็น JPEG
-   แก้ปัญหา HEIC / HEIF / PNG บางชนิด
-================================================= */
-
-async function normalizeImageDataURL(
-    dataURL,
-    index
-){
-
-    return new Promise(
-        (resolve,reject)=>{
-
-            const img =
-                new Image();
-
-
-            img.onload =
-                function(){
-
-                    try{
-
-                        const maxSize =
-                            2048;
-
-
-                        let width =
-                            img.naturalWidth;
-
-
-                        let height =
-                            img.naturalHeight;
-
-
-                        if(
-                            width > maxSize ||
-                            height > maxSize
-                        ){
-
-                            const ratio =
-                                Math.min(
-                                    maxSize /
-                                    width,
-
-                                    maxSize /
-                                    height
-                                );
-
-
-                            width =
-                                Math.round(
-                                    width *
-                                    ratio
-                                );
-
-
-                            height =
-                                Math.round(
-                                    height *
-                                    ratio
-                                );
-                        }
-
-
-                        const canvas =
-                            document.createElement(
-                                "canvas"
-                            );
-
-
-                        canvas.width =
-                            width;
-
-                        canvas.height =
-                            height;
-
-
-                        const ctx =
-                            canvas.getContext(
-                                "2d"
-                            );
-
-
-                        /*
-                        พื้นหลังขาว
-                        เพื่อไม่ให้ PNG โปร่งใส
-                        มีปัญหา
-                        */
-
-                        ctx.fillStyle =
-                            "#ffffff";
-
-
-                        ctx.fillRect(
-                            0,
-                            0,
-                            width,
-                            height
-                        );
-
-
-                        ctx.drawImage(
-                            img,
-                            0,
-                            0,
-                            width,
-                            height
-                        );
-
-
-                        const jpeg =
-                            canvas.toDataURL(
-                                "image/jpeg",
-                                0.90
-                            );
-
-
-                        resolve(jpeg);
-
-                    }catch(error){
-
-                        reject(
-                            new Error(
-                                "ไม่สามารถแปลงรูปสินค้า "+
-                                (index+1)+
-                                " เป็น JPEG ได้"
-                            )
-                        );
-                    }
-
-                };
-
-
-            img.onerror =
-                function(){
-
-                    reject(
-                        new Error(
-                            "iPhone ไม่สามารถอ่านรูปสินค้า "+
-                            (index+1)+
-                            " ได้ กรุณาลองเลือกรูป JPG หรือ PNG"
-                        )
-                    );
-
-                };
-
-
-            img.src =
-                dataURL;
-
-        }
-    );
-}
-
-
-/* =================================================
-   เตรียมรูปทั้งหมด
-================================================= */
-
-async function prepareImages(){
-
-    const prepared = [];
-
-
-    for(
-        let i=0;
-        i<images.length;
-        i++
-    ){
-
-        if(!images[i]){
-
-            throw new Error(
-                "ไม่พบรูปสินค้า "+
-                (i+1)
-            );
-        }
-
-
-        setStatus(
-            "กำลังเตรียมรูปสินค้า "+
-            (i+1)+
-            " / 3 ..."
-        );
-
-
-        const jpeg =
-            await normalizeImageDataURL(
-                images[i],
-                i
-            );
-
-
-        prepared.push(
-            jpeg
-        );
-    }
-
-
-    return prepared;
-}
-
-
-/* =================================================
    ราคาโดยประมาณ
 ================================================= */
 
@@ -1203,26 +856,22 @@ function updatePrice(){
         ).value;
 
 
-    let qualityText = "";
+    let mode = "";
 
 
-    if(
-        quality === "low"
-    ){
+    if(quality === "low"){
 
-        qualityText =
+        mode =
             "🟢 โหมดประหยัด";
 
-    }else if(
-        quality === "high"
-    ){
+    }else if(quality === "high"){
 
-        qualityText =
+        mode =
             "🔴 โหมดสูง";
 
     }else{
 
-        qualityText =
+        mode =
             "🟡 โหมดปกติ";
 
     }
@@ -1231,8 +880,8 @@ function updatePrice(){
     document.getElementById(
         "priceEstimate"
     ).textContent =
-        qualityText+
-        " — "+
+        mode+
+        " — สร้าง "+
         selectedImageCount+
         " รูป";
 }
@@ -1268,14 +917,11 @@ async function callResponses(
                 method:"POST",
 
                 headers:{
-
                     "Content-Type":
                         "application/json",
 
                     "Authorization":
-                        "Bearer "+
-                        apiKey
-
+                        "Bearer "+apiKey
                 },
 
                 body:JSON.stringify({
@@ -1309,6 +955,7 @@ async function callResponses(
         throw new Error(
             "OpenAI ส่งข้อมูลกลับมาไม่ใช่ JSON"
         );
+
     }
 
 
@@ -1344,11 +991,7 @@ function getOutputText(data){
     let text = "";
 
 
-    if(
-        Array.isArray(
-            data.output
-        )
-    ){
+    if(Array.isArray(data.output)){
 
         for(
             const item of data.output
@@ -1356,9 +999,7 @@ function getOutputText(data){
 
             if(
                 item.type === "message" &&
-                Array.isArray(
-                    item.content
-                )
+                Array.isArray(item.content)
             ){
 
                 for(
@@ -1371,17 +1012,12 @@ function getOutputText(data){
                     ){
 
                         text +=
-                            part.text ||
-                            "";
+                            part.text || "";
 
                     }
-
                 }
-
             }
-
         }
-
     }
 
 
@@ -1393,10 +1029,7 @@ function getOutputText(data){
    วิเคราะห์สินค้า
 ================================================= */
 
-async function analyzeProduct(
-    apiKey,
-    preparedImages
-){
+async function analyzeProduct(apiKey){
 
     const name =
         document.getElementById(
@@ -1441,6 +1074,7 @@ async function analyzeProduct(
 10. คำบรรยายประมาณ 250 คำ
 11. เขียนให้น่าสนใจสำหรับการขายออนไลน์
 12. หลีกเลี่ยงคำโฆษณาที่เกินจริง
+13. ต้องรักษาข้อมูลสินค้าจริงจากรูปอ้างอิง
 
 ต้องตอบกลับเป็น JSON เท่านั้น
 
@@ -1475,6 +1109,12 @@ cover_badge
 "ของแท้"
 "พร้อมส่ง"
 
+cover_prompt
+คือคำสั่งสร้างภาพหน้าปกสินค้า
+
+detail_prompts
+คือคำสั่งสร้างภาพสินค้าเพิ่มเติม
+
 ห้ามสร้างข้อมูลที่ไม่มีหลักฐาน
 
 ชื่อสินค้า:
@@ -1490,7 +1130,7 @@ ${description}
 
 
     for(
-        const image of preparedImages
+        const image of images
     ){
 
         content.push({
@@ -1533,22 +1173,14 @@ ${description}
 
     output =
         output
-        .replace(
-            /```json/gi,
-            ""
-        )
-        .replace(
-            /```/g,
-            ""
-        )
+        .replace(/```json/gi,"")
+        .replace(/```/g,"")
         .trim();
 
 
     try{
 
-        return JSON.parse(
-            output
-        );
+        return JSON.parse(output);
 
     }catch{
 
@@ -1591,52 +1223,134 @@ ${description}
 
 
 /* =================================================
-   Data URL -> Blob
+   แปลง Data URL เป็น JPEG Blob
+   แก้ปัญหา HEIC / รูป iPhone บางชนิด
 ================================================= */
 
-function dataURLtoBlob(
+async function imageDataToJpegBlob(
     dataURL
 ){
 
-    const parts =
-        dataURL.split(",");
+    return new Promise(
+        (resolve,reject)=>{
+
+            const img =
+                new Image();
 
 
-    const mime =
-        (
-            parts[0].match(
-                /data:(.*?);base64/
-            ) || []
-        )[1] ||
-        "image/jpeg";
+            img.onload =
+                function(){
+
+                    const canvas =
+                        document.createElement(
+                            "canvas"
+                        );
 
 
-    const binary =
-        atob(parts[1]);
+                    let width =
+                        img.naturalWidth;
 
 
-    const array =
-        new Uint8Array(
-            binary.length
-        );
+                    let height =
+                        img.naturalHeight;
 
 
-    for(
-        let i=0;
-        i<binary.length;
-        i++
-    ){
+                    /*
+                    จำกัดขนาดเพื่อไม่ให้ไฟล์ใหญ่เกินไป
+                    */
 
-        array[i] =
-            binary.charCodeAt(i);
-
-    }
+                    const maxSize = 2048;
 
 
-    return new Blob(
-        [array],
-        {
-            type:mime
+                    if(
+                        width > maxSize ||
+                        height > maxSize
+                    ){
+
+                        const ratio =
+                            Math.min(
+                                maxSize/width,
+                                maxSize/height
+                            );
+
+
+                        width =
+                            Math.floor(
+                                width*ratio
+                            );
+
+
+                        height =
+                            Math.floor(
+                                height*ratio
+                            );
+
+                    }
+
+
+                    canvas.width =
+                        width;
+
+
+                    canvas.height =
+                        height;
+
+
+                    const ctx =
+                        canvas.getContext(
+                            "2d"
+                        );
+
+
+                    ctx.drawImage(
+                        img,
+                        0,
+                        0,
+                        width,
+                        height
+                    );
+
+
+                    canvas.toBlob(
+                        function(blob){
+
+                            if(!blob){
+
+                                reject(
+                                    new Error(
+                                        "ไม่สามารถแปลงรูปเป็น JPEG ได้"
+                                    )
+                                );
+
+                                return;
+                            }
+
+
+                            resolve(blob);
+
+                        },
+                        "image/jpeg",
+                        0.92
+                    );
+
+                };
+
+
+            img.onerror =
+                function(){
+
+                    reject(
+                        new Error(
+                            "ไม่สามารถอ่านรูปสินค้าได้"
+                        )
+                    );
+
+                };
+
+
+            img.src =
+                dataURL;
+
         }
     );
 }
@@ -1650,8 +1364,7 @@ async function generateImage(
     apiKey,
     prompt,
     quality,
-    portrait=false,
-    preparedImages=[]
+    portrait=false
 ){
 
     const form =
@@ -1659,20 +1372,29 @@ async function generateImage(
 
 
     /*
-    ส่งรูป JPEG ที่เตรียมไว้แล้ว
+    ส่งรูปอ้างอิงทั้ง 3 รูป
+    โดยแปลงเป็น JPEG ก่อน
     */
 
-    preparedImages.forEach(
-        (image,index)=>{
+    for(
+        let index=0;
+        index<images.length;
+        index++
+    ){
 
-            form.append(
-                "image[]",
-                dataURLtoBlob(image),
-                "product-"+(index+1)+".jpg"
+        const blob =
+            await imageDataToJpegBlob(
+                images[index]
             );
 
-        }
-    );
+
+        form.append(
+            "image[]",
+            blob,
+            "product-"+(index+1)+".jpg"
+        );
+
+    }
 
 
     form.append(
@@ -1709,11 +1431,8 @@ async function generateImage(
                 method:"POST",
 
                 headers:{
-
                     "Authorization":
-                        "Bearer "+
-                        apiKey
-
+                        "Bearer "+apiKey
                 },
 
                 body:form
@@ -1777,7 +1496,6 @@ async function generateImage(
             b64
 
     };
-
 }
 
 
@@ -1870,6 +1588,10 @@ async function addCoverText(
                     );
 
 
+                    /*
+                    badge
+                    */
+
                     if(badge){
 
                         const badgeFont =
@@ -1890,13 +1612,11 @@ async function addCoverText(
                         const bw =
                             ctx.measureText(
                                 badge
-                            ).width+
-                            40;
+                            ).width+40;
 
 
                         const bh =
-                            badgeFont+
-                            24;
+                            badgeFont+24;
 
 
                         ctx.fillStyle =
@@ -1929,6 +1649,10 @@ async function addCoverText(
 
                     }
 
+
+                    /*
+                    headline
+                    */
 
                     const headlineFont =
                         Math.max(
@@ -1967,6 +1691,10 @@ async function addCoverText(
                         2
                     );
 
+
+                    /*
+                    subheadline
+                    */
 
                     if(subheadline){
 
@@ -2214,8 +1942,7 @@ function renderResults(){
         );
 
 
-    grid.innerHTML =
-        "";
+    grid.innerHTML = "";
 
 
     generatedImages.forEach(
@@ -2246,6 +1973,12 @@ function renderResults(){
                 image.src;
 
 
+            img.alt =
+                index===0
+                ? "หน้าปกสินค้า"
+                : "รูปสินค้าเพิ่มเติม";
+
+
             const info =
                 document.createElement(
                     "div"
@@ -2258,14 +1991,9 @@ function renderResults(){
 
             info.textContent =
                 index===0
-                ? "⭐ หน้าปกสินค้า — กดรูปเพื่อดูใหญ่"
-                : "🖼️ รูปเพิ่มเติม "+index+
-                  " — กดรูปเพื่อดูใหญ่";
+                ? "⭐ หน้าปกสินค้า — มีข้อความโฆษณา"
+                : "🖼️ รูปเพิ่มเติม "+index;
 
-
-            /*
-            ปุ่มเดิม
-            */
 
             const save =
                 document.createElement(
@@ -2278,15 +2006,13 @@ function renderResults(){
 
 
             save.textContent =
-                "⬇️ บันทึกรูป";
+                "📥 บันทึกภาพเข้าแกลเลอรี่";
 
 
             save.onclick =
-                function(event){
+                function(){
 
-                    event.stopPropagation();
-
-                    openImageModal(
+                    saveImage(
                         image.src,
                         index
                     );
@@ -2316,21 +2042,6 @@ function renderResults(){
             );
 
 
-            /*
-            กดทั้งการ์ดเพื่อดูรูปใหญ่
-            */
-
-            card.onclick =
-                function(){
-
-                    openImageModal(
-                        image.src,
-                        index
-                    );
-
-                };
-
-
             grid.appendChild(
                 card
             );
@@ -2341,185 +2052,84 @@ function renderResults(){
 
 
 /* =================================================
-   เปิดรูปใหญ่
+   บันทึกรูป
 ================================================= */
 
-function openImageModal(
+async function saveImage(
     src,
-    index=0
+    index
 ){
-
-    currentModalImage = {
-        src:src,
-        index:index
-    };
-
-
-    document.getElementById(
-        "modalImage"
-    ).src =
-        src;
-
-
-    document.getElementById(
-        "imageModal"
-    ).classList.add(
-        "show"
-    );
-
-
-    document.body.style.overflow =
-        "hidden";
-}
-
-
-/* =================================================
-   ปิด Modal
-================================================= */
-
-function closeImageModal(
-    event
-){
-
-    if(
-        event &&
-        event.target &&
-        event.target.id !==
-        "imageModal"
-    ){
-
-        return;
-
-    }
-
-
-    document.getElementById(
-        "imageModal"
-    ).classList.remove(
-        "show"
-    );
-
-
-    document.body.style.overflow =
-        "";
-}
-
-
-/* =================================================
-   บันทึกรูปบน iPhone
-================================================= */
-
-async function saveModalImage(
-    event
-){
-
-    if(event){
-
-        event.stopPropagation();
-
-    }
-
-
-    if(
-        !currentModalImage ||
-        !currentModalImage.src
-    ){
-
-        return;
-
-    }
-
-
-    const button =
-        document.getElementById(
-            "modalSaveButton"
-        );
-
-
-    const originalText =
-        button.textContent;
-
 
     try{
 
-        button.disabled =
-            true;
-
-
-        button.textContent =
-            "⏳ กำลังเตรียมรูป...";
-
+        /*
+        แปลง Data URL เป็น Blob
+        */
 
         const response =
-            await fetch(
-                currentModalImage.src
-            );
+            await fetch(src);
 
 
         const blob =
             await response.blob();
 
 
-        const file =
-            new File(
-                [blob],
-                currentModalImage.index === 0
-                    ? "LUYMOTOR_COVER.jpg"
-                    : "LUYMOTOR_IMAGE_"+
-                      currentModalImage.index+
-                      ".jpg",
-                {
-                    type:
-                        "image/jpeg"
-                }
-            );
+        /*
+        ตั้งชื่อไฟล์
+        */
+
+        const fileName =
+            index===0
+            ? "LUYMOTOR_COVER.jpg"
+            : "LUYMOTOR_IMAGE_"+
+              index+
+              ".jpg";
 
 
         /*
-        iPhone / Safari
-        เปิด Share Sheet
+        iPhone / iPad
+        ใช้ระบบ Share ของเครื่อง
         */
 
         if(
             navigator.share &&
-            navigator.canShare &&
-            navigator.canShare({
-                files:[file]
-            })
+            typeof File !== "undefined"
         ){
 
-            button.textContent =
-                "📤 กำลังเปิดเมนูบันทึก...";
+            const file =
+                new File(
+                    [blob],
+                    fileName,
+                    {
+                        type:"image/jpeg"
+                    }
+                );
 
 
-            await navigator.share({
+            if(
+                !navigator.canShare ||
+                navigator.canShare({
+                    files:[file]
+                })
+            ){
 
-                files:[file],
-
-                title:
-                    "LUY MOTOR",
-
-                text:
-                    "รูปสินค้าจาก LUY MOTOR"
-
-            });
-
-
-            button.textContent =
-                originalText;
+                await navigator.share({
+                    files:[file],
+                    title:"LUY MOTOR"
+                });
 
 
-            return;
-
+                return;
+            }
         }
 
 
         /*
-        ถ้า Browser ไม่รองรับ Share
-        ให้ดาวน์โหลดแทน
+        ถ้าอุปกรณ์ไม่รองรับ Share
+        ใช้วิธีดาวน์โหลด
         */
 
-        const url =
+        const blobUrl =
             URL.createObjectURL(
                 blob
             );
@@ -2532,11 +2142,11 @@ async function saveModalImage(
 
 
         link.href =
-            url;
+            blobUrl;
 
 
         link.download =
-            file.name;
+            fileName;
 
 
         document.body.appendChild(
@@ -2554,7 +2164,7 @@ async function saveModalImage(
             function(){
 
                 URL.revokeObjectURL(
-                    url
+                    blobUrl
                 );
 
             },
@@ -2562,47 +2172,40 @@ async function saveModalImage(
         );
 
 
-        alert(
-            "บันทึกรูปแล้วครับ หาก iPhone ยังไม่เข้าแกลเลอรี่ ให้เปิดไฟล์ที่ดาวน์โหลดแล้วกดแชร์ → บันทึกรูปภาพ"
-        );
-
-
     }catch(error){
 
         /*
-        กดปิด Share Sheet
-        ไม่ต้องแจ้ง Error
+        กรณีผู้ใช้กดยกเลิก Share
+        ไม่ต้องแจ้ง error
         */
 
         if(
-            error &&
             error.name ===
             "AbortError"
         ){
 
             return;
-
         }
 
 
-        console.error(
-            error
-        );
+        /*
+        เปิดรูปในแท็บใหม่เป็นทางเลือก
+        */
 
+        try{
 
-        alert(
-            "ไม่สามารถบันทึกรูปได้ กรุณาลองกดอีกครั้งครับ"
-        );
+            window.open(
+                src,
+                "_blank"
+            );
 
-    }finally{
+        }catch{
 
-        button.disabled =
-            false;
+            alert(
+                "ไม่สามารถบันทึกรูปได้ครับ"
+            );
 
-
-        button.textContent =
-            originalText;
-
+        }
     }
 }
 
@@ -2761,44 +2364,28 @@ async function startGenerate(){
 
         /*
         1
-        เตรียมรูป
         */
 
         setStatus(
-            "กำลังเตรียมรูปสินค้า..."
-        );
-
-
-        const preparedImages =
-            await prepareImages();
-
-
-        /*
-        2
-        วิเคราะห์สินค้า
-        */
-
-        setStatus(
-            "กำลังให้ AI วิเคราะห์สินค้า..."
+            "1/3 กำลังให้ AI วิเคราะห์สินค้า..."
         );
 
 
         const plan =
             await analyzeProduct(
-                apiKey,
-                preparedImages
+                apiKey
             );
 
 
         /*
-        คำบรรยาย
+        คำบรรยายสินค้า
+        ยังคงแสดงผลเหมือนเดิม
         */
 
         document.getElementById(
             "resultDescription"
         ).value =
-            plan.description ||
-            "";
+            plan.description || "";
 
 
         /*
@@ -2815,7 +2402,8 @@ async function startGenerate(){
 
 
         /*
-        จำนวนที่เลือก
+        จำนวนรูปตามที่เลือก
+        1-4 รูป
         */
 
         const selected =
@@ -2825,12 +2413,11 @@ async function startGenerate(){
             );
 
 
-        generatedImages =
-            [];
+        generatedImages = [];
 
 
         /*
-        สร้างเฉพาะจำนวนที่เลือก
+        สร้างภาพ
         */
 
         for(
@@ -2840,11 +2427,7 @@ async function startGenerate(){
         ){
 
             setStatus(
-                "กำลังสร้างภาพ "+
-                (i+1)+
-                " / "+
-                selected.length+
-                " ..."
+                `กำลังสร้างภาพ ${i+1} / ${selected.length} ...`
             );
 
 
@@ -2861,8 +2444,6 @@ Do not invent brand names.
 Do not invent model numbers.
 
 Do not invent specifications.
-
-Do not invent sizes.
 
 Do not add fake logos.
 
@@ -2886,8 +2467,7 @@ Suitable for online product selling.
                     apiKey,
                     selected[i]+extra,
                     quality,
-                    i===0,
-                    preparedImages
+                    i===0
                 );
 
 
@@ -2897,8 +2477,8 @@ Suitable for online product selling.
 
 
             /*
-            ถ้าเป็นรูปแรก
-            ใส่ข้อความโฆษณา
+            รูปแรก = หน้าปก
+            ใส่ข้อความโฆษณาด้วย Canvas
             */
 
             if(i===0){
@@ -2929,7 +2509,7 @@ Suitable for online product selling.
 
 
         /*
-        จัดเตรียมผลงาน
+        แสดงผลงาน
         */
 
         setStatus(
@@ -2968,9 +2548,7 @@ Suitable for online product selling.
             error.message;
 
 
-        console.error(
-            error
-        );
+        console.error(error);
 
     }
 
