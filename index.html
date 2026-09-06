@@ -489,12 +489,46 @@ placeholder="ใส่ข้อมูลที่พี่รู้ เช่น
 </select>
 
 <div id="priceEstimate" class="price">
-ประมาณ 5 รูป × ราคาปกติ
+ประมาณ 1 รูป × ราคาปกติ
 </div>
 
 <p class="small">
 ราคาจริงขึ้นกับการใช้ API และขนาดภาพ
 โปรแกรมนี้แสดงเพียงค่าประมาณ
+</p>
+
+</section>
+
+
+<!-- จำนวนรูป -->
+
+<section class="box">
+
+<h2>🖼️ 5. จำนวนรูปที่ต้องการ</h2>
+
+<select id="imageCount" onchange="updatePrice()">
+
+<option value="1">
+1 รูป — หน้าปกอย่างเดียว
+</option>
+
+<option value="2">
+2 รูป — หน้าปก + รูปเพิ่มเติม 1
+</option>
+
+<option value="3">
+3 รูป — หน้าปก + รูปเพิ่มเติม 2
+</option>
+
+<option value="4">
+4 รูป — หน้าปก + รูปเพิ่มเติม 3
+</option>
+
+</select>
+
+<p class="small">
+เลือกจำนวนรูปที่ต้องการสร้างได้ 1–4 รูป
+จำนวนรูปที่มากขึ้นจะมีค่าใช้จ่าย API เพิ่มขึ้นตามจำนวนการสร้าง
 </p>
 
 </section>
@@ -534,7 +568,7 @@ class="main-button"
 onclick="startGenerate()"
 >
 
-✨ สร้าง 5 รูป + คำบรรยาย
+✨ สร้าง 1 รูป + คำบรรยาย
 
 </button>
 
@@ -615,6 +649,8 @@ let images = [
 
 let generatedImages = [];
 
+let imageCount = 1;
+
 
 /* =================================================
    รูปสินค้า
@@ -671,22 +707,27 @@ function updatePrice(){
             "quality"
         ).value;
 
+    const count =
+        document.getElementById(
+            "imageCount"
+        ).value;
+
     let text = "";
 
     if(quality === "low"){
 
         text =
-        "🟢 โหมดประหยัด — ค่าใช้จ่ายต่ำสุด";
+        `🟢 โหมดประหยัด — ${count} รูป`;
 
     }else if(quality === "high"){
 
         text =
-        "🔴 โหมดสูง — ค่าใช้จ่ายสูงกว่า";
+        `🔴 โหมดสูง — ${count} รูป`;
 
     }else{
 
         text =
-        "🟡 โหมดปกติ — แนะนำสำหรับขายสินค้า";
+        `🟡 โหมดปกติ — ${count} รูป`;
 
     }
 
@@ -876,7 +917,7 @@ async function analyzeProduct(apiKey){
 7. ถ้าอ่านข้อมูลจากฉลากได้ ให้ใช้ข้อมูลนั้นอย่างระมัดระวัง
 8. ถ้าไม่แน่ใจ ให้ใช้ถ้อยคำกลาง ๆ
 9. ต้องใช้ภาษาไทย
-10. คำบรรยายประมาณ 500 คำ
+10. คำบรรยายประมาณ 250 คำ
 11. เขียนให้น่าสนใจสำหรับการขายออนไลน์
 12. หลีกเลี่ยงคำโฆษณาที่เกินจริง
 
@@ -1835,6 +1876,14 @@ async function startGenerate(){
         ).value;
 
 
+    const selectedImageCount =
+        parseInt(
+            document.getElementById(
+                "imageCount"
+            ).value
+        );
+
+
     if(!apiKey){
 
         alert(
@@ -1905,6 +1954,9 @@ async function startGenerate(){
 
     button.disabled = true;
 
+    button.textContent =
+        `✨ สร้าง ${selectedImageCount} รูป + คำบรรยาย`;
+
     loading.style.display =
         "block";
 
@@ -1958,7 +2010,7 @@ async function startGenerate(){
         const selected =
             prompts.slice(
                 0,
-                5
+                selectedImageCount
             );
 
 
@@ -1966,7 +2018,7 @@ async function startGenerate(){
 
 
         /*
-        2-6
+        สร้างภาพตามจำนวนที่เลือก
         */
 
         for(
@@ -2101,6 +2153,9 @@ Suitable for online product selling.
 
 
     button.disabled = false;
+
+    button.textContent =
+        `✨ สร้าง ${selectedImageCount} รูป + คำบรรยาย`;
 }
 
 
