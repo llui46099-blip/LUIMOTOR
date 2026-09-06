@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
 
 <title>LUY MOTOR AI SELLER</title>
 
 <style>
+
 *{
     box-sizing:border-box;
 }
@@ -15,8 +22,12 @@ body{
     margin:0;
     background:#09090b;
     color:#fff;
-    font-family:-apple-system,BlinkMacSystemFont,
-    "Segoe UI","Noto Sans Thai",sans-serif;
+    font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Noto Sans Thai",
+    sans-serif;
 }
 
 header{
@@ -298,23 +309,35 @@ select{
     gap:10px;
 }
 
-.cover-tools{
-    margin-top:12px;
-}
-
-.cover-tools button{
-    width:100%;
-    padding:12px;
-    border-radius:10px;
-    background:#222;
-    color:#fff;
-    border:1px solid #444;
-}
-
 .small{
     color:#777;
     font-size:12px;
     line-height:1.5;
+}
+
+.count-buttons{
+    display:grid;
+    grid-template-columns:
+    repeat(4,1fr);
+    gap:8px;
+    margin-top:12px;
+}
+
+.count-button{
+    padding:14px 5px;
+    border-radius:12px;
+    border:1px solid #3a3a40;
+    background:#0d0d0f;
+    color:#aaa;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.count-button.active{
+    background:#e60000;
+    border-color:#e60000;
+    color:#fff;
 }
 
 @media(max-width:520px){
@@ -330,8 +353,11 @@ select{
     .row{
         grid-template-columns:1fr;
     }
+
 }
+
 </style>
+
 </head>
 
 
@@ -352,6 +378,7 @@ AI PRODUCT SELLER
 
 <div class="container">
 
+
 <section class="hero">
 
 <h1>
@@ -361,14 +388,17 @@ AI PRODUCT SELLER
 
 <p>
 ใส่รูปสินค้า 3 รูป ชื่อสินค้า และรายละเอียดคร่าว ๆ
-จากนั้น AI จะช่วยทำรูปสินค้า หน้าปกพร้อมข้อความโฆษณา
+จากนั้น AI จะช่วยสร้างภาพสินค้า หน้าปกพร้อมข้อความโฆษณา
 และคำบรรยายสินค้า
 </p>
 
 </section>
 
 
-<!-- รูป -->
+
+<!-- =========================
+     1 รูปสินค้า
+========================= -->
 
 <section class="box">
 
@@ -380,6 +410,7 @@ AI PRODUCT SELLER
 
 <div class="photos">
 
+
 <label class="photo">
 
 <input
@@ -390,12 +421,18 @@ onchange="selectImage(this,0)"
 
 <img id="preview0">
 
-<div id="text0" class="photo-text">
+<div
+id="text0"
+class="photo-text"
+>
+
 <b>＋</b>
 รูปที่ 1
+
 </div>
 
 </label>
+
 
 
 <label class="photo">
@@ -408,12 +445,18 @@ onchange="selectImage(this,1)"
 
 <img id="preview1">
 
-<div id="text1" class="photo-text">
+<div
+id="text1"
+class="photo-text"
+>
+
 <b>＋</b>
 รูปที่ 2
+
 </div>
 
 </label>
+
 
 
 <label class="photo">
@@ -426,19 +469,28 @@ onchange="selectImage(this,2)"
 
 <img id="preview2">
 
-<div id="text2" class="photo-text">
+<div
+id="text2"
+class="photo-text"
+>
+
 <b>＋</b>
 รูปที่ 3
+
 </div>
 
 </label>
+
 
 </div>
 
 </section>
 
 
-<!-- ชื่อ -->
+
+<!-- =========================
+     2 ชื่อ
+========================= -->
 
 <section class="box">
 
@@ -452,7 +504,10 @@ placeholder="เช่น น้ำมันเบรก VEL OIL HP BRAKE FLUID 
 </section>
 
 
-<!-- รายละเอียด -->
+
+<!-- =========================
+     3 รายละเอียด
+========================= -->
 
 <section class="box">
 
@@ -466,13 +521,19 @@ placeholder="ใส่ข้อมูลที่พี่รู้ เช่น
 </section>
 
 
-<!-- คุณภาพ -->
+
+<!-- =========================
+     4 คุณภาพ
+========================= -->
 
 <section class="box">
 
 <h2>🎨 4. คุณภาพรูป</h2>
 
-<select id="quality" onchange="updatePrice()">
+<select
+id="quality"
+onchange="updatePrice()"
+>
 
 <option value="medium">
 🟡 ปกติ — แนะนำ
@@ -488,57 +549,88 @@ placeholder="ใส่ข้อมูลที่พี่รู้ เช่น
 
 </select>
 
-<div id="priceEstimate" class="price">
-ประมาณ 1 รูป × ราคาปกติ
+<div
+id="priceEstimate"
+class="price"
+>
+ประมาณตามจำนวนรูปที่เลือก
 </div>
 
 <p class="small">
-ราคาจริงขึ้นกับการใช้ API และขนาดภาพ
-โปรแกรมนี้แสดงเพียงค่าประมาณ
+ราคาจริงขึ้นกับ API และคุณภาพภาพที่เลือก
 </p>
 
 </section>
 
 
-<!-- จำนวนรูป -->
+
+<!-- =========================
+     5 จำนวนรูป
+========================= -->
 
 <section class="box">
 
-<h2>🖼️ 5. จำนวนรูปที่ต้องการ</h2>
+<h2>🖼️ 5. ต้องการสร้างกี่รูป?</h2>
 
-<select id="imageCount" onchange="updatePrice()">
-
-<option value="1">
-1 รูป — หน้าปกอย่างเดียว
-</option>
-
-<option value="2">
-2 รูป — หน้าปก + รูปเพิ่มเติม 1
-</option>
-
-<option value="3">
-3 รูป — หน้าปก + รูปเพิ่มเติม 2
-</option>
-
-<option value="4">
-4 รูป — หน้าปก + รูปเพิ่มเติม 3
-</option>
-
-</select>
-
-<p class="small">
-เลือกจำนวนรูปที่ต้องการสร้างได้ 1–4 รูป
-จำนวนรูปที่มากขึ้นจะมีค่าใช้จ่าย API เพิ่มขึ้นตามจำนวนการสร้าง
+<p class="hint">
+รูปแรกจะเป็นหน้าปกพร้อมข้อความโฆษณา
+ส่วนรูปที่เหลือเป็นรูปสินค้าเพิ่มเติม
 </p>
+
+<div class="count-buttons">
+
+<button
+class="count-button"
+id="count1"
+onclick="setImageCount(1)"
+>
+1 รูป
+</button>
+
+<button
+class="count-button"
+id="count2"
+onclick="setImageCount(2)"
+>
+2 รูป
+</button>
+
+<button
+class="count-button"
+id="count3"
+onclick="setImageCount(3)"
+>
+3 รูป
+</button>
+
+<button
+class="count-button active"
+id="count4"
+onclick="setImageCount(4)"
+>
+4 รูป
+</button>
+
+</div>
+
+<div
+id="countInfo"
+class="price"
+>
+เลือก 4 รูป
+</div>
 
 </section>
 
 
-<!-- API -->
+
+<!-- =========================
+     6 API KEY
+========================= -->
 
 <section class="box">
 
-<h2>🔑 5. OpenAI API Key</h2>
+<h2>🔑 6. OpenAI API Key</h2>
 
 <input
 id="apiKey"
@@ -554,12 +646,12 @@ API Key จะไม่ถูกเก็บลง localStorage โดยโค�
 <br><br>
 
 ⚠️ เวอร์ชัน GitHub Pages นี้เหมาะสำหรับใช้ส่วนตัว
-ถ้าจะเปิดให้คนอื่นใช้ เราควรย้าย API Key ไป Backend
-เพื่อความปลอดภัย
+ถ้าจะเปิดให้คนอื่นใช้ ควรย้าย API Key ไป Backend
 
 </div>
 
 </section>
+
 
 
 <button
@@ -568,41 +660,57 @@ class="main-button"
 onclick="startGenerate()"
 >
 
-✨ สร้าง 1 รูป + คำบรรยาย
+✨ สร้าง 4 รูป + คำบรรยาย
 
 </button>
 
 
-<!-- loading -->
 
-<div id="loading" class="loading">
+<div
+id="loading"
+class="loading"
+>
 
 <div class="spinner"></div>
 
-<div id="status" class="status">
+<div
+id="status"
+class="status"
+>
 กำลังเตรียมระบบ...
 </div>
 
 </div>
 
 
-<!-- error -->
 
-<div id="error" class="error"></div>
+<div
+id="error"
+class="error"
+></div>
 
 
-<!-- result -->
 
-<section id="results" class="results">
+<section
+id="results"
+class="results"
+>
 
 <h2 class="result-title">
 🎨 ผลงานที่สร้าง
 </h2>
 
-<div id="imageGrid" class="image-grid"></div>
+<div
+id="imageGrid"
+class="image-grid"
+></div>
 
 
-<section class="box" style="margin-top:15px">
+
+<section
+class="box"
+style="margin-top:15px"
+>
 
 <div class="description-head">
 
@@ -632,14 +740,20 @@ readonly
 </div>
 
 
+
 <script>
 
+
 /* =================================================
-   LUY MOTOR AI SELLER
+   ตั้งค่า
 ================================================= */
 
-const TEXT_MODEL = "gpt-5.6-luna";
-const IMAGE_MODEL = "gpt-image-2";
+const TEXT_MODEL =
+    "gpt-5.6-luna";
+
+const IMAGE_MODEL =
+    "gpt-image-2";
+
 
 let images = [
     null,
@@ -647,57 +761,145 @@ let images = [
     null
 ];
 
+
 let generatedImages = [];
 
-let imageCount = 1;
+
+/*
+จำนวนภาพเริ่มต้น
+*/
+
+let imageCount = 4;
+
+
+
+/* =================================================
+   เลือกจำนวนภาพ
+================================================= */
+
+function setImageCount(count){
+
+    imageCount = count;
+
+
+    for(
+        let i=1;
+        i<=4;
+        i++
+    ){
+
+        const button =
+            document.getElementById(
+                "count"+i
+            );
+
+        button.classList.remove(
+            "active"
+        );
+    }
+
+
+    document
+    .getElementById(
+        "count"+count
+    )
+    .classList.add(
+        "active"
+    );
+
+
+    document.getElementById(
+        "countInfo"
+    ).textContent =
+        "เลือก "+count+" รูป";
+
+
+    document.getElementById(
+        "generateButton"
+    ).textContent =
+        "✨ สร้าง "+
+        count+
+        " รูป + คำบรรยาย";
+
+
+    updatePrice();
+}
+
 
 
 /* =================================================
    รูปสินค้า
 ================================================= */
 
-function selectImage(input,index){
+function selectImage(
+    input,
+    index
+){
 
-    const file = input.files[0];
+    const file =
+        input.files[0];
+
 
     if(!file) return;
 
-    if(!file.type.startsWith("image/")){
 
-        alert("กรุณาเลือกไฟล์รูปภาพ");
+    if(
+        !file.type.startsWith(
+            "image/"
+        )
+    ){
+
+        alert(
+            "กรุณาเลือกไฟล์รูปภาพ"
+        );
 
         return;
     }
 
-    const reader = new FileReader();
 
-    reader.onload = function(e){
+    const reader =
+        new FileReader();
 
-        images[index] = e.target.result;
 
-        const preview =
-            document.getElementById(
-                "preview"+index
-            );
+    reader.onload =
+        function(e){
 
-        const text =
-            document.getElementById(
-                "text"+index
-            );
+            images[index] =
+                e.target.result;
 
-        preview.src = e.target.result;
 
-        preview.style.display = "block";
+            const preview =
+                document.getElementById(
+                    "preview"+index
+                );
 
-        text.style.display = "none";
-    };
+
+            const text =
+                document.getElementById(
+                    "text"+index
+                );
+
+
+            preview.src =
+                e.target.result;
+
+
+            preview.style.display =
+                "block";
+
+
+            text.style.display =
+                "none";
+        };
+
 
     reader.readAsDataURL(file);
 }
 
 
+
 /* =================================================
-   ราคาโดยประมาณ
+   ราคา
 ================================================= */
 
 function updatePrice(){
@@ -707,46 +909,54 @@ function updatePrice(){
             "quality"
         ).value;
 
-    const count =
-        document.getElementById(
-            "imageCount"
-        ).value;
 
-    let text = "";
+    let qualityText = "";
 
-    if(quality === "low"){
 
-        text =
-        `🟢 โหมดประหยัด — ${count} รูป`;
+    if(
+        quality === "low"
+    ){
 
-    }else if(quality === "high"){
+        qualityText =
+            "🟢 โหมดประหยัด";
 
-        text =
-        `🔴 โหมดสูง — ${count} รูป`;
+    }else if(
+        quality === "high"
+    ){
+
+        qualityText =
+            "🔴 โหมดสูง";
 
     }else{
 
-        text =
-        `🟡 โหมดปกติ — ${count} รูป`;
-
+        qualityText =
+            "🟡 โหมดปกติ — แนะนำ";
     }
+
 
     document.getElementById(
         "priceEstimate"
-    ).textContent = text;
+    ).textContent =
+        qualityText+
+        " — "+
+        imageCount+
+        " รูป";
 }
 
 
+
 /* =================================================
-   status
+   Status
 ================================================= */
 
 function setStatus(text){
 
     document.getElementById(
         "status"
-    ).textContent = text;
+    ).textContent =
+        text;
 }
+
 
 
 /* =================================================
@@ -770,7 +980,8 @@ async function callResponses(
                         "application/json",
 
                     "Authorization":
-                        "Bearer "+apiKey
+                        "Bearer "+
+                        apiKey
                 },
 
                 body:JSON.stringify({
@@ -793,6 +1004,7 @@ async function callResponses(
 
     let data;
 
+
     try{
 
         data =
@@ -812,7 +1024,6 @@ async function callResponses(
             data?.error?.message ||
             "Responses API Error"
         );
-
     }
 
 
@@ -820,8 +1031,9 @@ async function callResponses(
 }
 
 
+
 /* =================================================
-   ดึง output text
+   ดึงข้อความ
 ================================================= */
 
 function getOutputText(data){
@@ -838,19 +1050,28 @@ function getOutputText(data){
     let text = "";
 
 
-    if(Array.isArray(data.output)){
+    if(
+        Array.isArray(
+            data.output
+        )
+    ){
 
         for(
-            const item of data.output
+            const item
+            of data.output
         ){
 
             if(
-                item.type === "message" &&
-                Array.isArray(item.content)
+                item.type ===
+                "message" &&
+                Array.isArray(
+                    item.content
+                )
             ){
 
                 for(
-                    const part of item.content
+                    const part
+                    of item.content
                 ){
 
                     if(
@@ -859,7 +1080,8 @@ function getOutputText(data){
                     ){
 
                         text +=
-                            part.text || "";
+                            part.text ||
+                            "";
                     }
                 }
             }
@@ -871,11 +1093,14 @@ function getOutputText(data){
 }
 
 
+
 /* =================================================
    วิเคราะห์สินค้า
 ================================================= */
 
-async function analyzeProduct(apiKey){
+async function analyzeProduct(
+    apiKey
+){
 
     const name =
         document.getElementById(
@@ -898,12 +1123,14 @@ async function analyzeProduct(apiKey){
 
         text:`
 
-คุณคือผู้เชี่ยวชาญด้านการทำคอนเทนต์ขายสินค้าออนไลน์
-ของร้าน LUY MOTOR
+คุณคือผู้เชี่ยวชาญด้านการทำคอนเทนต์
+ขายสินค้าออนไลน์ของร้าน LUY MOTOR
 
-วิเคราะห์รูปสินค้า 3 รูปและข้อมูลจากผู้ใช้
+วิเคราะห์รูปสินค้า 3 รูป
+และข้อมูลจากผู้ใช้
 
-เป้าหมายคือทำสื่อขายสินค้าให้น่าสนใจ
+เป้าหมายคือสร้างสื่อขายสินค้า
+ที่ดูน่าสนใจและเป็นมืออาชีพ
 แต่ต้องรักษาความถูกต้องของสินค้า
 
 กฎสำคัญ:
@@ -914,12 +1141,13 @@ async function analyzeProduct(apiKey){
 4. ห้ามแต่งขนาด
 5. ห้ามแต่งราคา
 6. ห้ามอ้างคุณสมบัติที่ไม่มีหลักฐาน
-7. ถ้าอ่านข้อมูลจากฉลากได้ ให้ใช้ข้อมูลนั้นอย่างระมัดระวัง
-8. ถ้าไม่แน่ใจ ให้ใช้ถ้อยคำกลาง ๆ
-9. ต้องใช้ภาษาไทย
+7. ถ้าอ่านข้อมูลจากฉลากได้
+   ให้ใช้ข้อมูลอย่างระมัดระวัง
+8. ถ้าไม่แน่ใจให้ใช้ถ้อยคำกลาง ๆ
+9. ใช้ภาษาไทย
 10. คำบรรยายประมาณ 250 คำ
-11. เขียนให้น่าสนใจสำหรับการขายออนไลน์
-12. หลีกเลี่ยงคำโฆษณาที่เกินจริง
+11. เขียนให้น่าสนใจสำหรับขายออนไลน์
+12. หลีกเลี่ยงคำโฆษณาเกินจริง
 
 ต้องตอบกลับเป็น JSON เท่านั้น
 
@@ -935,26 +1163,25 @@ async function analyzeProduct(apiKey){
  "detail_prompts":[
    "",
    "",
-   "",
    ""
  ]
 }
 
-สำหรับหน้าปก:
-
 cover_headline
-คือข้อความสั้น ๆ ตัวใหญ่สำหรับใส่บนภาพ
+คือข้อความสั้น ๆ ตัวใหญ่
+สำหรับใส่บนหน้าปก
 
 cover_subheadline
 คือข้อความรอง
 
 cover_badge
-คือคำสั้น ๆ เช่น
-"DOT 3"
+คือคำสั้น ๆ
+เช่น "DOT 3"
 "ของแท้"
 "พร้อมส่ง"
 
-ห้ามสร้างข้อมูลที่ไม่มีหลักฐาน
+ห้ามสร้างข้อมูล
+ที่ไม่มีหลักฐาน
 
 ชื่อสินค้า:
 
@@ -969,7 +1196,8 @@ ${description}
 
 
     for(
-        const image of images
+        const image
+        of images
     ){
 
         content.push({
@@ -1010,20 +1238,24 @@ ${description}
 
     output =
         output
-        .replace(/```json/gi,"")
-        .replace(/```/g,"")
+        .replace(
+            /```json/gi,
+            ""
+        )
+        .replace(
+            /```/g,
+            ""
+        )
         .trim();
 
 
     try{
 
-        return JSON.parse(output);
+        return JSON.parse(
+            output
+        );
 
     }catch{
-
-        /*
-        fallback
-        */
 
         return {
 
@@ -1043,17 +1275,15 @@ ${description}
                 "พร้อมส่ง",
 
             cover_prompt:
-                "สร้างภาพสินค้าแบบสตูดิโอระดับมืออาชีพ โดยใช้สินค้าจริงจากภาพอ้างอิงเป็นพระเอกของภาพ พื้นหลังสวยสะอาด เหมาะสำหรับหน้าร้านออนไลน์",
+                "สร้างภาพสินค้าแบบสตูดิโอระดับมืออาชีพ โดยใช้สินค้าจริงจากภาพอ้างอิงเป็นพระเอกของภาพ พื้นหลังสะอาด สวย เหมาะสำหรับหน้าร้านออนไลน์",
 
             detail_prompts:[
 
-                "สร้างภาพสินค้าแบบสตูดิโออีกมุมหนึ่ง",
+                "สร้างภาพสินค้าอีกมุมหนึ่งแบบมืออาชีพ",
 
                 "สร้างภาพซูมรายละเอียดของสินค้าโดยรักษาของจริง",
 
-                "สร้างภาพสินค้าในบรรยากาศการใช้งานที่เหมาะสม",
-
-                "สร้างภาพสินค้าแบบโฆษณาระดับมืออาชีพ"
+                "สร้างภาพสินค้าในบรรยากาศการใช้งานที่เหมาะสม"
 
             ]
         };
@@ -1061,11 +1291,14 @@ ${description}
 }
 
 
+
 /* =================================================
    Data URL -> Blob
 ================================================= */
 
-function dataURLtoBlob(dataURL){
+function dataURLtoBlob(
+    dataURL
+){
 
     const parts =
         dataURL.split(",");
@@ -1110,8 +1343,9 @@ function dataURLtoBlob(dataURL){
 }
 
 
+
 /* =================================================
-   สร้างภาพด้วย GPT Image
+   สร้างภาพ
 ================================================= */
 
 async function generateImage(
@@ -1125,17 +1359,20 @@ async function generateImage(
         new FormData();
 
 
-    /*
-    ส่งรูปอ้างอิงทั้ง 3 รูป
-    */
-
     images.forEach(
-        (image,index)=>{
+        (
+            image,
+            index
+        )=>{
 
             form.append(
                 "image[]",
-                dataURLtoBlob(image),
-                "product-"+(index+1)+".jpg"
+                dataURLtoBlob(
+                    image
+                ),
+                "product-"+
+                (index+1)+
+                ".jpg"
             );
 
         }
@@ -1160,15 +1397,11 @@ async function generateImage(
     );
 
 
-    /*
-    ปกเป็นแนวตั้ง
-    */
-
     form.append(
         "size",
         portrait
-            ? "1024x1536"
-            : "1024x1024"
+        ? "1024x1536"
+        : "1024x1024"
     );
 
 
@@ -1181,7 +1414,8 @@ async function generateImage(
 
                 headers:{
                     "Authorization":
-                        "Bearer "+apiKey
+                        "Bearer "+
+                        apiKey
                 },
 
                 body:form
@@ -1195,6 +1429,7 @@ async function generateImage(
 
 
     let data;
+
 
     try{
 
@@ -1231,6 +1466,7 @@ async function generateImage(
 
 
     return {
+
         src:
             "data:image/png;base64,"+
             b64,
@@ -1238,12 +1474,14 @@ async function generateImage(
         original:
             "data:image/png;base64,"+
             b64
+
     };
 }
 
 
+
 /* =================================================
-   ใส่ข้อความบนหน้าปกด้วย Canvas
+   ใส่ข้อความหน้าปก
 ================================================= */
 
 async function addCoverText(
@@ -1254,7 +1492,10 @@ async function addCoverText(
 ){
 
     return new Promise(
-        (resolve,reject)=>{
+        (
+            resolve,
+            reject
+        )=>{
 
             const img =
                 new Image();
@@ -1272,6 +1513,7 @@ async function addCoverText(
                     canvas.width =
                         img.naturalWidth;
 
+
                     canvas.height =
                         img.naturalHeight;
 
@@ -1288,10 +1530,6 @@ async function addCoverText(
                         0
                     );
 
-
-                    /*
-                    พื้นที่ด้านบน
-                    */
 
                     const h =
                         canvas.height;
@@ -1334,10 +1572,6 @@ async function addCoverText(
                     );
 
 
-                    /*
-                    badge
-                    */
-
                     if(badge){
 
                         const badgeFont =
@@ -1358,11 +1592,13 @@ async function addCoverText(
                         const bw =
                             ctx.measureText(
                                 badge
-                            ).width+40;
+                            ).width+
+                            40;
 
 
                         const bh =
-                            badgeFont+24;
+                            badgeFont+
+                            24;
 
 
                         ctx.fillStyle =
@@ -1394,10 +1630,6 @@ async function addCoverText(
                         );
                     }
 
-
-                    /*
-                    headline
-                    */
 
                     const headlineFont =
                         Math.max(
@@ -1437,11 +1669,9 @@ async function addCoverText(
                     );
 
 
-                    /*
-                    subheadline
-                    */
-
-                    if(subheadline){
+                    if(
+                        subheadline
+                    ){
 
                         const subFont =
                             Math.max(
@@ -1474,7 +1704,8 @@ async function addCoverText(
                     }
 
 
-                    ctx.shadowBlur = 0;
+                    ctx.shadowBlur =
+                        0;
 
 
                     resolve(
@@ -1493,13 +1724,15 @@ async function addCoverText(
 
             img.src =
                 imageSrc;
+
         }
     );
 }
 
 
+
 /* =================================================
-   Canvas helpers
+   Canvas
 ================================================= */
 
 function roundRect(
@@ -1570,6 +1803,7 @@ function roundRect(
 }
 
 
+
 function wrapText(
     ctx,
     text,
@@ -1617,6 +1851,7 @@ function wrapText(
                 line.trim()
             );
 
+
             line =
                 words[n]+" ";
 
@@ -1644,7 +1879,10 @@ function wrapText(
 
 
     lines.forEach(
-        (lineText,i)=>{
+        (
+            lineText,
+            i
+        )=>{
 
             ctx.fillText(
                 lineText,
@@ -1656,6 +1894,7 @@ function wrapText(
         }
     );
 }
+
 
 
 /* =================================================
@@ -1674,7 +1913,10 @@ function renderResults(){
 
 
     generatedImages.forEach(
-        (image,index)=>{
+        (
+            image,
+            index
+        )=>{
 
             const card =
                 document.createElement(
@@ -1728,7 +1970,7 @@ function renderResults(){
 
 
             save.textContent =
-                "⬇️ บันทึกรูป";
+                "📱 เปิดรูปเพื่อบันทึก";
 
 
             save.onclick =
@@ -1738,6 +1980,7 @@ function renderResults(){
                         image.src,
                         index
                     );
+
                 };
 
 
@@ -1772,8 +2015,9 @@ function renderResults(){
 }
 
 
+
 /* =================================================
-   บันทึกรูป
+   บันทึกรูปสำหรับ iPhone
 ================================================= */
 
 function saveImage(
@@ -1781,34 +2025,127 @@ function saveImage(
     index
 ){
 
-    const link =
-        document.createElement(
-            "a"
+    const newWindow =
+        window.open();
+
+
+    if(!newWindow){
+
+        alert(
+            "กรุณาอนุญาตให้เว็บไซต์เปิดหน้าต่างใหม่ก่อนครับ"
         );
 
-
-    link.href =
-        src;
-
-
-    link.download =
-        index===0
-        ? "LUYMOTOR_COVER.jpg"
-        : "LUYMOTOR_IMAGE_"+
-          index+
-          ".jpg";
+        return;
+    }
 
 
-    document.body.appendChild(
-        link
-    );
+    newWindow.document.write(`
 
+<!DOCTYPE html>
 
-    link.click();
+<html>
 
+<head>
 
-    link.remove();
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1.0"
+>
+
+<title>
+LUY MOTOR
+</title>
+
+<style>
+
+body{
+
+    margin:0;
+
+    background:#000;
+
+    color:#fff;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-height:100vh;
+
+    font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+
 }
+
+img{
+
+    max-width:96%;
+
+    max-height:82vh;
+
+    object-fit:contain;
+
+}
+
+.text{
+
+    padding:15px;
+
+    text-align:center;
+
+    color:#aaa;
+
+    font-size:14px;
+
+    line-height:1.6;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<img
+src="${src}"
+>
+
+<div class="text">
+
+📱 วิธีบันทึกบน iPhone
+
+<br>
+
+<b>
+กดค้างที่รูป
+</b>
+
+<br>
+
+แล้วเลือก
+<b>
+“บันทึกไปยังรูปภาพ”
+</b>
+
+</div>
+
+</body>
+
+</html>
+
+`);
+
+
+    newWindow.document.close();
+}
+
 
 
 /* =================================================
@@ -1846,8 +2183,9 @@ async function copyDescription(){
 }
 
 
+
 /* =================================================
-   เริ่มทำงาน
+   เริ่มสร้าง
 ================================================= */
 
 async function startGenerate(){
@@ -1876,14 +2214,6 @@ async function startGenerate(){
         ).value;
 
 
-    const selectedImageCount =
-        parseInt(
-            document.getElementById(
-                "imageCount"
-            ).value
-        );
-
-
     if(!apiKey){
 
         alert(
@@ -1896,7 +2226,7 @@ async function startGenerate(){
 
     if(
         images.some(
-            x => !x
+            x=>!x
         )
     ){
 
@@ -1952,16 +2282,17 @@ async function startGenerate(){
         );
 
 
-    button.disabled = true;
+    button.disabled =
+        true;
 
-    button.textContent =
-        `✨ สร้าง ${selectedImageCount} รูป + คำบรรยาย`;
 
     loading.style.display =
         "block";
 
+
     results.style.display =
         "none";
+
 
     errorBox.style.display =
         "none";
@@ -1969,12 +2300,15 @@ async function startGenerate(){
 
     try{
 
-        /*
-        1
-        */
+
+        /* ======================
+           1 วิเคราะห์
+        ====================== */
 
         setStatus(
-            "1/7 กำลังให้ AI วิเคราะห์สินค้า..."
+            "1/"+
+            (imageCount+2)+
+            " กำลังให้ AI วิเคราะห์สินค้า..."
         );
 
 
@@ -1984,19 +2318,12 @@ async function startGenerate(){
             );
 
 
-        /*
-        คำบรรยาย
-        */
-
         document.getElementById(
             "resultDescription"
         ).value =
-            plan.description || "";
+            plan.description ||
+            "";
 
-
-        /*
-        prompts
-        */
 
         const prompts = [
 
@@ -2010,16 +2337,16 @@ async function startGenerate(){
         const selected =
             prompts.slice(
                 0,
-                selectedImageCount
+                imageCount
             );
 
 
         generatedImages = [];
 
 
-        /*
-        สร้างภาพตามจำนวนที่เลือก
-        */
+        /* ======================
+           สร้างรูป
+        ====================== */
 
         for(
             let i=0;
@@ -2028,7 +2355,11 @@ async function startGenerate(){
         ){
 
             setStatus(
-                `กำลังสร้างภาพ ${i+1} / ${selected.length} ...`
+                "กำลังสร้างภาพ "+
+                (i+1)+
+                " / "+
+                imageCount+
+                " ..."
             );
 
 
@@ -2046,11 +2377,15 @@ Do not invent model numbers.
 
 Do not invent specifications.
 
+Do not invent sizes.
+
+Do not invent prices.
+
 Do not add fake logos.
 
-Do not alter the product into another product.
+Do not turn the product into another product.
 
-Make the product the main subject.
+Make the real product the main subject.
 
 Professional e-commerce photography.
 
@@ -2077,39 +2412,42 @@ Suitable for online product selling.
             );
 
 
-            /*
-            ถ้าเป็นรูปแรก
-            ใส่ข้อความโฆษณาด้วย Canvas
-            */
+            /* ======================
+               หน้าปก
+            ====================== */
 
             if(i===0){
 
                 setStatus(
-                    "กำลังจัดทำหน้าปกและใส่ข้อความโฆษณา..."
+                    "กำลังจัดทำหน้าปก..."
                 );
 
 
                 const cover =
                     await addCoverText(
                         result.src,
+
                         plan.cover_headline ||
-                            name,
+                        name,
+
                         plan.cover_subheadline ||
-                            "",
+                        "",
+
                         plan.cover_badge ||
-                            ""
+                        ""
                     );
 
 
                 generatedImages[0].src =
                     cover;
             }
+
         }
 
 
-        /*
-        7
-        */
+        /* ======================
+           แสดงผล
+        ====================== */
 
         setStatus(
             "กำลังจัดเตรียมผลงาน..."
@@ -2147,25 +2485,29 @@ Suitable for online product selling.
             error.message;
 
 
-        console.error(error);
+        console.error(
+            error
+        );
 
     }
 
 
-    button.disabled = false;
-
-    button.textContent =
-        `✨ สร้าง ${selectedImageCount} รูป + คำบรรยาย`;
+    button.disabled =
+        false;
 }
+
 
 
 /* =================================================
    เริ่มต้น
 ================================================= */
 
+setImageCount(4);
+
 updatePrice();
 
 </script>
 
 </body>
+
 </html>
