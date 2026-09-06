@@ -1,2533 +1,1612 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="th">
-
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="utf-8">
-
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-
-<title>LUIMOTOR - ระบบข้อมูลลูกค้า V2.4</title>
+<title>LUY MOTOR AI SELLER</title>
 
 <style>
-
-:root{
-
- --bg:#090909;
-
- --card:#151515;
-
- --card2:#101010;
-
- --red:#e00000;
-
- --red2:#ff3030;
-
- --text:#f5f5f5;
-
- --muted:#a7a7a7;
-
- --line:#292929;
-
-}
-
 *{
-
- box-sizing:border-box;
-
+    box-sizing:border-box;
 }
 
 body{
-
- margin:0;
-
- background:linear-gradient(145deg,#080808,#160000);
-
- color:var(--text);
-
- font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif;
-
+    margin:0;
+    background:#09090b;
+    color:#fff;
+    font-family:-apple-system,BlinkMacSystemFont,
+    "Segoe UI","Noto Sans Thai",sans-serif;
 }
 
 header{
-
- padding:24px 18px 16px;
-
- text-align:center;
-
- border-bottom:1px solid #300000;
-
- position:sticky;
-
- top:0;
-
- background:#090909ee;
-
- backdrop-filter:blur(10px);
-
- z-index:5;
-
+    background:#111113;
+    border-bottom:1px solid #29292d;
+    padding:18px;
+    position:sticky;
+    top:0;
+    z-index:10;
 }
 
 .logo{
-
- font-weight:900;
-
- letter-spacing:2px;
-
- font-size:30px;
-
+    font-size:26px;
+    font-weight:900;
+    font-style:italic;
 }
 
 .logo span{
-
- color:var(--red);
-
+    color:#e60000;
 }
 
 .subtitle{
-
- color:var(--muted);
-
- margin-top:4px;
-
+    color:#777;
+    font-size:10px;
+    letter-spacing:2px;
+    margin-top:3px;
 }
 
-.version{
-
- display:inline-block;
-
- margin-top:8px;
-
- padding:5px 12px;
-
- border-radius:20px;
-
- background:#350000;
-
- color:#ff6b6b;
-
- font-size:12px;
-
- font-weight:700;
-
+.container{
+    max-width:720px;
+    margin:auto;
+    padding:20px 15px 60px;
 }
 
-main{
-
- max-width:760px;
-
- margin:auto;
-
- padding:18px;
-
+.hero{
+    padding:8px 2px 22px;
 }
 
-.card{
-
- background:linear-gradient(180deg,#171717,#101010);
-
- border:1px solid var(--line);
-
- border-radius:18px;
-
- padding:16px;
-
- margin-bottom:14px;
-
- box-shadow:0 8px 30px #0008;
-
+.hero h1{
+    font-size:34px;
+    line-height:1.08;
+    margin:0 0 10px;
 }
 
-h2{
-
- font-size:20px;
-
- margin:0 0 12px;
-
+.hero h1 span{
+    color:#e60000;
 }
 
-.grid{
-
- display:grid;
-
- grid-template-columns:repeat(2,1fr);
-
- gap:10px;
-
+.hero p{
+    color:#999;
+    line-height:1.6;
 }
 
-button{
-
- width:100%;
-
- border:0;
-
- border-radius:14px;
-
- padding:15px 12px;
-
- font-size:16px;
-
- font-weight:700;
-
- color:white;
-
- background:#222;
-
- cursor:pointer;
-
+.box{
+    background:#151518;
+    border:1px solid #29292e;
+    border-radius:18px;
+    padding:17px;
+    margin-bottom:14px;
 }
 
-button.primary{
-
- background:linear-gradient(135deg,#c40000,#ff1e1e);
-
+.box h2{
+    margin:0 0 7px;
+    font-size:18px;
 }
 
-button.secondary{
-
- background:#292929;
-
+.hint{
+    color:#888;
+    font-size:13px;
+    margin-top:0;
+    margin-bottom:14px;
 }
 
-button.danger{
-
- background:#450000;
-
+.photos{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:9px;
 }
 
-button:active{
-
- transform:scale(.98);
-
+.photo{
+    aspect-ratio:1;
+    background:#0e0e10;
+    border:2px dashed #444;
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    position:relative;
+    cursor:pointer;
 }
 
-input,textarea{
-
- width:100%;
-
- background:#0b0b0b;
-
- color:#fff;
-
- border:1px solid #333;
-
- border-radius:12px;
-
- padding:13px;
-
- font-size:16px;
-
- outline:none;
-
- margin-bottom:10px;
-
+.photo input{
+    display:none;
 }
 
-input:focus,textarea:focus{
+.photo img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:none;
+}
 
- border-color:var(--red);
+.photo-text{
+    color:#999;
+    text-align:center;
+    font-size:13px;
+}
 
+.photo-text b{
+    display:block;
+    color:#fff;
+    font-size:24px;
+    margin-bottom:5px;
+}
+
+input,
+textarea{
+    width:100%;
+    background:#0d0d0f;
+    color:#fff;
+    border:1px solid #39393f;
+    border-radius:12px;
+    padding:14px;
+    font-size:16px;
+    outline:none;
 }
 
 textarea{
-
- min-height:80px;
-
- resize:vertical;
-
+    min-height:130px;
+    resize:vertical;
+    line-height:1.6;
 }
 
-.hidden{
-
- display:none;
-
+input:focus,
+textarea:focus{
+    border-color:#e60000;
 }
 
-.result{
-
- padding:14px;
-
- border:1px solid #333;
-
- border-radius:12px;
-
- margin-top:10px;
-
- background:#0d0d0d;
-
+.key-warning{
+    color:#aaa;
+    font-size:12px;
+    line-height:1.5;
+    margin-top:9px;
 }
 
-.result.clickable{
-
- cursor:pointer;
-
+.main-button{
+    width:100%;
+    border:0;
+    border-radius:14px;
+    padding:17px;
+    background:#e60000;
+    color:white;
+    font-size:17px;
+    font-weight:800;
+    cursor:pointer;
 }
 
-.result.clickable:active{
-
- background:#1b1b1b;
-
+.main-button:disabled{
+    opacity:.5;
 }
 
-.badge{
-
- display:inline-block;
-
- padding:4px 9px;
-
- border-radius:99px;
-
- background:#350000;
-
- color:#ff6b6b;
-
- font-size:12px;
-
+.loading{
+    display:none;
+    text-align:center;
+    padding:30px 10px;
 }
 
-.item{
-
- padding:14px 0;
-
- border-bottom:1px solid #252525;
-
+.spinner{
+    width:42px;
+    height:42px;
+    margin:auto;
+    border:4px solid #333;
+    border-top-color:#e60000;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
 }
 
-.item:last-child{
-
- border-bottom:0;
-
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
 }
 
-.small{
-
- font-size:13px;
-
- color:var(--muted);
-
+.status{
+    color:#aaa;
+    margin-top:15px;
+    line-height:1.6;
 }
 
-.price{
-
- font-weight:800;
-
- color:#ff5555;
-
+.results{
+    display:none;
 }
 
-.empty{
-
- color:#888;
-
- text-align:center;
-
- padding:20px 8px;
-
+.result-title{
+    font-size:22px;
+    margin:25px 0 12px;
 }
 
-.actions{
-
- display:grid;
-
- grid-template-columns:1fr 1fr;
-
- gap:8px;
-
- margin-top:10px;
-
+.image-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
 }
 
-hr{
-
- border:0;
-
- border-top:1px solid #252525;
-
- margin:15px 0;
-
+.image-card{
+    background:#111114;
+    border:1px solid #29292e;
+    border-radius:14px;
+    overflow:hidden;
 }
 
-.back{
-
- margin-bottom:12px;
-
+.image-card.cover{
+    grid-column:1/-1;
 }
 
-.stat{
-
- display:grid;
-
- grid-template-columns:repeat(3,1fr);
-
- gap:8px;
-
- margin-top:12px;
-
+.image-card img{
+    width:100%;
+    display:block;
+    background:white;
 }
 
-.statBox{
-
- background:#0b0b0b;
-
- border:1px solid #292929;
-
- border-radius:12px;
-
- padding:12px 5px;
-
- text-align:center;
-
+.image-info{
+    padding:10px;
+    color:#bbb;
+    font-size:13px;
 }
 
-.statNumber{
-
- font-size:20px;
-
- font-weight:800;
-
- color:#ff5555;
-
+.save-button{
+    margin-top:8px;
+    border:1px solid #444;
+    background:#222;
+    color:#fff;
+    border-radius:9px;
+    padding:8px 10px;
 }
 
-.statLabel{
-
- font-size:12px;
-
- color:#999;
-
+.error{
+    background:#2a1111;
+    border:1px solid #722222;
+    color:#ffb0b0;
+    border-radius:12px;
+    padding:13px;
+    margin-top:15px;
+    display:none;
+    white-space:pre-wrap;
 }
 
-.vehiclePhoto{
-
- width:100%;
-
- max-height:260px;
-
- object-fit:cover;
-
- border-radius:14px;
-
- border:1px solid #333;
-
- margin:10px 0;
-
- background:#080808;
-
+.copy-button{
+    background:#222;
+    border:1px solid #444;
+    color:#fff;
+    padding:10px 13px;
+    border-radius:10px;
 }
 
-.vehiclePhotoSmall{
-
- width:85px;
-
- height:65px;
-
- object-fit:cover;
-
- border-radius:10px;
-
- border:1px solid #333;
-
- float:right;
-
-}
-
-.photoPreview{
-
- width:100%;
-
- max-height:240px;
-
- object-fit:contain;
-
- border-radius:14px;
-
- border:1px solid #333;
-
- background:#080808;
-
- margin-bottom:10px;
-
-}
-
-.photoLabel{
-
- display:block;
-
- color:#aaa;
-
- font-size:13px;
-
- margin:4px 0 7px;
-
-}
-
-.notice{
-
- background:#180000;
-
- border:1px solid #430000;
-
- border-radius:12px;
-
- padding:12px;
-
- color:#ccc;
-
- font-size:13px;
-
- line-height:1.6;
-
- margin-top:10px;
-
-}
-
-.count{
-
- color:#ff5555;
-
- font-weight:800;
-
+.description-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
 }
 
 @media(max-width:520px){
+    .image-grid{
+        grid-template-columns:1fr;
+    }
 
- .grid{
-
-  grid-template-columns:1fr 1fr;
-
- }
-
- .logo{
-
-  font-size:27px;
-
- }
-
- .actions{
-
-  grid-template-columns:1fr 1fr;
-
- }
-
+    .image-card.cover{
+        grid-column:auto;
+    }
 }
-
 </style>
-
 </head>
+
 
 <body>
 
 <header>
 
 <div class="logo">
-
-LUI<span>MOTOR</span>
-
+LUY <span>MOTOR</span>
 </div>
 
 <div class="subtitle">
-
-ระบบข้อมูลลูกค้า V2
-
-</div>
-
-<div class="version">
-
-VERSION 2.4
-
+AI PRODUCT SELLER
 </div>
 
 </header>
 
-<main>
 
-<!-- ================= SEARCH ================= -->
+<div class="container">
 
-<section class="card">
 
-<h2>🔎 ค้นหาข้อมูลลูกค้า</h2>
+<section class="hero">
 
-<input
+<h1>
+สร้างรูปขายสินค้า<br>
+<span>ด้วย AI</span>
+</h1>
 
- id="search"
-
- placeholder="ทะเบียน / ชื่อลูกค้า / เบอร์โทร"
-
- oninput="searchCustomers()">
-
-<div id="results" class="empty">
-
-พิมพ์ชื่อ ทะเบียน หรือเบอร์โทรเพื่อค้นหา
-
-</div>
-
-</section>
-
-<!-- ================= QUICK MENU ================= -->
-
-<section class="card">
-
-<h2>⚡ เมนูด่วน</h2>
-
-<div class="grid">
-
-<button
-
- class="primary"
-
- onclick="show('customerForm')">
-
-➕ เพิ่มลูกค้า
-
-</button>
-
-<button
-
- onclick="show('vehicleForm')">
-
-🏍️ เพิ่มรถให้ลูกค้า
-
-</button>
-
-<button
-
- onclick="showAll()">
-
-📋 ลูกค้าทั้งหมด
-
-</button>
-
-<button
-
- onclick="hideAllForms()">
-
-✖️ ปิดหน้าต่าง
-
-</button>
-
-</div>
-
-</section>
-
-<!-- ================= CUSTOMER FORM ================= -->
-
-<section
-
- id="customerForm"
-
- class="card hidden">
-
-<h2>
-
-👤 เพิ่มลูกค้าใหม่
-
-</h2>
-
-<input
-
- id="cname"
-
- placeholder="ชื่อลูกค้า *">
-
-<input
-
- id="cphone"
-
- placeholder="เบอร์โทร">
-
-<textarea
-
- id="cnote"
-
- placeholder="หมายเหตุ"></textarea>
-
-<button
-
- class="primary"
-
- onclick="addCustomer()">
-
-💾 บันทึกลูกค้า
-
-</button>
-
-</section>
-
-<!-- ================= VEHICLE FORM ================= -->
-
-<section
-
- id="vehicleForm"
-
- class="card hidden">
-
-<h2>
-
-🏍️ เพิ่มรถให้ลูกค้า
-
-</h2>
-
-<input
-
- id="vcustomer"
-
- placeholder="ชื่อลูกค้า *">
-
-<input
-
- id="vplate"
-
- placeholder="ทะเบียนรถ *">
-
-<input
-
- id="vbrand"
-
- placeholder="ยี่ห้อ">
-
-<input
-
- id="vmodel"
-
- placeholder="รุ่น">
-
-<input
-
- id="vcolor"
-
- placeholder="สี">
-
-<input
-
- id="vmileage"
-
- placeholder="เลขไมล์">
-
-<label class="photoLabel">
-
-📷 รูปภาพประจำรถ
-
-</label>
-
-<input
-
- id="vphoto"
-
- type="file"
-
- accept="image/*"
-
- capture="environment"
-
- onchange="previewNewPhoto(event)">
-
-<img
-
- id="newPhotoPreview"
-
- class="photoPreview hidden">
-
-<button
-
- class="primary"
-
- onclick="addVehicle()">
-
-💾 บันทึกรถ
-
-</button>
-
-<div class="notice">
-
-💡 รูปภาพจะถูกย่อขนาดอัตโนมัติเพื่อประหยัดพื้นที่จัดเก็บ
-
-</div>
-
-</section>
-
-<!-- ================= PROFILE ================= -->
-
-<section
-
- id="profile"
-
- class="card hidden">
-
-</section>
-
-<!-- ================= DATA ================= -->
-
-<section class="card">
-
-<h2>
-
-💾 สำรองข้อมูล
-
-</h2>
-
-<div class="grid">
-
-<button
-
- onclick="exportData()">
-
-📤 ส่งออกข้อมูล
-
-</button>
-
-<button
-
- onclick="importData()">
-
-📥 นำเข้าข้อมูล
-
-</button>
-
-</div>
-
-<input
-
- id="file"
-
- type="file"
-
- accept=".json"
-
- class="hidden"
-
- onchange="loadData(event)">
-
-<p class="small">
-
-ข้อมูลถูกเก็บในเครื่องนี้ด้วย LocalStorage
-
-สามารถส่งออกเป็นไฟล์สำรองได้
-
+<p>
+ใส่รูปสินค้า 3 รูป ชื่อสินค้า และรายละเอียดคร่าว ๆ
+แล้วให้ AI ช่วยวิเคราะห์สินค้าและจัดทำสื่อสำหรับขาย
 </p>
 
 </section>
 
-</main>
+
+
+<!-- รูปสินค้า -->
+
+<section class="box">
+
+<h2>📸 1. รูปสินค้า 3 รูป</h2>
+
+<p class="hint">
+เลือกรูปจาก iPhone จำนวน 3 รูป
+</p>
+
+
+<div class="photos">
+
+
+<label class="photo">
+
+<input
+type="file"
+accept="image/*"
+onchange="selectImage(this,0)"
+>
+
+<img id="preview0">
+
+<div id="text0" class="photo-text">
+<b>＋</b>
+รูปที่ 1
+</div>
+
+</label>
+
+
+
+<label class="photo">
+
+<input
+type="file"
+accept="image/*"
+onchange="selectImage(this,1)"
+>
+
+<img id="preview1">
+
+<div id="text1" class="photo-text">
+<b>＋</b>
+รูปที่ 2
+</div>
+
+</label>
+
+
+
+<label class="photo">
+
+<input
+type="file"
+accept="image/*"
+onchange="selectImage(this,2)"
+>
+
+<img id="preview2">
+
+<div id="text2" class="photo-text">
+<b>＋</b>
+รูปที่ 3
+</div>
+
+</label>
+
+
+</div>
+
+</section>
+
+
+
+<!-- ชื่อสินค้า -->
+
+<section class="box">
+
+<h2>🏷️ 2. ชื่อสินค้า</h2>
+
+<input
+id="productName"
+type="text"
+placeholder="เช่น หัวเทียน NGK CPR8EA-9"
+>
+
+</section>
+
+
+
+<!-- รายละเอียด -->
+
+<section class="box">
+
+<h2>📝 3. รายละเอียดคร่าว ๆ</h2>
+
+<textarea
+id="productDescription"
+placeholder="ใส่ข้อมูลที่พี่รู้เกี่ยวกับสินค้า เช่น รุ่นที่ใช้ได้ ขนาด จุดเด่น ราคา หรือข้อมูลอื่น ๆ"
+></textarea>
+
+</section>
+
+
+
+<!-- API KEY -->
+
+<section class="box">
+
+<h2>🔑 4. API Key</h2>
+
+<input
+id="apiKey"
+type="password"
+placeholder="ใส่ API Key ของพี่ตรงนี้"
+>
+
+<div class="key-warning">
+
+API Key จะถูกใช้เฉพาะตอนกดสร้าง และโค้ดนี้ไม่ได้บันทึก Key ลง localStorage
+<br><br>
+
+⚠️ เว็บ GitHub Pages เป็นเว็บฝั่งผู้ใช้
+จึงไม่ควรนำ API Key จริงไปเปิดเผยให้บุคคลอื่นใช้
+เวอร์ชันนี้เหมาะสำหรับการทดลองใช้ส่วนตัวก่อน
+
+</div>
+
+</section>
+
+
+
+<button
+id="generateButton"
+class="main-button"
+onclick="startGenerate()"
+>
+
+✨ สร้างรูปและคำบรรยายด้วย AI
+
+</button>
+
+
+
+<!-- Loading -->
+
+<div
+id="loading"
+class="loading"
+>
+
+<div class="spinner"></div>
+
+<div
+id="status"
+class="status"
+>
+กำลังเริ่ม...
+</div>
+
+</div>
+
+
+
+<!-- Error -->
+
+<div
+id="error"
+class="error"
+></div>
+
+
+
+<!-- RESULTS -->
+
+<section
+id="results"
+class="results"
+>
+
+<h2 class="result-title">
+🎨 ผลงานที่สร้าง
+</h2>
+
+
+<div
+id="imageGrid"
+class="image-grid"
+>
+</div>
+
+
+
+<section class="box" style="margin-top:15px">
+
+<div class="description-head">
+
+<h2>
+📝 คำบรรยายสินค้า
+</h2>
+
+<button
+class="copy-button"
+onclick="copyDescription()"
+>
+📋 คัดลอก
+</button>
+
+</div>
+
+
+<textarea
+id="resultDescription"
+readonly
+></textarea>
+
+</section>
+
+
+</section>
+
+
+</div>
+
+
 
 <script>
 
-/* ==================================================
-
-DATABASE
-
-================================================== */
-
-const KEY='luimotor_v1';
-
-let db;
-
-try{
-
- db=JSON.parse(
-
-  localStorage.getItem(KEY) ||
-
-  '{"customers":[]}'
-
- );
-
- if(!db.customers){
-
-  db.customers=[];
-
- }
-
-}catch(e){
-
- db={
-
-  customers:[]
-
- };
-
-}
-
-/* ==================================================
-
-SAVE
-
-================================================== */
-
-function save(){
-
- try{
-
-  localStorage.setItem(
-
-   KEY,
-
-   JSON.stringify(db)
-
-  );
-
- }catch(e){
-
-  alert(
-
-   'พื้นที่จัดเก็บเต็มครับ\n\n'+
-
-   'แนะนำส่งออกข้อมูลสำรองก่อน แล้วลบรูปภาพรถที่ไม่จำเป็น'
-
-  );
-
- }
-
-}
-
-/* ==================================================
-
-SHOW
-
-================================================== */
-
-function show(id){
-
- const el=document.getElementById(id);
-
- el.classList.remove('hidden');
-
- el.scrollIntoView({
-
-  behavior:'smooth'
-
- });
-
-}
-
-/* ==================================================
-
-HIDE
-
-================================================== */
-
-function hide(id){
-
- document
-
-  .getElementById(id)
-
-  .classList.add('hidden');
-
-}
-
-function hideAllForms(){
-
- hide('customerForm');
-
- hide('vehicleForm');
-
- hide('profile');
-
-}
-
-/* ==================================================
-
-ESCAPE
-
-================================================== */
-
-function esc(s=''){
-
- return String(s).replace(
-
-  /[&<>"']/g,
-
-  m=>({
-
-   '&':'&amp;',
-
-   '<':'&lt;',
-
-   '>':'&gt;',
-
-   '"':'&quot;',
-
-   "'":'&#39;'
-
-  }[m])
-
- );
-
-}
-
-/* ==================================================
-
-ADD CUSTOMER
-
-================================================== */
-
-function addCustomer(){
-
- let name=
-
- document.getElementById('cname')
-
- .value.trim();
-
- if(!name){
-
-  alert('กรุณาใส่ชื่อลูกค้า');
-
-  return;
-
- }
-
- let phone=
-
- document.getElementById('cphone')
-
- .value.trim();
-
- let note=
-
- document.getElementById('cnote')
-
- .value.trim();
-
- db.customers.push({
-
-  id:Date.now(),
-
-  name:name,
-
-  phone:phone,
-
-  note:note,
-
-  vehicles:[]
-
- });
-
- save();
-
- document.getElementById('cname').value='';
-
- document.getElementById('cphone').value='';
-
- document.getElementById('cnote').value='';
-
- alert('บันทึกลูกค้าแล้ว');
-
- hide('customerForm');
-
-}
-
-/* ==================================================
-
-PHOTO RESIZE
-
-================================================== */
-
-function resizeImage(file){
-
- return new Promise((resolve,reject)=>{
-
-  const reader=new FileReader();
-
-  reader.onload=function(e){
-
-   const img=new Image();
-
-   img.onload=function(){
-
-    const max=900;
-
-    let w=img.width;
-
-    let h=img.height;
-
-    if(w>max || h>max){
-
-     if(w>h){
-
-      h=Math.round(h*max/w);
-
-      w=max;
-
-     }else{
-
-      w=Math.round(w*max/h);
-
-      h=max;
-
-     }
-
-    }
-
-    const canvas=
-
-     document.createElement('canvas');
-
-    canvas.width=w;
-
-    canvas.height=h;
-
-    const ctx=
-
-     canvas.getContext('2d');
-
-    ctx.drawImage(
-
-     img,
-
-     0,
-
-     0,
-
-     w,
-
-     h
-
-    );
-
-    resolve(
-
-     canvas.toDataURL(
-
-      'image/jpeg',
-
-      0.72
-
-     )
-
-    );
-
-   };
-
-   img.onerror=reject;
-
-   img.src=e.target.result;
-
-  };
-
-  reader.onerror=reject;
-
-  reader.readAsDataURL(file);
-
- });
-
-}
-
-/* ==================================================
-
-NEW PHOTO PREVIEW
-
-================================================== */
-
-async function previewNewPhoto(event){
-
- const file=
-
-  event.target.files[0];
-
- const preview=
-
-  document.getElementById('newPhotoPreview');
-
- if(!file){
-
-  preview.classList.add('hidden');
-
-  return;
-
- }
-
- try{
-
-  const data=
-
-   await resizeImage(file);
-
-  preview.src=data;
-
-  preview.classList.remove('hidden');
-
- }catch{
-
-  alert('ไม่สามารถอ่านรูปภาพได้');
-
- }
-
-}
-
-/* ==================================================
-
-ADD VEHICLE
-
-================================================== */
-
-async function addVehicle(){
-
- let name=
-
- document.getElementById('vcustomer')
-
- .value.trim();
-
- let plate=
-
- document.getElementById('vplate')
-
- .value.trim();
-
- if(!name || !plate){
-
-  alert(
-
-   'กรุณาใส่ชื่อลูกค้าและทะเบียน'
-
-  );
-
-  return;
-
- }
-
- let c=db.customers.find(
-
-  x=>x.name===name
-
- );
-
- if(!c){
-
-  c={
-
-   id:Date.now(),
-
-   name:name,
-
-   phone:'',
-
-   note:'',
-
-   vehicles:[]
-
-  };
-
-  db.customers.push(c);
-
- }
-
- if(!c.vehicles){
-
-  c.vehicles=[];
-
- }
-
- let photo='';
-
- const photoFile=
-
-  document.getElementById('vphoto')
-
-  .files[0];
-
- if(photoFile){
-
-  try{
-
-   photo=
-
-    await resizeImage(photoFile);
-
-  }catch{
-
-   alert(
-
-    'อ่านรูปภาพไม่ได้\nกรุณาลองเลือกรูปใหม่'
-
-   );
-
-   return;
-
-  }
-
- }
-
- c.vehicles.push({
-
-  id:Date.now(),
-
-  plate:plate,
-
-  brand:
-
-  document.getElementById('vbrand')
-
-  .value.trim(),
-
-  model:
-
-  document.getElementById('vmodel')
-
-  .value.trim(),
-
-  color:
-
-  document.getElementById('vcolor')
-
-  .value.trim(),
-
-  mileage:
-
-  document.getElementById('vmileage')
-
-  .value.trim(),
-
-  photo:photo,
-
-  history:[]
-
- });
-
- save();
-
- [
-
-  'vcustomer',
-
-  'vplate',
-
-  'vbrand',
-
-  'vmodel',
-
-  'vcolor',
-
-  'vmileage'
-
- ].forEach(id=>{
-
-  document.getElementById(id).value='';
-
- });
-
- document.getElementById('vphoto').value='';
-
- document
-
-  .getElementById('newPhotoPreview')
-
-  .classList.add('hidden');
-
- alert('บันทึกรถแล้ว');
-
- hide('vehicleForm');
-
-}
-
-/* ==================================================
-
-SEARCH
-
-================================================== */
-
-function searchCustomers(){
-
- let q=
-
- document.getElementById('search')
-
- .value
-
- .trim()
-
- .toLowerCase();
-
- let box=
-
- document.getElementById('results');
-
- /*
-
-  IMPORTANT:
-
-  ถ้ายังไม่ได้ค้นหา
-
-  ไม่แสดงรายชื่อลูกค้าทั้งหมด
-
- */
-
- if(!q){
-
-  box.className='empty';
-
-  box.innerHTML=
-
-   'พิมพ์ชื่อ ทะเบียน หรือเบอร์โทรเพื่อค้นหา';
-
-  return;
-
- }
-
- let arr=db.customers.filter(c=>{
-
-  let name=
-
-   (c.name||'').toLowerCase();
-
-  let phone=
-
-   (c.phone||'').toLowerCase();
-
-  let vehicles=
-
-   c.vehicles||[];
-
-  return(
-
-   name.includes(q) ||
-
-   phone.includes(q) ||
-
-   vehicles.some(v=>
-
-    (v.plate||'')
-
-    .toLowerCase()
-
-    .includes(q)
-
-   )
-
-  );
-
- });
-
- renderCustomerList(arr);
-
-}
-
-/* ==================================================
-
-SHOW ALL
-
-================================================== */
-
-function showAll(){
-
- let box=
-
-  document.getElementById('results');
-
- let arr=
-
-  db.customers;
-
- if(!arr.length){
-
-  box.className='empty';
-
-  box.textContent=
-
-   'ยังไม่มีข้อมูลลูกค้า';
-
-  return;
-
- }
-
- renderCustomerList(arr);
-
- document
-
-  .getElementById('search')
-
-  .scrollIntoView({
-
-   behavior:'smooth'
-
-  });
-
-}
-
-/* ==================================================
-
-RENDER CUSTOMER LIST
-
-================================================== */
-
-function renderCustomerList(arr){
-
- let box=
-
-  document.getElementById('results');
-
- if(!arr.length){
-
-  box.className='empty';
-
-  box.textContent=
-
-   'ไม่พบข้อมูล';
-
-  return;
-
- }
-
- box.className='';
-
- box.innerHTML=
-
-  '<div class="small">'+
-
-  'พบ <span class="count">'+
-
-  arr.length+
-
-  '</span> รายการ'+
-
-  '</div>'+
-
-  arr.map(c=>`
-
-  <div
-
-   class="result clickable"
-
-   onclick="profile(${c.id})">
-
-   <b>
-
-    👤 ${esc(c.name)}
-
-   </b>
-
-   <br>
-
-   <span class="small">
-
-    📞 ${esc(c.phone||'-')}
-
-    · รถ ${(c.vehicles||[]).length} คัน
-
-   </span>
-
-   ${
-
-    (c.vehicles||[])
-
-    .map(v=>`
-
-     <div
-
-      class="small"
-
-      style="margin-top:7px;min-height:65px">
-
-      ${
-
-       v.photo
-
-       ?
-
-       `<img
-
-        src="${v.photo}"
-
-        class="vehiclePhotoSmall">`
-
-       :
-
-       ''
-
-      }
-
-      🏍️
-
-      <b>
-
-       ${esc(v.plate)}
-
-      </b>
-
-      ${esc(v.brand||'')}
-
-      ${esc(v.model||'')}
-
-     </div>
-
-    `).join('')
-
-   }
-
-  </div>
-
-  `).join('');
-
-}
-
-/* ==================================================
-
-PROFILE
-
-================================================== */
-
-function profile(id){
-
- let c=db.customers.find(
-
-  x=>x.id===id
-
- );
-
- if(!c)return;
-
- if(!c.vehicles){
-
-  c.vehicles=[];
-
- }
-
- let p=
-
-  document.getElementById('profile');
-
- p.classList.remove('hidden');
-
- let totalHistory=0;
-
- c.vehicles.forEach(v=>{
-
-  if(!v.history){
-
-   v.history=[];
-
-  }
-
-  totalHistory+=v.history.length;
-
- });
-
- p.innerHTML=`
-
- <button
-
-  class="secondary back"
-
-  onclick="hideProfile()">
-
-  ← กลับ
-
- </button>
-
- <h2>
-
- 👤 ${esc(c.name)}
-
- </h2>
-
- <div class="small">
-
- 📞 ${esc(c.phone||'-')}
-
- </div>
-
- <div class="small">
-
- ${esc(c.note||'')}
-
- </div>
-
- <div class="stat">
-
-  <div class="statBox">
-
-   <div class="statNumber">
-
-    ${c.vehicles.length}
-
-   </div>
-
-   <div class="statLabel">
-
-    รถ
-
-   </div>
-
-  </div>
-
-  <div class="statBox">
-
-   <div class="statNumber">
-
-    ${totalHistory}
-
-   </div>
-
-   <div class="statLabel">
-
-    ประวัติซ่อม
-
-   </div>
-
-  </div>
-
-  <div class="statBox">
-
-   <div class="statNumber">
-
-    ${c.phone?'✓':'-'}
-
-   </div>
-
-   <div class="statLabel">
-
-    เบอร์โทร
-
-   </div>
-
-  </div>
-
- </div>
-
- <div class="actions">
-
-  <button
-
-   onclick="editCustomer(${c.id})">
-
-   ✏️ แก้ไขลูกค้า
-
-  </button>
-
-  <button
-
-   class="danger"
-
-   onclick="deleteCustomer(${c.id})">
-
-   🗑️ ลบลูกค้า
-
-  </button>
-
- </div>
-
- <hr>
-
- <h2>
-
- 🏍️ รถของลูกค้า
-
- </h2>
-
- ${
-
-  c.vehicles.length
-
-  ?
-
-  c.vehicles.map(v=>`
-
-  <div class="item">
-
-   ${
-
-    v.photo
-
-    ?
-
-    `<img
-
-     src="${v.photo}"
-
-     class="vehiclePhoto">`
-
-    :
-
-    `<div
-
-     class="empty"
-
-     style="border:1px dashed #333;border-radius:12px">
-
-     🏍️ ยังไม่มีรูปประจำรถ
-
-     </div>`
-
-   }
-
-   <span class="badge">
-
-    ${esc(v.plate)}
-
-   </span>
-
-   <br>
-
-   <b>
-
-    ${esc(v.brand||'')}
-
-    ${esc(v.model||'')}
-
-   </b>
-
-   <div class="small">
-
-    สี ${esc(v.color||'-')}
-
-    · ไมล์ ${esc(v.mileage||'-')}
-
-   </div>
-
-   <div class="actions">
-
-    <button
-
-     onclick="editVehicle(${c.id},${v.id})">
-
-     ✏️ แก้ไขรถ
-
-    </button>
-
-    <button
-
-     class="danger"
-
-     onclick="deleteVehicle(${c.id},${v.id})">
-
-     🗑️ ลบรถ
-
-    </button>
-
-   </div>
-
-   <button
-
-    class="primary"
-
-    style="margin-top:9px"
-
-    onclick="addHistory(${c.id},${v.id})">
-
-    🔧 เพิ่มประวัติซ่อม
-
-   </button>
-
-   ${
-
-    v.history.length
-
-    ?
-
-    `
-
-    <div style="margin-top:8px">
-
-    ${
-
-     v.history
-
-     .slice()
-
-     .reverse()
-
-     .map((h,i)=>`
-
-      <div class="result">
-
-       <b>
-
-        ${esc(h.date)}
-
-       </b>
-
-       <br>
-
-       ${esc(h.text)}
-
-       ${
-
-        h.price
-
-        ?
-
-        `<span class="price">
-
-         ${esc(h.price)} บาท
-
-        </span>`
-
-        :
-
-        ''
-
-       }
-
-       <br>
-
-       <button
-
-        class="danger"
-
-        style="margin-top:8px;padding:8px;font-size:13px"
-
-        onclick="deleteHistory(${c.id},${v.id},${v.history.length-1-i})">
-
-        🗑️ ลบประวัติ
-
-       </button>
-
-      </div>
-
-     `).join('')
-
-    }
-
-    </div>
-
-    `
-
-    :
-
-    `<div
-
-     class="small"
-
-     style="margin-top:8px">
-
-     ยังไม่มีประวัติซ่อม
-
-    </div>`
-
-   }
-
-  </div>
-
-  `).join('')
-
-  :
-
-  `<div class="empty">
-
-   ยังไม่มีรถ
-
-  </div>`
-
- }
-
- `;
-
- p.scrollIntoView({
-
-  behavior:'smooth'
-
- });
-
-}
-
-/* ==================================================
-
-HIDE PROFILE
-
-================================================== */
-
-function hideProfile(){
-
- document
-
- .getElementById('profile')
-
- .classList.add('hidden');
-
-}
-
-/* ==================================================
-
-EDIT CUSTOMER
-
-================================================== */
-
-function editCustomer(id){
-
- let c=db.customers.find(
-
-  x=>x.id===id
-
- );
-
- if(!c)return;
-
- let name=prompt(
-
-  'ชื่อลูกค้า',
-
-  c.name
-
- );
-
- if(name===null)return;
-
- name=name.trim();
-
- if(!name){
-
-  alert(
-
-   'ชื่อลูกค้าห้ามว่าง'
-
-  );
-
-  return;
-
- }
-
- let phone=prompt(
-
-  'เบอร์โทร',
-
-  c.phone||''
-
- );
-
- if(phone===null)return;
-
- let note=prompt(
-
-  'หมายเหตุ',
-
-  c.note||''
-
- );
-
- if(note===null)return;
-
- c.name=name;
-
- c.phone=phone.trim();
-
- c.note=note.trim();
-
- save();
-
- profile(id);
-
-}
-
-/* ==================================================
-
-DELETE CUSTOMER
-
-================================================== */
-
-function deleteCustomer(id){
-
- let c=db.customers.find(
-
-  x=>x.id===id
-
- );
-
- if(!c)return;
-
- let ok=confirm(
-
-  'ต้องการลบลูกค้า "'+
-
-  c.name+
-
-  '" ใช่หรือไม่?\n\n'+
-
-  'ข้อมูลรถและประวัติซ่อมของลูกค้าคนนี้จะถูกลบด้วย'
-
- );
-
- if(!ok)return;
-
- db.customers=
-
- db.customers.filter(
-
-  x=>x.id!==id
-
- );
-
- save();
-
- hideProfile();
-
- searchCustomers();
-
-}
-
-/* ==================================================
-
-EDIT VEHICLE
-
-================================================== */
-
-async function editVehicle(cid,vid){
-
- let c=db.customers.find(
-
-  x=>x.id===cid
-
- );
-
- if(!c)return;
-
- let v=c.vehicles.find(
-
-  x=>x.id===vid
-
- );
-
- if(!v)return;
-
- let plate=prompt(
-
-  'ทะเบียนรถ',
-
-  v.plate
-
- );
-
- if(plate===null)return;
-
- let brand=prompt(
-
-  'ยี่ห้อ',
-
-  v.brand||''
-
- );
-
- if(brand===null)return;
-
- let model=prompt(
-
-  'รุ่น',
-
-  v.model||''
-
- );
-
- if(model===null)return;
-
- let color=prompt(
-
-  'สี',
-
-  v.color||''
-
- );
-
- if(color===null)return;
-
- let mileage=prompt(
-
-  'เลขไมล์',
-
-  v.mileage||''
-
- );
-
- if(mileage===null)return;
-
- let changePhoto=
-
-  confirm(
-
-   'ต้องการเปลี่ยนรูปประจำรถหรือไม่?'
-
-  );
-
- if(changePhoto){
-
-  let input=
-
-   document.createElement('input');
-
-  input.type='file';
-
-  input.accept='image/*';
-
-  input.capture='environment';
-
-  input.click();
-
-  await new Promise(resolve=>{
-
-   input.onchange=async()=>{
-
-    if(input.files[0]){
-
-     try{
-
-      v.photo=
-
-       await resizeImage(
-
-        input.files[0]
-
-       );
-
-     }catch{
-
-      alert(
-
-       'ไม่สามารถอ่านรูปใหม่ได้'
-
-      );
-
-     }
-
-    }
-
-    resolve();
-
-   };
-
-  });
-
- }
-
- v.plate=plate.trim();
-
- v.brand=brand.trim();
-
- v.model=model.trim();
-
- v.color=color.trim();
-
- v.mileage=mileage.trim();
-
- save();
-
- profile(cid);
-
-}
-
-/* ==================================================
-
-DELETE VEHICLE
-
-================================================== */
-
-function deleteVehicle(cid,vid){
-
- let c=db.customers.find(
-
-  x=>x.id===cid
-
- );
-
- if(!c)return;
-
- let v=c.vehicles.find(
-
-  x=>x.id===vid
-
- );
-
- if(!v)return;
-
- let ok=confirm(
-
-  'ต้องการลบรถทะเบียน '+
-
-  v.plate+
-
-  ' ใช่หรือไม่?\n\n'+
-
-  'ประวัติซ่อมของรถคันนี้จะถูกลบด้วย'
-
- );
-
- if(!ok)return;
-
- c.vehicles=
-
- c.vehicles.filter(
-
-  x=>x.id!==vid
-
- );
-
- save();
-
- profile(cid);
-
-}
-
-/* ==================================================
-
-ADD HISTORY
-
-================================================== */
-
-function addHistory(cid,vid){
-
- let text=prompt(
-
-  'รายการซ่อม / งานที่ทำ'
-
- );
-
- if(text===null)return;
-
- text=text.trim();
-
- if(!text){
-
-  alert(
-
-   'กรุณาใส่รายการซ่อม'
-
-  );
-
-  return;
-
- }
-
- let price=prompt(
-
-  'ราคา (บาท) — ถ้าไม่มีให้เว้นว่าง',
-
-  ''
-
- );
-
- if(price===null)return;
-
- let c=db.customers.find(
-
-  x=>x.id===cid
-
- );
-
- if(!c)return;
-
- let v=c.vehicles.find(
-
-  x=>x.id===vid
-
- );
-
- if(!v)return;
-
- if(!v.history){
-
-  v.history=[];
-
- }
-
- v.history.push({
-
-  date:
-
-  new Date()
-
-  .toLocaleDateString('th-TH'),
-
-  text:text,
-
-  price:price.trim()
-
- });
-
- save();
-
- profile(cid);
-
-}
-
-/* ==================================================
-
-DELETE HISTORY
-
-================================================== */
-
-function deleteHistory(cid,vid,index){
-
- let c=db.customers.find(
-
-  x=>x.id===cid
-
- );
-
- if(!c)return;
-
- let v=c.vehicles.find(
-
-  x=>x.id===vid
-
- );
-
- if(!v)return;
-
- let ok=confirm(
-
-  'ต้องการลบประวัติซ่อมรายการนี้หรือไม่?'
-
- );
-
- if(!ok)return;
-
- v.history.splice(index,1);
-
- save();
-
- profile(cid);
-
-}
-
-/* ==================================================
-
-EXPORT
-
-================================================== */
-
-function exportData(){
-
- let blob=
-
-  new Blob(
-
-   [
-
-    JSON.stringify(
-
-     db,
-
-     null,
-
-     2
-
-    )
-
-   ],
-
-   {
-
-    type:'application/json'
-
-   }
-
-  );
-
- let a=
-
-  document.createElement('a');
-
- a.href=
-
-  URL.createObjectURL(blob);
-
- a.download=
-
-  'LUIMOTOR_backup.json';
-
- a.click();
-
- setTimeout(()=>{
-
-  URL.revokeObjectURL(a.href);
-
- },1000);
-
-}
-
-/* ==================================================
-
-IMPORT
-
-================================================== */
-
-function importData(){
-
- document
-
-  .getElementById('file')
-
-  .click();
-
-}
-
-/* ==================================================
-
-LOAD DATA
-
-================================================== */
-
-function loadData(e){
-
- let f=
-
-  e.target.files[0];
-
- if(!f)return;
-
- let r=
-
-  new FileReader();
-
- r.onload=()=>{
-
-  try{
-
-   let x=
-
-    JSON.parse(r.result);
-
-   if(!x.customers)
-
-    throw new Error();
-
-   db=x;
-
-   save();
-
-   searchCustomers();
-
-   alert(
-
-    'นำเข้าข้อมูลแล้ว'
-
-   );
-
-  }catch{
-
-   alert(
-
-    'ไฟล์ข้อมูลไม่ถูกต้อง'
-
-   );
-
-  }
-
- };
-
- r.readAsText(f);
-
-}
-
-/* ==================================================
-
-START
-
-================================================== */
-
 /*
+====================================================
+LUY MOTOR AI SELLER
+====================================================
 
-  สำคัญ:
+ระบบ:
 
-  เปิดหน้าแรกแล้วไม่แสดงลูกค้าทั้งหมด
+1. รับรูปสินค้า 3 รูป
+2. ส่งรูป + ชื่อ + รายละเอียดไป AI
+3. AI วิเคราะห์สินค้า
+4. AI เขียนคำบรรยายประมาณ 500 คำ
+5. AI สร้าง prompt สำหรับภาพ
+6. เรียก Image API
+7. แสดงหน้าปก
+8. แสดงรูปเพิ่มเติม
 
+====================================================
 */
 
-searchCustomers();
+
+let images = [
+    null,
+    null,
+    null
+];
+
+let generatedImages = [];
+
+
+
+/*
+====================================================
+เลือกรูป
+====================================================
+*/
+
+function selectImage(input,index){
+
+    const file = input.files[0];
+
+    if(!file){
+        return;
+    }
+
+    if(!file.type.startsWith("image/")){
+
+        alert("กรุณาเลือกไฟล์รูปภาพ");
+
+        return;
+    }
+
+
+    const reader = new FileReader();
+
+
+    reader.onload = function(event){
+
+        images[index] = event.target.result;
+
+
+        const preview =
+            document.getElementById(
+                "preview"+index
+            );
+
+        const text =
+            document.getElementById(
+                "text"+index
+            );
+
+
+        preview.src = event.target.result;
+
+        preview.style.display = "block";
+
+        text.style.display = "none";
+
+    };
+
+
+    reader.readAsDataURL(file);
+
+}
+
+
+
+/*
+====================================================
+อัปเดตสถานะ
+====================================================
+*/
+
+function setStatus(text){
+
+    document.getElementById(
+        "status"
+    ).textContent = text;
+
+}
+
+
+
+/*
+====================================================
+เรียก OpenAI Responses API
+====================================================
+*/
+
+async function callResponsesAPI(
+    apiKey,
+    input
+){
+
+    const response = await fetch(
+        "https://api.openai.com/v1/responses",
+        {
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization":
+                    "Bearer "+apiKey
+            },
+
+            body:JSON.stringify({
+
+                model:"gpt-5.6-luna",
+
+                input:input
+
+            })
+
+        }
+    );
+
+
+    const text =
+        await response.text();
+
+
+    let data;
+
+
+    try{
+
+        data = JSON.parse(text);
+
+    }catch{
+
+        throw new Error(
+            "OpenAI API ตอบกลับไม่ถูกต้อง"
+        );
+
+    }
+
+
+    if(!response.ok){
+
+        throw new Error(
+            data?.error?.message ||
+            "OpenAI API Error"
+        );
+
+    }
+
+
+    return data;
+
+}
+
+
+
+/*
+====================================================
+ดึงข้อความจาก Responses
+====================================================
+*/
+
+function getOutputText(data){
+
+    if(data.output_text){
+
+        return data.output_text;
+
+    }
+
+
+    let result = "";
+
+
+    if(Array.isArray(data.output)){
+
+        for(
+            const item of data.output
+        ){
+
+            if(
+                item.type === "message" &&
+                Array.isArray(item.content)
+            ){
+
+                for(
+                    const part of item.content
+                ){
+
+                    if(
+                        part.type ===
+                        "output_text"
+                    ){
+
+                        result +=
+                            part.text || "";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+    return result;
+
+}
+
+
+
+/*
+====================================================
+วิเคราะห์สินค้า
+====================================================
+*/
+
+async function analyzeProduct(){
+
+    const apiKey =
+        document.getElementById(
+            "apiKey"
+        ).value.trim();
+
+
+    const name =
+        document.getElementById(
+            "productName"
+        ).value.trim();
+
+
+    const description =
+        document.getElementById(
+            "productDescription"
+        ).value.trim();
+
+
+    const content = [];
+
+
+    content.push({
+
+        type:"input_text",
+
+        text:`
+
+คุณเป็น AI ผู้ช่วยขายสินค้าของร้าน LUY MOTOR
+
+วิเคราะห์สินค้าอย่างละเอียดจากรูปภาพทั้ง 3 รูป
+และข้อมูลที่ผู้ใช้กรอก
+
+สิ่งสำคัญ:
+
+- ห้ามแต่งยี่ห้อ
+- ห้ามแต่งรุ่น
+- ห้ามแต่งสเปก
+- ห้ามแต่งราคา
+- ห้ามแต่งคุณสมบัติที่ไม่มีหลักฐาน
+- ถ้ามองไม่เห็นข้อมูลให้ไม่ต้องกล่าวอ้าง
+
+ต้องสร้างข้อมูล JSON เท่านั้น
+
+รูปแบบ:
+
+{
+  "description":"คำบรรยายสินค้า",
+  "cover_prompt":"คำสั่งสร้างภาพหน้าปก",
+  "detail_prompts":[
+    "คำสั่งภาพเพิ่มเติม 1",
+    "คำสั่งภาพเพิ่มเติม 2",
+    "คำสั่งภาพเพิ่มเติม 3",
+    "คำสั่งภาพเพิ่มเติม 4"
+  ]
+}
+
+คำบรรยายต้องเป็นภาษาไทย
+เหมาะกับการขายออนไลน์
+อ่านง่าย
+น่าสนใจ
+แต่ต้องไม่โกหกข้อมูลสินค้า
+
+ความยาวประมาณ 500 คำ
+
+ชื่อสินค้า:
+
+${name}
+
+รายละเอียดจากผู้ใช้:
+
+${description}
+
+`
+
+    });
+
+
+    for(
+        const image of images
+    ){
+
+        content.push({
+
+            type:"input_image",
+
+            image_url:image,
+
+            detail:"high"
+
+        });
+
+    }
+
+
+    const data =
+        await callResponsesAPI(
+            apiKey,
+            [
+                {
+                    role:"user",
+                    content:content
+                }
+            ]
+        );
+
+
+    const output =
+        getOutputText(data);
+
+
+    if(!output){
+
+        throw new Error(
+            "AI ไม่ส่งข้อความกลับมา"
+        );
+
+    }
+
+
+    /*
+    ล้าง markdown code block
+    */
+
+    const cleaned =
+        output
+        .replace(/```json/gi,"")
+        .replace(/```/g,"")
+        .trim();
+
+
+    try{
+
+        return JSON.parse(cleaned);
+
+    }catch{
+
+        /*
+        ถ้า AI ส่ง JSON ไม่สมบูรณ์
+        ใช้ข้อความที่ได้เป็น description
+        */
+
+        return {
+
+            description:output,
+
+            cover_prompt:
+                "สร้างภาพโฆษณาสินค้าจากภาพอ้างอิง ให้สินค้าเด่น ชัดเจน ดูเป็นภาพขายสินค้าออนไลน์ระดับมืออาชีพ",
+
+            detail_prompts:[
+
+                "สร้างภาพสินค้าอีกมุมหนึ่ง โดยรักษารูปร่าง สี และรายละเอียดสินค้าเดิม",
+
+                "สร้างภาพสินค้าในฉากใช้งานจริงที่เหมาะสม โดยไม่เพิ่มคุณสมบัติที่ไม่มีหลักฐาน",
+
+                "สร้างภาพสินค้าแบบสตูดิโอสำหรับร้านค้าออนไลน์",
+
+                "สร้างภาพสินค้าแบบมืออาชีพสำหรับใช้เป็นรูปประกอบหน้าร้านออนไลน์"
+
+            ]
+
+        };
+
+    }
+
+}
+
+
+
+/*
+====================================================
+แปลง Data URL เป็น Blob
+====================================================
+*/
+
+function dataURLtoBlob(dataURL){
+
+    const parts =
+        dataURL.split(",");
+
+
+    const mime =
+        (
+            parts[0].match(
+                /data:(.*?);base64/
+            ) || []
+        )[1] || "image/jpeg";
+
+
+    const binary =
+        atob(parts[1]);
+
+
+    const array =
+        new Uint8Array(
+            binary.length
+        );
+
+
+    for(
+        let i=0;
+        i<binary.length;
+        i++
+    ){
+
+        array[i] =
+            binary.charCodeAt(i);
+
+    }
+
+
+    return new Blob(
+        [array],
+        {type:mime}
+    );
+
+}
+
+
+
+/*
+====================================================
+สร้างรูป
+====================================================
+*/
+
+async function generateImage(
+    apiKey,
+    prompt,
+    size
+){
+
+    const form =
+        new FormData();
+
+
+    /*
+    ใช้ภาพสินค้า 3 ภาพเป็น reference
+    */
+
+    for(
+        let i=0;
+        i<images.length;
+        i++
+    ){
+
+        form.append(
+            "image[]",
+            dataURLtoBlob(images[i]),
+            "product-"+(i+1)+".jpg"
+        );
+
+    }
+
+
+    form.append(
+        "model",
+        "gpt-image-2"
+    );
+
+
+    form.append(
+        "prompt",
+        prompt
+    );
+
+
+    form.append(
+        "size",
+        size
+    );
+
+
+    form.append(
+        "quality",
+        "medium"
+    );
+
+
+    const response =
+        await fetch(
+            "https://api.openai.com/v1/images/edits",
+            {
+
+                method:"POST",
+
+                headers:{
+                    "Authorization":
+                        "Bearer "+apiKey
+                },
+
+                body:form
+
+            }
+        );
+
+
+    const text =
+        await response.text();
+
+
+    let data;
+
+
+    try{
+
+        data = JSON.parse(text);
+
+    }catch{
+
+        throw new Error(
+            "Image API ตอบกลับไม่ถูกต้อง"
+        );
+
+    }
+
+
+    if(!response.ok){
+
+        throw new Error(
+            data?.error?.message ||
+            "Image API Error"
+        );
+
+    }
+
+
+    const base64 =
+        data?.data?.[0]?.b64_json;
+
+
+    if(!base64){
+
+        throw new Error(
+            "ไม่พบรูปภาพจาก Image API"
+        );
+
+    }
+
+
+    return (
+        "data:image/png;base64,"+
+        base64
+    );
+
+}
+
+
+
+/*
+====================================================
+เริ่มสร้างทั้งหมด
+====================================================
+*/
+
+async function startGenerate(){
+
+    const apiKey =
+        document.getElementById(
+            "apiKey"
+        ).value.trim();
+
+
+    const name =
+        document.getElementById(
+            "productName"
+        ).value.trim();
+
+
+    const description =
+        document.getElementById(
+            "productDescription"
+        ).value.trim();
+
+
+    /*
+    ตรวจข้อมูล
+    */
+
+    if(!apiKey){
+
+        alert(
+            "กรุณาใส่ API Key ก่อนครับ"
+        );
+
+        return;
+
+    }
+
+
+    if(images.some(
+        image => !image
+    )){
+
+        alert(
+            "กรุณาใส่รูปสินค้าให้ครบ 3 รูปครับ"
+        );
+
+        return;
+
+    }
+
+
+    if(!name){
+
+        alert(
+            "กรุณาใส่ชื่อสินค้าครับ"
+        );
+
+        return;
+
+    }
+
+
+    if(!description){
+
+        alert(
+            "กรุณาใส่รายละเอียดคร่าว ๆ ครับ"
+        );
+
+        return;
+
+    }
+
+
+    /*
+    UI
+    */
+
+    const button =
+        document.getElementById(
+            "generateButton"
+        );
+
+
+    const loading =
+        document.getElementById(
+            "loading"
+        );
+
+
+    const results =
+        document.getElementById(
+            "results"
+        );
+
+
+    const errorBox =
+        document.getElementById(
+            "error"
+        );
+
+
+    button.disabled = true;
+
+    loading.style.display = "block";
+
+    results.style.display = "none";
+
+    errorBox.style.display = "none";
+
+
+    try{
+
+        /*
+        ขั้นที่ 1
+        */
+
+        setStatus(
+            "1/6 กำลังให้ AI วิเคราะห์สินค้า..."
+        );
+
+
+        const plan =
+            await analyzeProduct();
+
+
+        /*
+        คำบรรยาย
+        */
+
+        document.getElementById(
+            "resultDescription"
+        ).value =
+            plan.description || "";
+
+
+        /*
+        รวม prompt
+        */
+
+        const prompts = [
+
+            plan.cover_prompt,
+
+            ...(plan.detail_prompts || [])
+
+        ];
+
+
+        /*
+        เอาไม่เกิน 5 รูป
+        */
+
+        const selectedPrompts =
+            prompts.slice(0,5);
+
+
+        generatedImages = [];
+
+
+        /*
+        สร้างรูปทีละรูป
+        */
+
+        for(
+            let i=0;
+            i<selectedPrompts.length;
+            i++
+        ){
+
+            setStatus(
+                `กำลังสร้างรูป ${i+1} จาก ${selectedPrompts.length} ...`
+            );
+
+
+            let prompt =
+                selectedPrompts[i] || "";
+
+
+            prompt += `
+
+สำคัญมาก:
+
+ใช้ภาพสินค้าที่ผู้ใช้ส่งมาเป็นภาพอ้างอิง
+
+รักษาสินค้าจริงให้เหมือนต้นฉบับมากที่สุด
+
+ห้ามเปลี่ยนยี่ห้อ
+
+ห้ามเปลี่ยนรุ่น
+
+ห้ามเปลี่ยนรูปร่างของสินค้าโดยไม่มีเหตุผล
+
+ห้ามเพิ่มโลโก้ปลอม
+
+ห้ามเพิ่มข้อความปลอม
+
+ห้ามเพิ่มสเปกปลอม
+
+ทำให้ภาพดูสวย สะอาด และเหมาะกับการขายสินค้าออนไลน์
+
+สินค้าเป็นพระเอกของภาพ
+
+`;
+
+
+            const image =
+                await generateImage(
+                    apiKey,
+                    prompt,
+                    i===0
+                        ? "1024x1536"
+                        : "1024x1024"
+                );
+
+
+            generatedImages.push(
+                image
+            );
+
+        }
+
+
+        /*
+        แสดงรูป
+        */
+
+        const grid =
+            document.getElementById(
+                "imageGrid"
+            );
+
+
+        grid.innerHTML = "";
+
+
+        generatedImages.forEach(
+            (image,index)=>{
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "image-card "+
+                    (index===0
+                        ? "cover"
+                        : "");
+
+
+                const img =
+                    document.createElement(
+                        "img"
+                    );
+
+
+                img.src = image;
+
+
+                const info =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                info.className =
+                    "image-info";
+
+
+                info.innerHTML =
+                    index===0
+                    ? "⭐ หน้าปกสินค้า"
+                    : "🖼️ รูปเพิ่มเติม "+index;
+
+
+                const save =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                save.className =
+                    "save-button";
+
+
+                save.textContent =
+                    "⬇️ บันทึกรูป";
+
+
+                save.onclick =
+                    function(){
+
+                        saveImage(
+                            image,
+                            index
+                        );
+
+                    };
+
+
+                info.appendChild(
+                    document.createElement(
+                        "br"
+                    )
+                );
+
+
+                info.appendChild(
+                    save
+                );
+
+
+                card.appendChild(
+                    img
+                );
+
+
+                card.appendChild(
+                    info
+                );
+
+
+                grid.appendChild(
+                    card
+                );
+
+            }
+        );
+
+
+        /*
+        แสดงผล
+        */
+
+        loading.style.display =
+            "none";
+
+
+        results.style.display =
+            "block";
+
+
+        results.scrollIntoView({
+            behavior:"smooth"
+        });
+
+
+    }catch(error){
+
+        loading.style.display =
+            "none";
+
+
+        errorBox.style.display =
+            "block";
+
+
+        errorBox.textContent =
+            "เกิดข้อผิดพลาด:\n\n"+
+            error.message;
+
+
+        console.error(error);
+
+    }
+
+
+    button.disabled = false;
+
+}
+
+
+
+/*
+====================================================
+บันทึกรูป
+====================================================
+*/
+
+function saveImage(
+    image,
+    index
+){
+
+    const link =
+        document.createElement(
+            "a"
+        );
+
+
+    link.href =
+        image;
+
+
+    link.download =
+        index===0
+        ? "LUYMOTOR_COVER.png"
+        : "LUYMOTOR_IMAGE_"+
+          index+
+          ".png";
+
+
+    document.body.appendChild(
+        link
+    );
+
+
+    link.click();
+
+
+    link.remove();
+
+}
+
+
+
+/*
+====================================================
+คัดลอกคำบรรยาย
+====================================================
+*/
+
+async function copyDescription(){
+
+    const text =
+        document.getElementById(
+            "resultDescription"
+        ).value;
+
+
+    if(!text){
+
+        return;
+
+    }
+
+
+    try{
+
+        await navigator.clipboard.writeText(
+            text
+        );
+
+
+        alert(
+            "คัดลอกคำบรรยายแล้วครับ 👍"
+        );
+
+    }catch{
+
+        alert(
+            "คัดลอกไม่ได้ ให้กดค้างที่ข้อความแล้วเลือกคัดลอกครับ"
+        );
+
+    }
+
+}
 
 </script>
 
 </body>
-
 </html>
