@@ -371,7 +371,6 @@ select{
 </style>
 </head>
 
-
 <body>
 
 <header>
@@ -386,7 +385,6 @@ AI PRODUCT SELLER
 
 </header>
 
-
 <div class="container">
 
 <section class="hero">
@@ -398,12 +396,11 @@ AI PRODUCT SELLER
 
 <p>
 ใส่รูปสินค้า 3 รูป ชื่อสินค้า และรายละเอียดคร่าว ๆ
-จากนั้น AI จะช่วยทำรูปสินค้า หน้าปกพร้อมข้อความโฆษณา
-และคำบรรยายสินค้า
+จากนั้น AI จะช่วยทำภาพโฆษณาสินค้าแบบมืออาชีพ
+พร้อมจัดฉาก กราฟิก และข้อความบนภาพให้เหมาะกับสินค้า
 </p>
 
 </section>
-
 
 <!-- =================================================
      1 รูปสินค้า
@@ -415,6 +412,7 @@ AI PRODUCT SELLER
 
 <p class="hint">
 แนะนำให้ใช้รูปสินค้าจริงที่เห็นรายละเอียดชัด
+เพื่อให้ AI รักษารูปร่าง ฉลาก และลักษณะสินค้าจริง
 </p>
 
 <div class="photos">
@@ -436,7 +434,6 @@ onchange="selectImage(this,0)"
 
 </label>
 
-
 <label class="photo">
 
 <input
@@ -453,7 +450,6 @@ onchange="selectImage(this,1)"
 </div>
 
 </label>
-
 
 <label class="photo">
 
@@ -476,7 +472,6 @@ onchange="selectImage(this,2)"
 
 </section>
 
-
 <!-- =================================================
      2 ชื่อสินค้า
 ================================================= -->
@@ -492,7 +487,6 @@ placeholder="เช่น น้ำมันเบรก VEL OIL HP BRAKE FLUID 
 
 </section>
 
-
 <!-- =================================================
      3 รายละเอียด
 ================================================= -->
@@ -507,7 +501,6 @@ placeholder="ใส่ข้อมูลที่พี่รู้ เช่น
 ></textarea>
 
 </section>
-
 
 <!-- =================================================
      4 คุณภาพรูป
@@ -544,7 +537,6 @@ placeholder="ใส่ข้อมูลที่พี่รู้ เช่น
 
 </section>
 
-
 <!-- =================================================
      5 จำนวนรูป
 ================================================= -->
@@ -554,7 +546,8 @@ placeholder="ใส่ข้อมูลที่พี่รู้ เช่น
 <h2>🖼️ 5. ต้องการสร้างกี่รูป?</h2>
 
 <p class="hint">
-รูปแรกจะเป็นหน้าปกพร้อมข้อความโฆษณา
+รูปแรกจะเป็นหน้าปกโฆษณาแบบเต็มรูปแบบ
+AI จะจัดฉาก กราฟิก และข้อความให้เข้ากับสินค้า
 ส่วนรูปที่เหลือเป็นรูปสินค้าเพิ่มเติม
 </p>
 
@@ -607,7 +600,6 @@ class="selected-count"
 
 </section>
 
-
 <!-- =================================================
      6 API
 ================================================= -->
@@ -637,7 +629,6 @@ API Key จะไม่ถูกเก็บลง localStorage โดยโค�
 
 </section>
 
-
 <button
 id="generateButton"
 class="main-button"
@@ -647,7 +638,6 @@ onclick="startGenerate()"
 ✨ สร้าง 2 รูป + คำบรรยาย
 
 </button>
-
 
 <!-- =================================================
      loading
@@ -663,13 +653,11 @@ onclick="startGenerate()"
 
 </div>
 
-
 <!-- =================================================
      error
 ================================================= -->
 
 <div id="error" class="error"></div>
-
 
 <!-- =================================================
      results
@@ -682,7 +670,6 @@ onclick="startGenerate()"
 </h2>
 
 <div id="imageGrid" class="image-grid"></div>
-
 
 <section class="box" style="margin-top:15px">
 
@@ -710,9 +697,7 @@ readonly
 
 </section>
 
-
 </div>
-
 
 <script>
 
@@ -732,7 +717,6 @@ let images = [
 let generatedImages = [];
 
 let selectedImageCount = 2;
-
 
 /* =================================================
    เลือกจำนวนรูป
@@ -764,12 +748,10 @@ function selectImageCount(count){
         }
     }
 
-
     document.getElementById(
         "selectedCount"
     ).textContent =
         "เลือก "+count+" รูป";
-
 
     document.getElementById(
         "generateButton"
@@ -778,10 +760,8 @@ function selectImageCount(count){
         count+
         " รูป + คำบรรยาย";
 
-
     updatePrice();
 }
-
 
 /* =================================================
    รูปสินค้า
@@ -802,10 +782,8 @@ function selectImage(input,index){
         return;
     }
 
-
     const reader =
         new FileReader();
-
 
     reader.onload =
         function(e){
@@ -813,36 +791,29 @@ function selectImage(input,index){
             images[index] =
                 e.target.result;
 
-
             const preview =
                 document.getElementById(
                     "preview"+index
                 );
-
 
             const text =
                 document.getElementById(
                     "text"+index
                 );
 
-
             preview.src =
                 e.target.result;
 
-
             preview.style.display =
                 "block";
-
 
             text.style.display =
                 "none";
 
         };
 
-
     reader.readAsDataURL(file);
 }
-
 
 /* =================================================
    ราคาโดยประมาณ
@@ -855,9 +826,7 @@ function updatePrice(){
             "quality"
         ).value;
 
-
     let mode = "";
-
 
     if(quality === "low"){
 
@@ -876,7 +845,6 @@ function updatePrice(){
 
     }
 
-
     document.getElementById(
         "priceEstimate"
     ).textContent =
@@ -885,7 +853,6 @@ function updatePrice(){
         selectedImageCount+
         " รูป";
 }
-
 
 /* =================================================
    status
@@ -898,7 +865,6 @@ function setStatus(text){
     ).textContent =
         text;
 }
-
 
 /* =================================================
    Responses API
@@ -937,13 +903,10 @@ async function callResponses(
             }
         );
 
-
     const raw =
         await response.text();
 
-
     let data;
-
 
     try{
 
@@ -958,7 +921,6 @@ async function callResponses(
 
     }
 
-
     if(!response.ok){
 
         throw new Error(
@@ -968,10 +930,8 @@ async function callResponses(
 
     }
 
-
     return data;
 }
-
 
 /* =================================================
    ดึง output text
@@ -987,9 +947,7 @@ function getOutputText(data){
         return data.output_text;
     }
 
-
     let text = "";
-
 
     if(Array.isArray(data.output)){
 
@@ -1020,10 +978,8 @@ function getOutputText(data){
         }
     }
 
-
     return text.trim();
 }
-
 
 /* =================================================
    วิเคราะห์สินค้า
@@ -1036,15 +992,12 @@ async function analyzeProduct(apiKey){
             "productName"
         ).value.trim();
 
-
     const description =
         document.getElementById(
             "productDescription"
         ).value.trim();
 
-
     const content = [];
-
 
     content.push({
 
@@ -1052,29 +1005,122 @@ async function analyzeProduct(apiKey){
 
         text:`
 
-คุณคือผู้เชี่ยวชาญด้านการทำคอนเทนต์ขายสินค้าออนไลน์
-ของร้าน LUY MOTOR
+คุณคือ Creative Director และผู้เชี่ยวชาญด้านการทำภาพโฆษณาสินค้าออนไลน์ของร้าน LUY MOTOR
 
-วิเคราะห์รูปสินค้า 3 รูปและข้อมูลจากผู้ใช้
+หน้าที่ของคุณคือวิเคราะห์สินค้าจากรูปจริง 3 รูปและข้อมูลของผู้ใช้
+เพื่อเตรียมแนวคิดสำหรับสร้างภาพโฆษณาระดับมืออาชีพ
 
-เป้าหมายคือทำสื่อขายสินค้าให้น่าสนใจ
-แต่ต้องรักษาความถูกต้องของสินค้า
+เป้าหมายสำคัญที่สุด:
 
-กฎสำคัญ:
+สร้างภาพที่ "ดูแล้วอยากซื้อ"
+โดยให้ AI เป็นคนจัดฉาก ถ่ายภาพสินค้า จำลองสภาพแวดล้อม
+ออกแบบองค์ประกอบ กราฟิก ป้ายข้อความ และข้อความโฆษณาบนภาพเอง
 
-1. ห้ามแต่งยี่ห้อ
-2. ห้ามแต่งรุ่น
-3. ห้ามแต่งสเปก
-4. ห้ามแต่งขนาด
-5. ห้ามแต่งราคา
-6. ห้ามอ้างคุณสมบัติที่ไม่มีหลักฐาน
-7. ถ้าอ่านข้อมูลจากฉลากได้ ให้ใช้ข้อมูลนั้นอย่างระมัดระวัง
-8. ถ้าไม่แน่ใจ ให้ใช้ถ้อยคำกลาง ๆ
-9. ต้องใช้ภาษาไทย
-10. คำบรรยายประมาณ 250 คำ
-11. เขียนให้น่าสนใจสำหรับการขายออนไลน์
-12. หลีกเลี่ยงคำโฆษณาที่เกินจริง
-13. ต้องรักษาข้อมูลสินค้าจริงจากรูปอ้างอิง
+IMPORTANT:
+
+ข้อความโฆษณาจะถูกสร้างโดย IMAGE AI โดยตรง
+ห้ามส่งข้อความไปให้ Canvas หรือ JavaScript เอามาวางทับภาพภายหลัง
+
+หน้าปกต้องมีลักษณะเหมือนโปสเตอร์โฆษณามืออาชีพ
+ไม่ใช่เพียงเอาข้อความลอยไว้ด้านบนของรูปสินค้า
+
+ข้อความทั้งหมดที่อยู่ในภาพต้องถูกออกแบบให้เป็นส่วนหนึ่งของงานกราฟิก เช่น:
+
+- แถบข้อความ
+- ป้ายแดง
+- Badge
+- กล่องข้อมูล
+- Banner
+- ป้ายมุมภาพ
+- เส้นกราฟิก
+- กล่องจุดเด่น
+- ป้ายโปรโมชั่น
+- Typography ที่จัดวางอย่างมืออาชีพ
+
+ห้ามทำข้อความลอยทับสินค้าหรือทับข้อความอื่น
+
+ห้ามมีข้อความซ้อนกัน
+
+ห้ามมีข้อความชนขอบภาพ
+
+ห้ามให้ข้อความไปอยู่บนจุดสำคัญของสินค้าโดยไม่จำเป็น
+
+ห้ามสร้างข้อความซ้ำหลายตำแหน่งโดยไม่มีเหตุผล
+
+ต้องจัดลำดับความสำคัญของข้อความให้ชัดเจน
+
+หัวข้อใหญ่ต้องเด่นที่สุด
+ข้อความรองต้องเล็กลง
+Badge ต้องมีขนาดเหมาะสม
+รายละเอียดต้องอ่านง่าย
+
+กฎความถูกต้องของสินค้า:
+
+1. ห้ามเปลี่ยนยี่ห้อ
+2. ห้ามเปลี่ยนรุ่น
+3. ห้ามเปลี่ยนชนิดสินค้า
+4. ห้ามเปลี่ยนรูปทรงสินค้าโดยไม่มีเหตุผล
+5. ห้ามสร้างโลโก้ใหม่
+6. ห้ามสร้างฉลากใหม่
+7. ห้ามแต่งสเปก
+8. ห้ามแต่งขนาด
+9. ห้ามแต่งปริมาณ
+10. ห้ามแต่งราคา
+11. ห้ามอ้างคุณสมบัติที่ไม่มีหลักฐาน
+12. ห้ามอ้างว่าเป็นของแท้ถ้าไม่มีข้อมูลยืนยัน
+13. ห้ามสร้างมาตรฐานที่ไม่มีอยู่จริง
+14. ถ้าอ่านข้อมูลบนฉลากได้ ให้รักษาข้อมูลนั้นให้ถูกต้อง
+15. ถ้าไม่แน่ใจ ให้ใช้ข้อความกลาง ๆ
+16. สินค้าจริงจากรูปอ้างอิงต้องเป็นพระเอกของภาพ
+
+แนวทางการออกแบบ:
+
+- ใช้ภาพสินค้าเป็นศูนย์กลาง
+- จัดฉากให้เข้ากับประเภทสินค้า
+- ใช้แสงแบบโฆษณาสินค้า
+- ใช้เงาและมิติให้สินค้าดูมีราคา
+- ใช้พื้นหลังที่สัมพันธ์กับการใช้งานสินค้า
+- ใช้กราฟิกที่เข้ากับสีของสินค้า
+- ทำให้ดูเหมือนงานโฆษณาจากแบรนด์มืออาชีพ
+- ไม่ทำให้ภาพรก
+- ไม่ใส่ลูกเล่นมากจนบดบังสินค้า
+- ข้อความต้องอ่านง่ายบนมือถือ
+
+สำหรับรูปแรก:
+
+ต้องเป็น "หน้าปกโฆษณา"
+
+ให้ AI ออกแบบองค์ประกอบเองทั้งหมด
+
+สามารถใช้:
+- ฉากร้าน
+- ฉากอู่
+- ฉากการใช้งาน
+- ฉากสตูดิโอ
+- ชิ้นส่วนที่เกี่ยวข้อง
+- แสงสวย ๆ
+- เงา
+- เส้นกราฟิก
+- Badge
+- กล่องจุดเด่น
+- Banner
+- ป้ายข้อความ
+
+แต่ทั้งหมดต้องเหมาะกับสินค้าจริง
+
+สำหรับรูปเพิ่มเติม:
+
+ให้สร้างภาพที่แตกต่างจากหน้าปก
+เช่น:
+
+- มุมสินค้าแบบมืออาชีพ
+- ภาพซูมรายละเอียด
+- ภาพสินค้าในสถานการณ์ใช้งาน
+- ภาพสตูดิโอ
+- ภาพเน้นจุดเด่น
+- ภาพโฆษณาอีกสไตล์
+
+แต่ต้องรักษาสินค้าจริง
 
 ต้องตอบกลับเป็น JSON เท่านั้น
 
@@ -1095,27 +1141,34 @@ async function analyzeProduct(apiKey){
  ]
 }
 
-สำหรับหน้าปก:
+คำอธิบาย:
+
+product_summary
+สรุปว่าสินค้านี้คืออะไร
+
+description
+คำบรรยายสินค้าออนไลน์ประมาณ 250 คำ
+ต้องน่าสนใจแต่ห้ามกล่าวอ้างเกินข้อมูลจริง
 
 cover_headline
-คือข้อความสั้น ๆ ตัวใหญ่สำหรับใส่บนภาพ
+หัวข้อใหญ่สำหรับหน้าปก
+ต้องสั้น กระชับ และน่าสนใจ
 
 cover_subheadline
-คือข้อความรอง
+ข้อความรองสำหรับหน้าปก
 
 cover_badge
-คือคำสั้น ๆ เช่น
-"DOT 3"
-"ของแท้"
-"พร้อมส่ง"
+Badge สั้น ๆ ที่เหมาะกับสินค้า
 
 cover_prompt
-คือคำสั่งสร้างภาพหน้าปกสินค้า
+คำสั่งสำหรับ IMAGE AI เพื่อสร้างหน้าปก
+ต้องสั่งให้ AI ออกแบบ "ภาพและตัวหนังสือรวมเป็นภาพเดียว"
+ห้ามมีข้อความลอย
+ห้ามใช้ Canvas
+ห้ามใส่ข้อความภายหลัง
 
 detail_prompts
-คือคำสั่งสร้างภาพสินค้าเพิ่มเติม
-
-ห้ามสร้างข้อมูลที่ไม่มีหลักฐาน
+คำสั่งสร้างภาพเพิ่มเติม 4 แบบ
 
 ชื่อสินค้า:
 
@@ -1127,7 +1180,6 @@ ${description}
 
 `
     });
-
 
     for(
         const image of images
@@ -1145,7 +1197,6 @@ ${description}
 
     }
 
-
     const data =
         await callResponses(
             apiKey,
@@ -1157,10 +1208,8 @@ ${description}
             ]
         );
 
-
     let output =
         getOutputText(data);
-
 
     if(!output){
 
@@ -1170,13 +1219,11 @@ ${description}
 
     }
 
-
     output =
         output
         .replace(/```json/gi,"")
         .replace(/```/g,"")
         .trim();
-
 
     try{
 
@@ -1196,24 +1243,68 @@ ${description}
                 name,
 
             cover_subheadline:
-                "สินค้าคุณภาพสำหรับร้าน LUY MOTOR",
+                "สินค้าสำหรับงานซ่อมและบำรุงรักษา",
 
             cover_badge:
                 "พร้อมส่ง",
 
-            cover_prompt:
-                "สร้างภาพสินค้าแบบสตูดิโอระดับมืออาชีพ โดยใช้สินค้าจริงจากภาพอ้างอิงเป็นพระเอกของภาพ พื้นหลังสวยสะอาด เหมาะสำหรับหน้าร้านออนไลน์",
+            cover_prompt:`
+
+สร้างภาพโฆษณาสินค้าออนไลน์ระดับมืออาชีพ
+โดยใช้สินค้าจริงจากภาพอ้างอิงเป็นพระเอกของภาพ
+
+จัดฉากใหม่ให้สวยและน่าซื้อ
+ใช้แสงแบบโฆษณา
+สร้างพื้นหลังและสภาพแวดล้อมให้เข้ากับสินค้าจริง
+
+ออกแบบกราฟิกโฆษณาให้เป็นส่วนหนึ่งของภาพ
+เช่น banner, badge, กล่องข้อความ, เส้นกราฟิก และ typography
+
+ข้อความต้องถูกสร้างและจัดวางโดย AI ภายในภาพโดยตรง
+
+ห้ามมีข้อความลอย
+ห้ามมีข้อความซ้อนกัน
+ห้ามมีข้อความทับสินค้าโดยไม่จำเป็น
+ห้ามใส่ข้อความซ้ำ
+ห้ามใช้ Canvas
+ห้ามมีพื้นที่ข้อความแยกออกจากงานออกแบบ
+
+รักษาสินค้าจริง ยี่ห้อ ฉลาก สี รูปทรง และรายละเอียดให้ใกล้เคียงภาพอ้างอิงที่สุด
+
+`,
 
             detail_prompts:[
 
-                "สร้างภาพสินค้าแบบสตูดิโออีกมุมหนึ่ง",
+                `
+สร้างภาพสินค้าแบบสตูดิโอระดับมืออาชีพ
+ใช้สินค้าจริงจากภาพอ้างอิงเป็นหลัก
+จัดแสง เงา และฉากใหม่ให้ดูมีมูลค่า
+ไม่เปลี่ยนสินค้าและไม่สร้างข้อมูลใหม่
+`,
 
-                "สร้างภาพซูมรายละเอียดของสินค้าโดยรักษาของจริง",
+                `
+สร้างภาพโฆษณาอีกมุมหนึ่ง
+เน้นรายละเอียดและคุณภาพของสินค้าจริง
+ใช้กราฟิกที่เข้ากับสินค้าอย่างพอดี
+ข้อความถ้ามีต้องเป็นส่วนหนึ่งของงานออกแบบ
+ห้ามมีข้อความลอยหรือซ้อนกัน
+`,
 
-                "สร้างภาพสินค้าในบรรยากาศการใช้งานที่เหมาะสม",
+                `
+สร้างภาพสินค้าในบรรยากาศการใช้งานที่เหมาะสม
+ให้สินค้าจริงยังเป็นจุดเด่นที่สุด
+ใช้แสงและองค์ประกอบแบบภาพโฆษณา
+ไม่เปลี่ยนรูปร่างหรือฉลากของสินค้า
+`,
 
-                "สร้างภาพสินค้าแบบโฆษณาระดับมืออาชีพ"
-
+                `
+สร้างโปสเตอร์โฆษณาสินค้าระดับมืออาชีพ
+ใช้สินค้าจริงจากภาพอ้างอิง
+จัดฉาก กราฟิก และ typography ให้สวย
+ข้อความต้องรวมอยู่ในองค์ประกอบกราฟิกของภาพ
+ห้ามมีข้อความลอย
+ห้ามข้อความทับกัน
+`
             ]
 
         };
@@ -1221,10 +1312,8 @@ ${description}
     }
 }
 
-
 /* =================================================
    แปลง Data URL เป็น JPEG Blob
-   แก้ปัญหา HEIC / รูป iPhone บางชนิด
 ================================================= */
 
 async function imageDataToJpegBlob(
@@ -1237,7 +1326,6 @@ async function imageDataToJpegBlob(
             const img =
                 new Image();
 
-
             img.onload =
                 function(){
 
@@ -1246,21 +1334,13 @@ async function imageDataToJpegBlob(
                             "canvas"
                         );
 
-
                     let width =
                         img.naturalWidth;
-
 
                     let height =
                         img.naturalHeight;
 
-
-                    /*
-                    จำกัดขนาดเพื่อไม่ให้ไฟล์ใหญ่เกินไป
-                    */
-
                     const maxSize = 2048;
-
 
                     if(
                         width > maxSize ||
@@ -1273,12 +1353,10 @@ async function imageDataToJpegBlob(
                                 maxSize/height
                             );
 
-
                         width =
                             Math.floor(
                                 width*ratio
                             );
-
 
                         height =
                             Math.floor(
@@ -1287,20 +1365,16 @@ async function imageDataToJpegBlob(
 
                     }
 
-
                     canvas.width =
                         width;
 
-
                     canvas.height =
                         height;
-
 
                     const ctx =
                         canvas.getContext(
                             "2d"
                         );
-
 
                     ctx.drawImage(
                         img,
@@ -1309,7 +1383,6 @@ async function imageDataToJpegBlob(
                         width,
                         height
                     );
-
 
                     canvas.toBlob(
                         function(blob){
@@ -1325,7 +1398,6 @@ async function imageDataToJpegBlob(
                                 return;
                             }
 
-
                             resolve(blob);
 
                         },
@@ -1334,7 +1406,6 @@ async function imageDataToJpegBlob(
                     );
 
                 };
-
 
             img.onerror =
                 function(){
@@ -1347,7 +1418,6 @@ async function imageDataToJpegBlob(
 
                 };
 
-
             img.src =
                 dataURL;
 
@@ -1355,9 +1425,9 @@ async function imageDataToJpegBlob(
     );
 }
 
-
 /* =================================================
    สร้างภาพด้วย GPT Image
+   AI เป็นคนทำภาพ + ตัวหนังสือทั้งหมด
 ================================================= */
 
 async function generateImage(
@@ -1370,10 +1440,8 @@ async function generateImage(
     const form =
         new FormData();
 
-
     /*
     ส่งรูปอ้างอิงทั้ง 3 รูป
-    โดยแปลงเป็น JPEG ก่อน
     */
 
     for(
@@ -1387,7 +1455,6 @@ async function generateImage(
                 images[index]
             );
 
-
         form.append(
             "image[]",
             blob,
@@ -1396,24 +1463,20 @@ async function generateImage(
 
     }
 
-
     form.append(
         "model",
         IMAGE_MODEL
     );
-
 
     form.append(
         "prompt",
         prompt
     );
 
-
     form.append(
         "quality",
         quality
     );
-
 
     form.append(
         "size",
@@ -1422,6 +1485,14 @@ async function generateImage(
             : "1024x1024"
     );
 
+    /*
+    เน้นรักษาสินค้าจริงจากรูปอ้างอิง
+    */
+
+    form.append(
+        "input_fidelity",
+        "high"
+    );
 
     const response =
         await fetch(
@@ -1440,13 +1511,10 @@ async function generateImage(
             }
         );
 
-
     const raw =
         await response.text();
 
-
     let data;
-
 
     try{
 
@@ -1461,7 +1529,6 @@ async function generateImage(
 
     }
 
-
     if(!response.ok){
 
         throw new Error(
@@ -1471,10 +1538,8 @@ async function generateImage(
 
     }
 
-
     const b64 =
         data?.data?.[0]?.b64_json;
-
 
     if(!b64){
 
@@ -1483,7 +1548,6 @@ async function generateImage(
         );
 
     }
-
 
     return {
 
@@ -1498,974 +1562,6 @@ async function generateImage(
     };
 }
 
-
-/* =================================================
-   ใส่ข้อความบนหน้าปกด้วย Canvas
-================================================= */
-
-/* =================================================
-   ใส่ข้อความบนหน้าปกด้วย Canvas
-   เวอร์ชันใหม่
-   - ป้องกันข้อความทับกัน
-   - รองรับภาษาไทยดีขึ้น
-   - แต่งข้อความให้สวยขึ้น
-================================================= */
-
-async function addCoverText(
-    imageSrc,
-    headline,
-    subheadline,
-    badge
-){
-
-    return new Promise(
-        (resolve,reject)=>{
-
-            const img =
-                new Image();
-
-            img.onload =
-                function(){
-
-                    const canvas =
-                        document.createElement(
-                            "canvas"
-                        );
-
-                    canvas.width =
-                        img.naturalWidth;
-
-                    canvas.height =
-                        img.naturalHeight;
-
-                    const ctx =
-                        canvas.getContext(
-                            "2d"
-                        );
-
-                    const w =
-                        canvas.width;
-
-                    const h =
-                        canvas.height;
-
-
-                    /*
-                    =================================
-                    วาดรูปสินค้า
-                    =================================
-                    */
-
-                    ctx.drawImage(
-                        img,
-                        0,
-                        0
-                    );
-
-
-                    /*
-                    =================================
-                    พื้นหลังไล่ระดับด้านบน
-                    =================================
-                    */
-
-                    const gradient =
-                        ctx.createLinearGradient(
-                            0,
-                            0,
-                            0,
-                            h * 0.48
-                        );
-
-                    gradient.addColorStop(
-                        0,
-                        "rgba(0,0,0,.88)"
-                    );
-
-                    gradient.addColorStop(
-                        0.55,
-                        "rgba(0,0,0,.55)"
-                    );
-
-                    gradient.addColorStop(
-                        1,
-                        "rgba(0,0,0,0)"
-                    );
-
-                    ctx.fillStyle =
-                        gradient;
-
-                    ctx.fillRect(
-                        0,
-                        0,
-                        w,
-                        h * 0.50
-                    );
-
-
-                    /*
-                    =================================
-                    ค่าพื้นฐาน
-                    =================================
-                    */
-
-                    const padding =
-                        Math.max(
-                            35,
-                            w * 0.045
-                        );
-
-                    const maxWidth =
-                        w -
-                        padding * 2;
-
-
-                    /*
-                    =================================
-                    ตำแหน่งเริ่มต้น
-                    =================================
-                    */
-
-                    let currentY =
-                        Math.max(
-                            45,
-                            h * 0.045
-                        );
-
-
-                    /*
-                    =================================
-                    BADGE
-                    =================================
-                    */
-
-                    if(badge){
-
-                        const badgeFont =
-                            Math.max(
-                                24,
-                                Math.floor(
-                                    w * 0.034
-                                )
-                            );
-
-                        ctx.font =
-                            "800 " +
-                            badgeFont +
-                            "px Arial";
-
-                        const badgeWidth =
-                            ctx.measureText(
-                                badge
-                            ).width + 42;
-
-                        const badgeHeight =
-                            badgeFont + 24;
-
-
-                        /*
-                        เงา
-                        */
-
-                        ctx.shadowColor =
-                            "rgba(0,0,0,.45)";
-
-                        ctx.shadowBlur =
-                            10;
-
-
-                        /*
-                        พื้นหลัง Badge
-                        */
-
-                        ctx.fillStyle =
-                            "#e60000";
-
-                        roundRect(
-                            ctx,
-                            padding,
-                            currentY,
-                            badgeWidth,
-                            badgeHeight,
-                            14
-                        );
-
-                        ctx.fill();
-
-
-                        ctx.shadowBlur =
-                            0;
-
-
-                        /*
-                        ตัวอักษร Badge
-                        */
-
-                        ctx.fillStyle =
-                            "#ffffff";
-
-                        ctx.textBaseline =
-                            "middle";
-
-                        ctx.textAlign =
-                            "left";
-
-                        ctx.font =
-                            "800 " +
-                            badgeFont +
-                            "px Arial";
-
-                        ctx.fillText(
-                            badge,
-                            padding + 21,
-                            currentY +
-                            badgeHeight / 2
-                        );
-
-
-                        /*
-                        เลื่อนลงตามความสูงจริง
-                        */
-
-                        currentY +=
-                            badgeHeight +
-                            Math.max(
-                                22,
-                                h * 0.025
-                            );
-                    }
-
-
-                    /*
-                    =================================
-                    HEADLINE
-                    =================================
-                    */
-
-                    if(headline){
-
-                        const headlineFont =
-                            Math.max(
-                                38,
-                                Math.floor(
-                                    w * 0.070
-                                )
-                            );
-
-
-                        ctx.font =
-                            "900 " +
-                            headlineFont +
-                            "px Arial";
-
-                        ctx.textAlign =
-                            "left";
-
-                        ctx.textBaseline =
-                            "top";
-
-
-                        /*
-                        ตัดข้อความภาษาไทย
-                        */
-
-                        const headlineLines =
-                            getWrappedLines(
-                                ctx,
-                                headline,
-                                maxWidth,
-                                3
-                            );
-
-
-                        const headlineLineHeight =
-                            headlineFont * 1.18;
-
-
-                        /*
-                        เงาตัวอักษร
-                        */
-
-                        ctx.shadowColor =
-                            "rgba(0,0,0,.85)";
-
-                        ctx.shadowBlur =
-                            12;
-
-                        ctx.shadowOffsetX =
-                            2;
-
-                        ctx.shadowOffsetY =
-                            3;
-
-
-                        /*
-                        วาดทีละบรรทัด
-                        */
-
-                        headlineLines.forEach(
-                            (lineText,index)=>{
-
-                                /*
-                                ทำให้บางคำ/ข้อความ
-                                เด่นด้วยสีแดง
-                                */
-
-                                ctx.fillStyle =
-                                    index === 0
-                                    ? "#ffffff"
-                                    : "#ff3333";
-
-
-                                ctx.fillText(
-                                    lineText,
-                                    padding,
-                                    currentY +
-                                    index *
-                                    headlineLineHeight
-                                );
-
-                            }
-                        );
-
-
-                        ctx.shadowBlur =
-                            0;
-
-                        ctx.shadowOffsetX =
-                            0;
-
-                        ctx.shadowOffsetY =
-                            0;
-
-
-                        /*
-                        เลื่อนตำแหน่งตามจำนวนบรรทัดจริง
-                        */
-
-                        currentY +=
-                            headlineLines.length *
-                            headlineLineHeight +
-                            Math.max(
-                                18,
-                                h * 0.018
-                            );
-                    }
-
-
-                    /*
-                    =================================
-                    SUBHEADLINE
-                    =================================
-                    */
-
-                    if(subheadline){
-
-                        const subFont =
-                            Math.max(
-                                22,
-                                Math.floor(
-                                    w * 0.033
-                                )
-                            );
-
-
-                        ctx.font =
-                            "700 " +
-                            subFont +
-                            "px Arial";
-
-                        ctx.fillStyle =
-                            "#ffffff";
-
-                        ctx.textAlign =
-                            "left";
-
-                        ctx.textBaseline =
-                            "top";
-
-
-                        const subLines =
-                            getWrappedLines(
-                                ctx,
-                                subheadline,
-                                maxWidth,
-                                3
-                            );
-
-
-                        const subLineHeight =
-                            subFont * 1.35;
-
-
-                        /*
-                        เงาอ่อน
-                        */
-
-                        ctx.shadowColor =
-                            "rgba(0,0,0,.75)";
-
-                        ctx.shadowBlur =
-                            7;
-
-
-                        subLines.forEach(
-                            (lineText,index)=>{
-
-                                ctx.fillText(
-                                    lineText,
-                                    padding,
-                                    currentY +
-                                    index *
-                                    subLineHeight
-                                );
-
-                            }
-                        );
-
-
-                        ctx.shadowBlur =
-                            0;
-
-
-                        /*
-                        เลื่อนตำแหน่งตามจริง
-                        */
-
-                        currentY +=
-                            subLines.length *
-                            subLineHeight;
-                    }
-
-
-                    /*
-                    =================================
-                    เส้นตกแต่งสีแดง
-                    =================================
-                    */
-
-                    const lineY =
-                        Math.min(
-                            currentY + 18,
-                            h * 0.48
-                        );
-
-
-                    ctx.fillStyle =
-                        "#e60000";
-
-                    roundRect(
-                        ctx,
-                        padding,
-                        lineY,
-                        Math.min(
-                            w * 0.22,
-                            150
-                        ),
-                        6,
-                        3
-                    );
-
-                    ctx.fill();
-
-
-                    /*
-                    =================================
-                    คืนค่าเป็น JPEG
-                    =================================
-                    */
-
-                    resolve(
-                        canvas.toDataURL(
-                            "image/jpeg",
-                            .94
-                        )
-                    );
-
-                };
-
-
-            img.onerror =
-                reject;
-
-
-            img.src =
-                imageSrc;
-        }
-    );
-}
-
-
-/* =================================================
-   Canvas helpers
-================================================= */
-
-function roundRect(
-    ctx,
-    x,
-    y,
-    width,
-    height,
-    radius
-){
-
-    ctx.beginPath();
-
-
-    ctx.moveTo(
-        x+radius,
-        y
-    );
-
-
-    ctx.lineTo(
-        x+width-radius,
-        y
-    );
-
-
-    ctx.quadraticCurveTo(
-        x+width,
-        y,
-        x+width,
-        y+radius
-    );
-
-
-    ctx.lineTo(
-        x+width,
-        y+height-radius
-    );
-
-
-    ctx.quadraticCurveTo(
-        x+width,
-        y+height,
-        x+width-radius,
-        y+height
-    );
-
-
-    ctx.lineTo(
-        x+radius,
-        y+height
-    );
-
-
-    ctx.quadraticCurveTo(
-        x,
-        y+height,
-        x,
-        y+height-radius
-    );
-
-
-    ctx.lineTo(
-        x,
-        y+radius
-    );
-
-
-    ctx.quadraticCurveTo(
-        x,
-        y,
-        x+radius,
-        y
-    );
-
-
-    ctx.closePath();
-}
-
-
-/* =================================================
-   ระบบตัดคำภาษาไทย
-================================================= */
-
-function getThaiWords(text){
-
-    text =
-        String(text || "")
-        .replace(/\s+/g," ")
-        .trim();
-
-
-    if(!text){
-        return [];
-    }
-
-
-    /*
-    ใช้ Intl.Segmenter
-    ตัดคำภาษาไทยตามคำจริง
-    */
-
-    if(
-        typeof Intl !== "undefined" &&
-        typeof Intl.Segmenter === "function"
-    ){
-
-        try{
-
-            const segmenter =
-                new Intl.Segmenter(
-                    "th",
-                    {
-                        granularity:"word"
-                    }
-                );
-
-
-            const result = [];
-
-
-            for(
-                const part of
-                segmenter.segment(text)
-            ){
-
-                const word =
-                    part.segment;
-
-
-                /*
-                ตัดช่องว่างออก
-                */
-
-                if(
-                    word.trim()
-                ){
-
-                    result.push(
-                        word
-                    );
-
-                }
-
-            }
-
-
-            if(result.length){
-                return result;
-            }
-
-        }catch(error){
-
-            console.warn(
-                "Thai Segmenter error:",
-                error
-            );
-
-        }
-
-    }
-
-
-    /*
-    ==========================================
-    ระบบสำรอง
-    ถ้า Browser ไม่มี Intl.Segmenter
-    ==========================================
-    */
-
-    return text
-        .split("")
-        .filter(
-            char =>
-                char !== "\n"
-        );
-}
-
-
-/* =================================================
-   สร้างบรรทัดข้อความ
-================================================= */
-
-function getWrappedLines(
-    ctx,
-    text,
-    maxWidth,
-    maxLines
-){
-
-    const words =
-        getThaiWords(text);
-
-
-    const lines = [];
-
-
-    let line = "";
-
-
-    for(
-        let i=0;
-        i<words.length;
-        i++
-    ){
-
-        const word =
-            words[i];
-
-
-        const test =
-            line +
-            word;
-
-
-        const width =
-            ctx.measureText(
-                test
-            ).width;
-
-
-        /*
-        ถ้าเกินความกว้าง
-        ให้ขึ้นบรรทัดใหม่
-        */
-
-        if(
-            width > maxWidth &&
-            line
-        ){
-
-            lines.push(
-                line
-            );
-
-
-            line =
-                word;
-
-
-            /*
-            ถ้าเกินจำนวนบรรทัด
-            ให้หยุด
-            */
-
-            if(
-                lines.length >=
-                maxLines
-            ){
-
-                break;
-            }
-
-        }else{
-
-            line =
-                test;
-        }
-
-    }
-
-
-    /*
-    เพิ่มบรรทัดสุดท้าย
-    */
-
-    if(
-        line &&
-        lines.length <
-        maxLines
-    ){
-
-        lines.push(
-            line
-        );
-
-    }
-
-
-    /*
-    ==========================================
-    ถ้ายังเหลือข้อความ
-    ใส่ ... ท้ายบรรทัดสุดท้าย
-    ==========================================
-    */
-
-    if(
-        lines.length === maxLines &&
-        words.length
-    ){
-
-        const used =
-            lines.join("");
-
-
-        if(
-            used.length <
-            text.length
-        ){
-
-            let last =
-                lines[
-                    lines.length - 1
-                ];
-
-
-            const suffix =
-                "...";
-
-
-            while(
-                ctx.measureText(
-                    last + suffix
-                ).width >
-                maxWidth &&
-                last.length > 1
-            ){
-
-                /*
-                ลบทีละตัว
-                รองรับภาษาไทย
-                */
-
-                last =
-                    last.slice(
-                        0,
-                        -1
-                    );
-
-            }
-
-
-            lines[
-                lines.length - 1
-            ] =
-                last + suffix;
-        }
-    }
-
-
-    return lines;
-}
-
-
-/* =================================================
-   wrapText
-   เก็บไว้เผื่อส่วนอื่นในระบบเรียกใช้
-================================================= */
-
-function wrapText(
-    ctx,
-    text,
-    x,
-    y,
-    maxWidth,
-    lineHeight,
-    maxLines
-){
-
-    const lines =
-        getWrappedLines(
-            ctx,
-            text,
-            maxWidth,
-            maxLines
-        );
-
-
-    lines.forEach(
-        (lineText,index)=>{
-
-            ctx.fillText(
-                lineText,
-                x,
-                y +
-                index *
-                lineHeight
-            );
-
-        }
-    );
-
-
-    return lines.length;
-}
-
-    const words =
-        String(text || "")
-        .split(/\s+/);
-
-
-    let line = "";
-
-    let lines = [];
-
-
-    for(
-        let n=0;
-        n<words.length;
-        n++
-    ){
-
-        const test =
-            line+
-            words[n]+
-            " ";
-
-
-        const width =
-            ctx.measureText(
-                test
-            ).width;
-
-
-        if(
-            width > maxWidth &&
-            n > 0
-        ){
-
-            lines.push(
-                line.trim()
-            );
-
-
-            line =
-                words[n]+" ";
-
-        }else{
-
-            line =
-                test;
-
-        }
-
-    }
-
-
-    if(line.trim()){
-
-        lines.push(
-            line.trim()
-        );
-
-    }
-
-
-    lines =
-        lines.slice(
-            0,
-            maxLines
-        );
-
-
-    lines.forEach(
-        (lineText,i)=>{
-
-            ctx.fillText(
-                lineText,
-                x,
-                y+
-                i*lineHeight
-            );
-
-        }
-    );
-}
-
-
 /* =================================================
    แสดงผล
 ================================================= */
@@ -2477,9 +1573,7 @@ function renderResults(){
             "imageGrid"
         );
 
-
     grid.innerHTML = "";
-
 
     generatedImages.forEach(
         (image,index)=>{
@@ -2489,7 +1583,6 @@ function renderResults(){
                     "div"
                 );
 
-
             card.className =
                 "image-card "+
                 (
@@ -2498,52 +1591,42 @@ function renderResults(){
                     : ""
                 );
 
-
             const img =
                 document.createElement(
                     "img"
                 );
 
-
             img.src =
                 image.src;
-
 
             img.alt =
                 index===0
                 ? "หน้าปกสินค้า"
                 : "รูปสินค้าเพิ่มเติม";
 
-
             const info =
                 document.createElement(
                     "div"
                 );
 
-
             info.className =
                 "image-info";
 
-
             info.textContent =
                 index===0
-                ? "⭐ หน้าปกสินค้า — มีข้อความโฆษณา"
+                ? "⭐ หน้าปกสินค้า — AI ออกแบบภาพและข้อความทั้งหมด"
                 : "🖼️ รูปเพิ่มเติม "+index;
-
 
             const save =
                 document.createElement(
                     "button"
                 );
 
-
             save.className =
                 "save-button";
 
-
             save.textContent =
                 "📥 บันทึกภาพเข้าแกลเลอรี่";
-
 
             save.onclick =
                 function(){
@@ -2555,28 +1638,23 @@ function renderResults(){
 
                 };
 
-
             info.appendChild(
                 document.createElement(
                     "br"
                 )
             );
 
-
             info.appendChild(
                 save
             );
-
 
             card.appendChild(
                 img
             );
 
-
             card.appendChild(
                 info
             );
-
 
             grid.appendChild(
                 card
@@ -2585,7 +1663,6 @@ function renderResults(){
         }
     );
 }
-
 
 /* =================================================
    บันทึกรูป
@@ -2598,21 +1675,11 @@ async function saveImage(
 
     try{
 
-        /*
-        แปลง Data URL เป็น Blob
-        */
-
         const response =
             await fetch(src);
 
-
         const blob =
             await response.blob();
-
-
-        /*
-        ตั้งชื่อไฟล์
-        */
 
         const fileName =
             index===0
@@ -2620,12 +1687,6 @@ async function saveImage(
             : "LUYMOTOR_IMAGE_"+
               index+
               ".jpg";
-
-
-        /*
-        iPhone / iPad
-        ใช้ระบบ Share ของเครื่อง
-        */
 
         if(
             navigator.share &&
@@ -2641,7 +1702,6 @@ async function saveImage(
                     }
                 );
 
-
             if(
                 !navigator.canShare ||
                 navigator.canShare({
@@ -2654,47 +1714,33 @@ async function saveImage(
                     title:"LUY MOTOR"
                 });
 
-
                 return;
             }
         }
-
-
-        /*
-        ถ้าอุปกรณ์ไม่รองรับ Share
-        ใช้วิธีดาวน์โหลด
-        */
 
         const blobUrl =
             URL.createObjectURL(
                 blob
             );
 
-
         const link =
             document.createElement(
                 "a"
             );
 
-
         link.href =
             blobUrl;
 
-
         link.download =
             fileName;
-
 
         document.body.appendChild(
             link
         );
 
-
         link.click();
 
-
         link.remove();
-
 
         setTimeout(
             function(){
@@ -2707,13 +1753,7 @@ async function saveImage(
             1000
         );
 
-
     }catch(error){
-
-        /*
-        กรณีผู้ใช้กดยกเลิก Share
-        ไม่ต้องแจ้ง error
-        */
 
         if(
             error.name ===
@@ -2722,11 +1762,6 @@ async function saveImage(
 
             return;
         }
-
-
-        /*
-        เปิดรูปในแท็บใหม่เป็นทางเลือก
-        */
 
         try{
 
@@ -2745,7 +1780,6 @@ async function saveImage(
     }
 }
 
-
 /* =================================================
    Copy
 ================================================= */
@@ -2757,16 +1791,13 @@ async function copyDescription(){
             "resultDescription"
         ).value;
 
-
     if(!text) return;
-
 
     try{
 
         await navigator.clipboard.writeText(
             text
         );
-
 
         alert(
             "คัดลอกคำบรรยายแล้วครับ 👍"
@@ -2781,7 +1812,6 @@ async function copyDescription(){
     }
 }
 
-
 /* =================================================
    เริ่มทำงาน
 ================================================= */
@@ -2793,24 +1823,20 @@ async function startGenerate(){
             "apiKey"
         ).value.trim();
 
-
     const name =
         document.getElementById(
             "productName"
         ).value.trim();
-
 
     const description =
         document.getElementById(
             "productDescription"
         ).value.trim();
 
-
     const quality =
         document.getElementById(
             "quality"
         ).value;
-
 
     if(!apiKey){
 
@@ -2820,7 +1846,6 @@ async function startGenerate(){
 
         return;
     }
-
 
     if(
         images.some(
@@ -2835,7 +1860,6 @@ async function startGenerate(){
         return;
     }
 
-
     if(!name){
 
         alert(
@@ -2844,7 +1868,6 @@ async function startGenerate(){
 
         return;
     }
-
 
     if(!description){
 
@@ -2855,46 +1878,37 @@ async function startGenerate(){
         return;
     }
 
-
     const button =
         document.getElementById(
             "generateButton"
         );
-
 
     const loading =
         document.getElementById(
             "loading"
         );
 
-
     const errorBox =
         document.getElementById(
             "error"
         );
-
 
     const results =
         document.getElementById(
             "results"
         );
 
-
     button.disabled =
         true;
-
 
     loading.style.display =
         "block";
 
-
     results.style.display =
         "none";
 
-
     errorBox.style.display =
         "none";
-
 
     try{
 
@@ -2906,16 +1920,13 @@ async function startGenerate(){
             "1/3 กำลังให้ AI วิเคราะห์สินค้า..."
         );
 
-
         const plan =
             await analyzeProduct(
                 apiKey
             );
 
-
         /*
         คำบรรยายสินค้า
-        ยังคงแสดงผลเหมือนเดิม
         */
 
         document.getElementById(
@@ -2923,9 +1934,8 @@ async function startGenerate(){
         ).value =
             plan.description || "";
 
-
         /*
-        prompts
+        Prompts
         */
 
         const prompts = [
@@ -2936,10 +1946,8 @@ async function startGenerate(){
 
         ];
 
-
         /*
         จำนวนรูปตามที่เลือก
-        1-4 รูป
         */
 
         const selected =
@@ -2948,9 +1956,7 @@ async function startGenerate(){
                 selectedImageCount
             );
 
-
         generatedImages = [];
-
 
         /*
         สร้างภาพ
@@ -2963,40 +1969,123 @@ async function startGenerate(){
         ){
 
             setStatus(
-                `กำลังสร้างภาพ ${i+1} / ${selected.length} ...`
+                `กำลังให้ AI ออกแบบภาพ ${i+1} / ${selected.length} ...`
             );
 
+            /*
+            =================================================
+            กฎสำคัญสำหรับ IMAGE AI
+            =================================================
+            */
 
             const extra = `
 
-IMPORTANT:
+IMPORTANT FINAL IMAGE INSTRUCTIONS:
 
-Use the uploaded product reference images.
+This is a professional e-commerce advertising image.
 
-Preserve the real product appearance.
+The uploaded product reference images are the source of truth.
 
-Do not invent brand names.
+PRESERVE THE REAL PRODUCT.
 
-Do not invent model numbers.
+Do not replace the product.
+
+Do not invent another product.
+
+Do not change the brand.
+
+Do not change the logo.
+
+Do not change the product label unnecessarily.
+
+Do not change the product type.
 
 Do not invent specifications.
 
-Do not add fake logos.
+Do not invent size.
 
-Do not alter the product into another product.
+Do not invent quantity.
 
-Make the product the main subject.
+Do not invent price.
 
-Professional e-commerce photography.
+Do not invent certifications.
 
-Clean lighting.
+Do not invent claims.
 
-High quality.
+The product must remain clearly recognizable.
 
-Suitable for online product selling.
+The AI must create the entire finished advertising artwork in one image.
+
+THIS IS EXTREMELY IMPORTANT:
+
+Do NOT create floating text.
+
+Do NOT place random text over the image.
+
+Do NOT create text layers that appear disconnected from the design.
+
+Do NOT overlap text.
+
+Do NOT overlap text boxes.
+
+Do NOT place text over important parts of the product.
+
+Do NOT create duplicate headlines.
+
+Do NOT create random words.
+
+Do NOT place text behind the product unless it is intentionally part of the graphic composition.
+
+All promotional text must be integrated into professional graphic design elements such as:
+
+- banners
+- panels
+- badges
+- labels
+- ribbons
+- cards
+- information boxes
+- graphic shapes
+- typography blocks
+- professional advertising layouts
+
+The text must look like it was designed by a professional graphic designer.
+
+The finished image should look similar to a premium commercial product advertisement.
+
+The product should be the main subject.
+
+Use professional lighting.
+
+Use realistic shadows.
+
+Use a suitable environment.
+
+Use attractive composition.
+
+Use depth.
+
+Use appropriate colors.
+
+Make the result visually strong on a smartphone screen.
+
+Avoid excessive decoration.
+
+Avoid clutter.
+
+Make the product look valuable and desirable.
+
+All text and graphics must be part of the generated image itself.
+
+Do NOT rely on HTML.
+
+Do NOT rely on JavaScript.
+
+Do NOT rely on Canvas.
+
+Do NOT add text after image generation.
 
 `;
-
 
             const result =
                 await generateImage(
@@ -3006,43 +2095,11 @@ Suitable for online product selling.
                     i===0
                 );
 
-
             generatedImages.push(
                 result
             );
 
-
-            /*
-            รูปแรก = หน้าปก
-            ใส่ข้อความโฆษณาด้วย Canvas
-            */
-
-            if(i===0){
-
-                setStatus(
-                    "กำลังจัดทำหน้าปกและใส่ข้อความโฆษณา..."
-                );
-
-
-                const cover =
-                    await addCoverText(
-                        result.src,
-                        plan.cover_headline ||
-                            name,
-                        plan.cover_subheadline ||
-                            "",
-                        plan.cover_badge ||
-                            ""
-                    );
-
-
-                generatedImages[0].src =
-                    cover;
-
-            }
-
         }
-
 
         /*
         แสดงผลงาน
@@ -3052,47 +2109,37 @@ Suitable for online product selling.
             "กำลังจัดเตรียมผลงาน..."
         );
 
-
         renderResults();
-
 
         loading.style.display =
             "none";
 
-
         results.style.display =
             "block";
-
 
         results.scrollIntoView({
             behavior:"smooth"
         });
-
 
     }catch(error){
 
         loading.style.display =
             "none";
 
-
         errorBox.style.display =
             "block";
-
 
         errorBox.textContent =
             "เกิดข้อผิดพลาด:\n\n"+
             error.message;
 
-
         console.error(error);
 
     }
 
-
     button.disabled =
         false;
 }
-
 
 /* =================================================
    เริ่มต้น
