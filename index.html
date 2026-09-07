@@ -402,6 +402,7 @@ AI PRODUCT SELLER
 
 </section>
 
+
 <!-- =================================================
      1 รูปสินค้า
 ================================================= -->
@@ -434,6 +435,7 @@ onchange="selectImage(this,0)"
 
 </label>
 
+
 <label class="photo">
 
 <input
@@ -450,6 +452,7 @@ onchange="selectImage(this,1)"
 </div>
 
 </label>
+
 
 <label class="photo">
 
@@ -472,6 +475,7 @@ onchange="selectImage(this,2)"
 
 </section>
 
+
 <!-- =================================================
      2 ชื่อสินค้า
 ================================================= -->
@@ -487,6 +491,7 @@ placeholder="เช่น น้ำมันเบรก VEL OIL HP BRAKE FLUID 
 
 </section>
 
+
 <!-- =================================================
      3 รายละเอียด
 ================================================= -->
@@ -501,6 +506,7 @@ placeholder="ใส่ข้อมูลที่พี่รู้ เช่น
 ></textarea>
 
 </section>
+
 
 <!-- =================================================
      4 คุณภาพรูป
@@ -536,6 +542,7 @@ placeholder="ใส่ข้อมูลที่พี่รู้ เช่น
 </p>
 
 </section>
+
 
 <!-- =================================================
      5 จำนวนรูป
@@ -600,6 +607,7 @@ class="selected-count"
 
 </section>
 
+
 <!-- =================================================
      6 API
 ================================================= -->
@@ -629,6 +637,7 @@ API Key จะไม่ถูกเก็บลง localStorage โดยโค�
 
 </section>
 
+
 <button
 id="generateButton"
 class="main-button"
@@ -638,6 +647,7 @@ onclick="startGenerate()"
 ✨ สร้าง 2 รูป + คำบรรยาย
 
 </button>
+
 
 <!-- =================================================
      loading
@@ -653,11 +663,13 @@ onclick="startGenerate()"
 
 </div>
 
+
 <!-- =================================================
      error
 ================================================= -->
 
 <div id="error" class="error"></div>
+
 
 <!-- =================================================
      results
@@ -670,6 +682,7 @@ onclick="startGenerate()"
 </h2>
 
 <div id="imageGrid" class="image-grid"></div>
+
 
 <section class="box" style="margin-top:15px">
 
@@ -699,6 +712,7 @@ readonly
 
 </div>
 
+
 <script>
 
 /* =================================================
@@ -706,7 +720,16 @@ readonly
 ================================================= */
 
 const TEXT_MODEL = "gpt-5.6-luna";
+
+/*
+ * ชื่อโมเดลภาพ
+ *
+ * หมายเหตุ:
+ * ถ้าบัญชี/API ของน้องใช้ชื่อโมเดลภาพอื่น
+ * ให้เปลี่ยนเฉพาะบรรทัดนี้
+ */
 const IMAGE_MODEL = "gpt-image-2";
+
 
 let images = [
     null,
@@ -714,9 +737,25 @@ let images = [
     null
 ];
 
+
+/*
+ * เก็บไฟล์รูปจริง
+ *
+ * สำคัญ:
+ * ไม่ใช้ Canvas
+ * ไม่แปลงรูปผ่าน Canvas
+ */
+let imageFiles = [
+    null,
+    null,
+    null
+];
+
+
 let generatedImages = [];
 
 let selectedImageCount = 2;
+
 
 /* =================================================
    เลือกจำนวนรูป
@@ -746,12 +785,14 @@ function selectImageCount(count){
             );
 
         }
+
     }
 
     document.getElementById(
         "selectedCount"
     ).textContent =
         "เลือก "+count+" รูป";
+
 
     document.getElementById(
         "generateButton"
@@ -760,8 +801,10 @@ function selectImageCount(count){
         count+
         " รูป + คำบรรยาย";
 
+
     updatePrice();
 }
+
 
 /* =================================================
    รูปสินค้า
@@ -773,6 +816,7 @@ function selectImage(input,index){
 
     if(!file) return;
 
+
     if(!file.type.startsWith("image/")){
 
         alert(
@@ -782,8 +826,22 @@ function selectImage(input,index){
         return;
     }
 
+
+    /*
+     * เก็บไฟล์จริง
+     * ไม่ใช้ Canvas
+     */
+
+    imageFiles[index] = file;
+
+
+    /*
+     * อ่านสำหรับ preview
+     */
+
     const reader =
         new FileReader();
+
 
     reader.onload =
         function(e){
@@ -791,29 +849,36 @@ function selectImage(input,index){
             images[index] =
                 e.target.result;
 
+
             const preview =
                 document.getElementById(
                     "preview"+index
                 );
+
 
             const text =
                 document.getElementById(
                     "text"+index
                 );
 
+
             preview.src =
                 e.target.result;
 
+
             preview.style.display =
                 "block";
+
 
             text.style.display =
                 "none";
 
         };
 
+
     reader.readAsDataURL(file);
 }
+
 
 /* =================================================
    ราคาโดยประมาณ
@@ -826,24 +891,31 @@ function updatePrice(){
             "quality"
         ).value;
 
+
     let mode = "";
+
 
     if(quality === "low"){
 
         mode =
             "🟢 โหมดประหยัด";
 
-    }else if(quality === "high"){
+    }
+
+    else if(quality === "high"){
 
         mode =
             "🔴 โหมดสูง";
 
-    }else{
+    }
+
+    else{
 
         mode =
             "🟡 โหมดปกติ";
 
     }
+
 
     document.getElementById(
         "priceEstimate"
@@ -853,6 +925,7 @@ function updatePrice(){
         selectedImageCount+
         " รูป";
 }
+
 
 /* =================================================
    status
@@ -865,6 +938,7 @@ function setStatus(text){
     ).textContent =
         text;
 }
+
 
 /* =================================================
    Responses API
@@ -903,23 +977,29 @@ async function callResponses(
             }
         );
 
+
     const raw =
         await response.text();
 
+
     let data;
+
 
     try{
 
         data =
             JSON.parse(raw);
 
-    }catch{
+    }
+
+    catch{
 
         throw new Error(
             "OpenAI ส่งข้อมูลกลับมาไม่ใช่ JSON"
         );
 
     }
+
 
     if(!response.ok){
 
@@ -930,8 +1010,10 @@ async function callResponses(
 
     }
 
+
     return data;
 }
+
 
 /* =================================================
    ดึง output text
@@ -947,7 +1029,9 @@ function getOutputText(data){
         return data.output_text;
     }
 
+
     let text = "";
+
 
     if(Array.isArray(data.output)){
 
@@ -973,13 +1057,19 @@ function getOutputText(data){
                             part.text || "";
 
                     }
+
                 }
+
             }
+
         }
+
     }
+
 
     return text.trim();
 }
+
 
 /* =================================================
    วิเคราะห์สินค้า
@@ -992,12 +1082,15 @@ async function analyzeProduct(apiKey){
             "productName"
         ).value.trim();
 
+
     const description =
         document.getElementById(
             "productDescription"
         ).value.trim();
 
+
     const content = [];
+
 
     content.push({
 
@@ -1005,124 +1098,226 @@ async function analyzeProduct(apiKey){
 
         text:`
 
-คุณคือ Creative Director และผู้เชี่ยวชาญด้านการทำภาพโฆษณาสินค้าออนไลน์ของร้าน LUY MOTOR
+คุณคือ Creative Director
+และผู้เชี่ยวชาญด้านการทำภาพโฆษณาสินค้าออนไลน์
+ของร้าน LUY MOTOR
 
-หน้าที่ของคุณคือวิเคราะห์สินค้าจากรูปจริง 3 รูปและข้อมูลของผู้ใช้
-เพื่อเตรียมแนวคิดสำหรับสร้างภาพโฆษณาระดับมืออาชีพ
+หน้าที่ของคุณคือวิเคราะห์สินค้าจากรูปจริง 3 รูป
+และข้อมูลของผู้ใช้
+
+จากนั้นเตรียมแนวคิดสำหรับสร้างภาพโฆษณา
+ที่ดูเป็นงานโปสเตอร์ขายสินค้ามืออาชีพ
+
 
 เป้าหมายสำคัญที่สุด:
 
-สร้างภาพที่ "ดูแล้วอยากซื้อ"
-โดยให้ AI เป็นคนจัดฉาก ถ่ายภาพสินค้า จำลองสภาพแวดล้อม
-ออกแบบองค์ประกอบ กราฟิก ป้ายข้อความ และข้อความโฆษณาบนภาพเอง
+ทำให้ภาพดูน่าสนใจ
+ดูน่าเชื่อถือ
+ดูแล้วอยากซื้อ
 
-IMPORTANT:
+AI ต้องเป็นผู้คิด:
 
-ข้อความโฆษณาจะถูกสร้างโดย IMAGE AI โดยตรง
-ห้ามส่งข้อความไปให้ Canvas หรือ JavaScript เอามาวางทับภาพภายหลัง
-
-หน้าปกต้องมีลักษณะเหมือนโปสเตอร์โฆษณามืออาชีพ
-ไม่ใช่เพียงเอาข้อความลอยไว้ด้านบนของรูปสินค้า
-
-ข้อความทั้งหมดที่อยู่ในภาพต้องถูกออกแบบให้เป็นส่วนหนึ่งของงานกราฟิก เช่น:
-
-- แถบข้อความ
-- ป้ายแดง
+- ฉาก
+- สภาพแวดล้อม
+- มุมกล้อง
+- แสง
+- เงา
+- องค์ประกอบ
+- กราฟิก
+- Typography
+- หัวข้อโฆษณา
 - Badge
-- กล่องข้อมูล
 - Banner
-- ป้ายมุมภาพ
-- เส้นกราฟิก
-- กล่องจุดเด่น
-- ป้ายโปรโมชั่น
-- Typography ที่จัดวางอย่างมืออาชีพ
+- กล่องข้อมูล
+- ลูกเล่นต่าง ๆ
 
-ห้ามทำข้อความลอยทับสินค้าหรือทับข้อความอื่น
+ทั้งหมดต้องเหมาะกับสินค้าจริง
 
-ห้ามมีข้อความซ้อนกัน
 
-ห้ามมีข้อความชนขอบภาพ
+=================================================
+กฎสำคัญเรื่องข้อความบนภาพ
+=================================================
 
-ห้ามให้ข้อความไปอยู่บนจุดสำคัญของสินค้าโดยไม่จำเป็น
+ข้อความโฆษณาสามารถมีได้
 
-ห้ามสร้างข้อความซ้ำหลายตำแหน่งโดยไม่มีเหตุผล
+และควรมีเมื่อเหมาะสม
 
-ต้องจัดลำดับความสำคัญของข้อความให้ชัดเจน
+แต่ข้อความต้องถูกออกแบบเป็นส่วนหนึ่ง
+ของงานกราฟิกทั้งหมด
+
+ห้ามทำลักษณะ:
+
+รูปสินค้า
++
+ตัวหนังสือลอยด้านบน
+
+ห้ามทำ:
+
+รูปสินค้า
++
+ข้อความสุ่มที่แปะทับรูป
+
+ห้ามทำ:
+
+ข้อความหลายกล่องลอยกระจัดกระจาย
+
+
+ข้อความควรอยู่ในองค์ประกอบ เช่น:
+
+- Banner
+- Badge
+- Ribbon
+- Panel
+- Card
+- Label
+- Graphic Shape
+- Typography Block
+- Advertising Layout
+
 
 หัวข้อใหญ่ต้องเด่นที่สุด
-ข้อความรองต้องเล็กลง
+
+ข้อความรองต้องเล็กกว่า
+
 Badge ต้องมีขนาดเหมาะสม
+
 รายละเอียดต้องอ่านง่าย
 
-กฎความถูกต้องของสินค้า:
+ต้องมี Visual Hierarchy
 
-1. ห้ามเปลี่ยนยี่ห้อ
-2. ห้ามเปลี่ยนรุ่น
-3. ห้ามเปลี่ยนชนิดสินค้า
-4. ห้ามเปลี่ยนรูปทรงสินค้าโดยไม่มีเหตุผล
-5. ห้ามสร้างโลโก้ใหม่
-6. ห้ามสร้างฉลากใหม่
-7. ห้ามแต่งสเปก
-8. ห้ามแต่งขนาด
-9. ห้ามแต่งปริมาณ
-10. ห้ามแต่งราคา
-11. ห้ามอ้างคุณสมบัติที่ไม่มีหลักฐาน
-12. ห้ามอ้างว่าเป็นของแท้ถ้าไม่มีข้อมูลยืนยัน
-13. ห้ามสร้างมาตรฐานที่ไม่มีอยู่จริง
-14. ถ้าอ่านข้อมูลบนฉลากได้ ให้รักษาข้อมูลนั้นให้ถูกต้อง
-15. ถ้าไม่แน่ใจ ให้ใช้ข้อความกลาง ๆ
-16. สินค้าจริงจากรูปอ้างอิงต้องเป็นพระเอกของภาพ
 
-แนวทางการออกแบบ:
+ห้าม:
 
-- ใช้ภาพสินค้าเป็นศูนย์กลาง
-- จัดฉากให้เข้ากับประเภทสินค้า
-- ใช้แสงแบบโฆษณาสินค้า
-- ใช้เงาและมิติให้สินค้าดูมีราคา
-- ใช้พื้นหลังที่สัมพันธ์กับการใช้งานสินค้า
-- ใช้กราฟิกที่เข้ากับสีของสินค้า
-- ทำให้ดูเหมือนงานโฆษณาจากแบรนด์มืออาชีพ
-- ไม่ทำให้ภาพรก
-- ไม่ใส่ลูกเล่นมากจนบดบังสินค้า
-- ข้อความต้องอ่านง่ายบนมือถือ
+- ข้อความซ้อนกัน
+- กล่องข้อความซ้อนกัน
+- ตัวหนังสือชนขอบ
+- ข้อความทับจุดสำคัญของสินค้า
+- ข้อความซ้ำโดยไม่มีเหตุผล
+- คำสุ่ม
+- คำที่ไม่มีความหมาย
 
-สำหรับรูปแรก:
 
-ต้องเป็น "หน้าปกโฆษณา"
+=================================================
+กฎความถูกต้องของสินค้า
+=================================================
 
-ให้ AI ออกแบบองค์ประกอบเองทั้งหมด
+รูปสินค้า 3 รูปคือ SOURCE OF TRUTH
+
+ต้องรักษา:
+
+- ยี่ห้อ
+- โลโก้
+- รุ่น
+- รูปทรง
+- สี
+- ฉลาก
+- บรรจุภัณฑ์
+- รายละเอียดสำคัญ
+
+
+ห้าม:
+
+1. เปลี่ยนยี่ห้อ
+2. เปลี่ยนรุ่น
+3. เปลี่ยนชนิดสินค้า
+4. เปลี่ยนรูปทรงสินค้าโดยไม่มีเหตุผล
+5. สร้างโลโก้ใหม่
+6. สร้างฉลากใหม่
+7. แต่งสเปก
+8. แต่งขนาด
+9. แต่งปริมาณ
+10. แต่งราคา
+11. แต่งคุณสมบัติ
+12. แต่งมาตรฐาน
+13. แต่งใบรับรอง
+14. อ้างคุณสมบัติที่ไม่มีหลักฐาน
+15. อ้างว่าเป็นของแท้ถ้าไม่มีข้อมูล
+
+
+ถ้าอ่านข้อมูลจากฉลากได้
+ให้รักษาข้อมูลให้ถูกต้อง
+
+ถ้าไม่แน่ใจ
+ให้ใช้ข้อความกลาง ๆ
+
+
+=================================================
+หน้าปก
+=================================================
+
+รูปแรกต้องเป็น:
+
+PROFESSIONAL PRODUCT ADVERTISEMENT POSTER
+
+ไม่ใช่เพียงภาพสินค้า
+
+
+AI ต้องคิดฉากใหม่ทั้งหมด
 
 สามารถใช้:
+
 - ฉากร้าน
 - ฉากอู่
+- ฉากช่าง
 - ฉากการใช้งาน
 - ฉากสตูดิโอ
 - ชิ้นส่วนที่เกี่ยวข้อง
-- แสงสวย ๆ
+- แสงแบบโฆษณา
 - เงา
+- หมอกบาง ๆ
 - เส้นกราฟิก
 - Badge
-- กล่องจุดเด่น
 - Banner
-- ป้ายข้อความ
+- กล่องจุดเด่น
+- Typography
 
-แต่ทั้งหมดต้องเหมาะกับสินค้าจริง
 
-สำหรับรูปเพิ่มเติม:
+แต่ต้องไม่ทำให้ภาพรก
 
-ให้สร้างภาพที่แตกต่างจากหน้าปก
-เช่น:
 
-- มุมสินค้าแบบมืออาชีพ
-- ภาพซูมรายละเอียด
-- ภาพสินค้าในสถานการณ์ใช้งาน
-- ภาพสตูดิโอ
+สินค้าต้องเป็นพระเอก
+
+
+=================================================
+รูปเพิ่มเติม
+=================================================
+
+ภาพเพิ่มเติมควรแตกต่างจากหน้าปก
+
+ตัวอย่าง:
+
+- ภาพสินค้าแบบ Studio
+- Close-up
+- Detail shot
+- ภาพใช้งาน
+- ภาพมุมอื่น
 - ภาพเน้นจุดเด่น
 - ภาพโฆษณาอีกสไตล์
 
-แต่ต้องรักษาสินค้าจริง
 
-ต้องตอบกลับเป็น JSON เท่านั้น
+=================================================
+คำบรรยาย
+=================================================
+
+สร้างคำบรรยายสินค้าออนไลน์ประมาณ 250 คำ
+
+เขียนให้น่าสนใจ
+
+เหมาะกับ Facebook
+TikTok
+Shopee
+และช่องทางขายสินค้าออนไลน์
+
+แต่ห้ามกล่าวอ้างเกินข้อมูลจริง
+
+
+=================================================
+OUTPUT
+=================================================
+
+ตอบเป็น JSON เท่านั้น
+
+ห้ามใส่ Markdown
 
 รูปแบบ:
 
@@ -1141,45 +1336,28 @@ Badge ต้องมีขนาดเหมาะสม
  ]
 }
 
-คำอธิบาย:
 
-product_summary
-สรุปว่าสินค้านี้คืออะไร
-
-description
-คำบรรยายสินค้าออนไลน์ประมาณ 250 คำ
-ต้องน่าสนใจแต่ห้ามกล่าวอ้างเกินข้อมูลจริง
-
-cover_headline
-หัวข้อใหญ่สำหรับหน้าปก
-ต้องสั้น กระชับ และน่าสนใจ
-
-cover_subheadline
-ข้อความรองสำหรับหน้าปก
-
-cover_badge
-Badge สั้น ๆ ที่เหมาะกับสินค้า
-
-cover_prompt
-คำสั่งสำหรับ IMAGE AI เพื่อสร้างหน้าปก
-ต้องสั่งให้ AI ออกแบบ "ภาพและตัวหนังสือรวมเป็นภาพเดียว"
-ห้ามมีข้อความลอย
-ห้ามใช้ Canvas
-ห้ามใส่ข้อความภายหลัง
-
-detail_prompts
-คำสั่งสร้างภาพเพิ่มเติม 4 แบบ
+=================================================
+ข้อมูลสินค้า
+=================================================
 
 ชื่อสินค้า:
 
 ${name}
+
 
 รายละเอียดจากผู้ใช้:
 
 ${description}
 
 `
+
     });
+
+
+    /*
+     * ส่งรูปทั้ง 3 รูปให้ AI วิเคราะห์
+     */
 
     for(
         const image of images
@@ -1197,6 +1375,7 @@ ${description}
 
     }
 
+
     const data =
         await callResponses(
             apiKey,
@@ -1208,8 +1387,10 @@ ${description}
             ]
         );
 
+
     let output =
         getOutputText(data);
+
 
     if(!output){
 
@@ -1219,215 +1400,231 @@ ${description}
 
     }
 
+
     output =
         output
         .replace(/```json/gi,"")
         .replace(/```/g,"")
         .trim();
 
+
     try{
 
         return JSON.parse(output);
 
-    }catch{
+    }
+
+    catch{
+
+        /*
+         * ถ้า AI ตอบ JSON ไม่สมบูรณ์
+         * ใช้ fallback
+         */
 
         return {
 
             product_summary:
                 "สินค้าสำหรับจำหน่าย",
 
+
             description:
                 output,
+
 
             cover_headline:
                 name,
 
+
             cover_subheadline:
-                "สินค้าสำหรับงานซ่อมและบำรุงรักษา",
+                "สินค้าคุณภาพสำหรับงานซ่อมและบำรุงรักษา",
+
 
             cover_badge:
                 "พร้อมส่ง",
 
+
             cover_prompt:`
 
-สร้างภาพโฆษณาสินค้าออนไลน์ระดับมืออาชีพ
-โดยใช้สินค้าจริงจากภาพอ้างอิงเป็นพระเอกของภาพ
+Create a professional commercial product advertising poster.
 
-จัดฉากใหม่ให้สวยและน่าซื้อ
-ใช้แสงแบบโฆษณา
-สร้างพื้นหลังและสภาพแวดล้อมให้เข้ากับสินค้าจริง
+Use the uploaded product reference images as the source of truth.
 
-ออกแบบกราฟิกโฆษณาให้เป็นส่วนหนึ่งของภาพ
-เช่น banner, badge, กล่องข้อความ, เส้นกราฟิก และ typography
+The real product must be the main subject.
 
-ข้อความต้องถูกสร้างและจัดวางโดย AI ภายในภาพโดยตรง
+Create a premium advertising environment suitable for this exact product.
 
-ห้ามมีข้อความลอย
-ห้ามมีข้อความซ้อนกัน
-ห้ามมีข้อความทับสินค้าโดยไม่จำเป็น
-ห้ามใส่ข้อความซ้ำ
-ห้ามใช้ Canvas
-ห้ามมีพื้นที่ข้อความแยกออกจากงานออกแบบ
+Create:
 
-รักษาสินค้าจริง ยี่ห้อ ฉลาก สี รูปทรง และรายละเอียดให้ใกล้เคียงภาพอ้างอิงที่สุด
+professional lighting,
+realistic shadows,
+depth,
+premium composition,
+commercial photography,
+appropriate background,
+professional graphic design,
+advertising typography,
+headline,
+subheadline,
+badge,
+graphic panels,
+banners,
+and visual accents.
+
+The entire advertisement must be generated as ONE FINISHED IMAGE.
+
+Text must be integrated into the graphic design.
+
+Do not create random floating text.
+
+Do not simply place text over the product photograph.
+
+Do not overlap text.
+
+Do not overlap text boxes.
+
+Do not cover important product details.
+
+Do not create duplicate text.
+
+Preserve the actual product,
+brand,
+logo,
+label,
+shape,
+color,
+packaging,
+and recognizable details.
+
+Do not invent specifications,
+price,
+quantity,
+certifications,
+or unsupported claims.
+
+The result must look like a professional commercial product poster.
+
+Do not use HTML.
+
+Do not use JavaScript.
+
+Do not use Canvas.
+
+Do not add text after image generation.
+
+The image model must create the complete final artwork itself.
 
 `,
+
 
             detail_prompts:[
 
                 `
-สร้างภาพสินค้าแบบสตูดิโอระดับมืออาชีพ
-ใช้สินค้าจริงจากภาพอ้างอิงเป็นหลัก
-จัดแสง เงา และฉากใหม่ให้ดูมีมูลค่า
-ไม่เปลี่ยนสินค้าและไม่สร้างข้อมูลใหม่
+Create a premium studio product advertisement.
+
+Use the real uploaded product as the main subject.
+
+Preserve the real brand,
+logo,
+label,
+shape,
+color,
+and packaging.
+
+Create professional lighting,
+realistic shadows,
+depth,
+and a premium commercial background.
+
+Use tasteful graphic design and typography if appropriate.
+
+All text must be part of the generated artwork.
+
+Do not create floating text.
+
+Do not invent product specifications.
 `,
 
-                `
-สร้างภาพโฆษณาอีกมุมหนึ่ง
-เน้นรายละเอียดและคุณภาพของสินค้าจริง
-ใช้กราฟิกที่เข้ากับสินค้าอย่างพอดี
-ข้อความถ้ามีต้องเป็นส่วนหนึ่งของงานออกแบบ
-ห้ามมีข้อความลอยหรือซ้อนกัน
-`,
 
                 `
-สร้างภาพสินค้าในบรรยากาศการใช้งานที่เหมาะสม
-ให้สินค้าจริงยังเป็นจุดเด่นที่สุด
-ใช้แสงและองค์ประกอบแบบภาพโฆษณา
-ไม่เปลี่ยนรูปร่างหรือฉลากของสินค้า
+Create a second professional advertising image
+using the actual uploaded product.
+
+Use a different composition from the cover.
+
+Focus on product details and visual quality.
+
+Use realistic commercial lighting,
+depth,
+shadows,
+and an attractive environment.
+
+Any text must be professionally integrated
+into the graphic composition.
+
+Do not use floating text.
+
+Do not invent information.
 `,
 
+
                 `
-สร้างโปสเตอร์โฆษณาสินค้าระดับมืออาชีพ
-ใช้สินค้าจริงจากภาพอ้างอิง
-จัดฉาก กราฟิก และ typography ให้สวย
-ข้อความต้องรวมอยู่ในองค์ประกอบกราฟิกของภาพ
-ห้ามมีข้อความลอย
-ห้ามข้อความทับกัน
+Create a realistic product-in-use advertising scene
+appropriate for the uploaded product.
+
+The actual product must remain clearly recognizable
+and must be the main subject.
+
+Create an attractive professional environment.
+
+Use cinematic commercial lighting,
+realistic shadows,
+depth,
+and premium composition.
+
+If text is used,
+integrate it into the advertising design.
+
+Do not invent specifications or claims.
+`,
+
+
+                `
+Create a premium commercial advertising poster
+for the uploaded product.
+
+Use the actual product as the source of truth.
+
+Create a completely new professional composition.
+
+Use professional graphic design,
+typography,
+badges,
+panels,
+and advertising elements where appropriate.
+
+Text must be integrated into the artwork.
+
+Do not create random floating text.
+
+Do not overlap text.
+
+Do not cover important product details.
+
+Do not invent product information.
 `
+
             ]
 
         };
 
     }
+
 }
 
-/* =================================================
-   แปลง Data URL เป็น JPEG Blob
-================================================= */
-
-async function imageDataToJpegBlob(
-    dataURL
-){
-
-    return new Promise(
-        (resolve,reject)=>{
-
-            const img =
-                new Image();
-
-            img.onload =
-                function(){
-
-                    const canvas =
-                        document.createElement(
-                            "canvas"
-                        );
-
-                    let width =
-                        img.naturalWidth;
-
-                    let height =
-                        img.naturalHeight;
-
-                    const maxSize = 2048;
-
-                    if(
-                        width > maxSize ||
-                        height > maxSize
-                    ){
-
-                        const ratio =
-                            Math.min(
-                                maxSize/width,
-                                maxSize/height
-                            );
-
-                        width =
-                            Math.floor(
-                                width*ratio
-                            );
-
-                        height =
-                            Math.floor(
-                                height*ratio
-                            );
-
-                    }
-
-                    canvas.width =
-                        width;
-
-                    canvas.height =
-                        height;
-
-                    const ctx =
-                        canvas.getContext(
-                            "2d"
-                        );
-
-                    ctx.drawImage(
-                        img,
-                        0,
-                        0,
-                        width,
-                        height
-                    );
-
-                    canvas.toBlob(
-                        function(blob){
-
-                            if(!blob){
-
-                                reject(
-                                    new Error(
-                                        "ไม่สามารถแปลงรูปเป็น JPEG ได้"
-                                    )
-                                );
-
-                                return;
-                            }
-
-                            resolve(blob);
-
-                        },
-                        "image/jpeg",
-                        0.92
-                    );
-
-                };
-
-            img.onerror =
-                function(){
-
-                    reject(
-                        new Error(
-                            "ไม่สามารถอ่านรูปสินค้าได้"
-                        )
-                    );
-
-                };
-
-            img.src =
-                dataURL;
-
-        }
-    );
-}
 
 /* =================================================
-   สร้างภาพด้วย GPT Image
-   AI เป็นคนทำภาพ + ตัวหนังสือทั้งหมด
+   สร้างภาพด้วย Image API
+   ไม่มี Canvas
 ================================================= */
 
 async function generateImage(
@@ -1440,43 +1637,82 @@ async function generateImage(
     const form =
         new FormData();
 
+
     /*
-    ส่งรูปอ้างอิงทั้ง 3 รูป
-    */
+     * ส่งรูปต้นฉบับโดยตรง
+     *
+     * ไม่ใช้ Canvas
+     * ไม่ resize
+     * ไม่วาดทับ
+     */
 
     for(
         let index=0;
-        index<images.length;
+        index<imageFiles.length;
         index++
     ){
 
-        const blob =
-            await imageDataToJpegBlob(
-                images[index]
+        const file =
+            imageFiles[index];
+
+
+        if(!file){
+
+            throw new Error(
+                "ไม่พบรูปสินค้า "+(index+1)
             );
+
+        }
+
 
         form.append(
             "image[]",
-            blob,
-            "product-"+(index+1)+".jpg"
+            file,
+            file.name ||
+            ("product-"+(index+1)+".jpg")
         );
 
     }
+
+
+    /*
+     * Model
+     */
 
     form.append(
         "model",
         IMAGE_MODEL
     );
 
+
+    /*
+     * Prompt
+     */
+
     form.append(
         "prompt",
         prompt
     );
 
+
+    /*
+     * คุณภาพ
+     *
+     * low
+     * medium
+     * high
+     */
+
     form.append(
         "quality",
         quality
     );
+
+
+    /*
+     * หน้าปก = portrait
+     * ภาพอื่น = square
+     */
 
     form.append(
         "size",
@@ -1485,14 +1721,17 @@ async function generateImage(
             : "1024x1024"
     );
 
-    /*
-    เน้นรักษาสินค้าจริงจากรูปอ้างอิง
-    */
 
-    form.append(
-        "input_fidelity",
-        "high"
-    );
+    /*
+     * สำคัญ:
+     *
+     * ไม่มี input_fidelity
+     *
+     * ไม่มี Canvas
+     *
+     * ไม่มีการใส่ข้อความภายหลัง
+     */
+
 
     const response =
         await fetch(
@@ -1511,23 +1750,29 @@ async function generateImage(
             }
         );
 
+
     const raw =
         await response.text();
 
+
     let data;
+
 
     try{
 
         data =
             JSON.parse(raw);
 
-    }catch{
+    }
+
+    catch{
 
         throw new Error(
             "Image API ส่งข้อมูลกลับมาไม่ถูกต้อง"
         );
 
     }
+
 
     if(!response.ok){
 
@@ -1538,8 +1783,10 @@ async function generateImage(
 
     }
 
+
     const b64 =
         data?.data?.[0]?.b64_json;
+
 
     if(!b64){
 
@@ -1548,6 +1795,7 @@ async function generateImage(
         );
 
     }
+
 
     return {
 
@@ -1560,7 +1808,9 @@ async function generateImage(
             b64
 
     };
+
 }
+
 
 /* =================================================
    แสดงผล
@@ -1573,15 +1823,19 @@ function renderResults(){
             "imageGrid"
         );
 
+
     grid.innerHTML = "";
+
 
     generatedImages.forEach(
         (image,index)=>{
+
 
             const card =
                 document.createElement(
                     "div"
                 );
+
 
             card.className =
                 "image-card "+
@@ -1591,42 +1845,52 @@ function renderResults(){
                     : ""
                 );
 
+
             const img =
                 document.createElement(
                     "img"
                 );
 
+
             img.src =
                 image.src;
+
 
             img.alt =
                 index===0
                 ? "หน้าปกสินค้า"
                 : "รูปสินค้าเพิ่มเติม";
 
+
             const info =
                 document.createElement(
                     "div"
                 );
 
+
             info.className =
                 "image-info";
 
+
             info.textContent =
                 index===0
-                ? "⭐ หน้าปกสินค้า — AI ออกแบบภาพและข้อความทั้งหมด"
+                ? "⭐ หน้าปกสินค้า — AI ออกแบบฉาก กราฟิก และข้อความทั้งหมด"
                 : "🖼️ รูปเพิ่มเติม "+index;
+
 
             const save =
                 document.createElement(
                     "button"
                 );
 
+
             save.className =
                 "save-button";
 
+
             save.textContent =
                 "📥 บันทึกภาพเข้าแกลเลอรี่";
+
 
             save.onclick =
                 function(){
@@ -1638,23 +1902,28 @@ function renderResults(){
 
                 };
 
+
             info.appendChild(
                 document.createElement(
                     "br"
                 )
             );
 
+
             info.appendChild(
                 save
             );
+
 
             card.appendChild(
                 img
             );
 
+
             card.appendChild(
                 info
             );
+
 
             grid.appendChild(
                 card
@@ -1662,7 +1931,9 @@ function renderResults(){
 
         }
     );
+
 }
+
 
 /* =================================================
    บันทึกรูป
@@ -1678,15 +1949,18 @@ async function saveImage(
         const response =
             await fetch(src);
 
+
         const blob =
             await response.blob();
 
+
         const fileName =
             index===0
-            ? "LUYMOTOR_COVER.jpg"
+            ? "LUYMOTOR_COVER.png"
             : "LUYMOTOR_IMAGE_"+
               index+
-              ".jpg";
+              ".png";
+
 
         if(
             navigator.share &&
@@ -1698,9 +1972,10 @@ async function saveImage(
                     [blob],
                     fileName,
                     {
-                        type:"image/jpeg"
+                        type:"image/png"
                     }
                 );
+
 
             if(
                 !navigator.canShare ||
@@ -1714,33 +1989,44 @@ async function saveImage(
                     title:"LUY MOTOR"
                 });
 
+
                 return;
+
             }
+
         }
+
 
         const blobUrl =
             URL.createObjectURL(
                 blob
             );
 
+
         const link =
             document.createElement(
                 "a"
             );
 
+
         link.href =
             blobUrl;
 
+
         link.download =
             fileName;
+
 
         document.body.appendChild(
             link
         );
 
+
         link.click();
 
+
         link.remove();
+
 
         setTimeout(
             function(){
@@ -1753,7 +2039,10 @@ async function saveImage(
             1000
         );
 
-    }catch(error){
+
+    }
+
+    catch(error){
 
         if(
             error.name ===
@@ -1761,7 +2050,9 @@ async function saveImage(
         ){
 
             return;
+
         }
+
 
         try{
 
@@ -1770,15 +2061,20 @@ async function saveImage(
                 "_blank"
             );
 
-        }catch{
+        }
+
+        catch{
 
             alert(
                 "ไม่สามารถบันทึกรูปได้ครับ"
             );
 
         }
+
     }
+
 }
+
 
 /* =================================================
    Copy
@@ -1791,7 +2087,9 @@ async function copyDescription(){
             "resultDescription"
         ).value;
 
+
     if(!text) return;
+
 
     try{
 
@@ -1799,18 +2097,23 @@ async function copyDescription(){
             text
         );
 
+
         alert(
             "คัดลอกคำบรรยายแล้วครับ 👍"
         );
 
-    }catch{
+    }
+
+    catch{
 
         alert(
             "กดค้างที่ข้อความเพื่อคัดลอกครับ"
         );
 
     }
+
 }
+
 
 /* =================================================
    เริ่มทำงาน
@@ -1823,20 +2126,24 @@ async function startGenerate(){
             "apiKey"
         ).value.trim();
 
+
     const name =
         document.getElementById(
             "productName"
         ).value.trim();
+
 
     const description =
         document.getElementById(
             "productDescription"
         ).value.trim();
 
+
     const quality =
         document.getElementById(
             "quality"
         ).value;
+
 
     if(!apiKey){
 
@@ -1845,10 +2152,12 @@ async function startGenerate(){
         );
 
         return;
+
     }
 
+
     if(
-        images.some(
+        imageFiles.some(
             x => !x
         )
     ){
@@ -1858,7 +2167,9 @@ async function startGenerate(){
         );
 
         return;
+
     }
+
 
     if(!name){
 
@@ -1867,7 +2178,9 @@ async function startGenerate(){
         );
 
         return;
+
     }
+
 
     if(!description){
 
@@ -1876,67 +2189,80 @@ async function startGenerate(){
         );
 
         return;
+
     }
+
 
     const button =
         document.getElementById(
             "generateButton"
         );
 
+
     const loading =
         document.getElementById(
             "loading"
         );
+
 
     const errorBox =
         document.getElementById(
             "error"
         );
 
+
     const results =
         document.getElementById(
             "results"
         );
 
+
     button.disabled =
         true;
+
 
     loading.style.display =
         "block";
 
+
     results.style.display =
         "none";
+
 
     errorBox.style.display =
         "none";
 
+
     try{
 
         /*
-        1
-        */
+         * 1
+         */
 
         setStatus(
             "1/3 กำลังให้ AI วิเคราะห์สินค้า..."
         );
+
 
         const plan =
             await analyzeProduct(
                 apiKey
             );
 
+
         /*
-        คำบรรยายสินค้า
-        */
+         * คำบรรยาย
+         */
 
         document.getElementById(
             "resultDescription"
         ).value =
             plan.description || "";
 
+
         /*
-        Prompts
-        */
+         * Prompts
+         */
 
         const prompts = [
 
@@ -1946,9 +2272,10 @@ async function startGenerate(){
 
         ];
 
+
         /*
-        จำนวนรูปตามที่เลือก
-        */
+         * จำนวนรูป
+         */
 
         const selected =
             prompts.slice(
@@ -1956,11 +2283,13 @@ async function startGenerate(){
                 selectedImageCount
             );
 
+
         generatedImages = [];
 
+
         /*
-        สร้างภาพ
-        */
+         * สร้างภาพทีละรูป
+         */
 
         for(
             let i=0;
@@ -1969,123 +2298,110 @@ async function startGenerate(){
         ){
 
             setStatus(
-                `กำลังให้ AI ออกแบบภาพ ${i+1} / ${selected.length} ...`
+                `กำลังให้ AI ออกแบบโปสเตอร์ ${i+1} / ${selected.length} ...`
             );
 
+
             /*
-            =================================================
-            กฎสำคัญสำหรับ IMAGE AI
-            =================================================
-            */
+             * คำสั่งขั้นสุดท้าย
+             */
 
             const extra = `
 
-IMPORTANT FINAL IMAGE INSTRUCTIONS:
+FINAL ARTWORK REQUIREMENT:
 
-This is a professional e-commerce advertising image.
+Create the entire finished advertising artwork yourself.
 
-The uploaded product reference images are the source of truth.
+The uploaded product images are the source of truth.
 
-PRESERVE THE REAL PRODUCT.
+The real product must remain the hero.
 
-Do not replace the product.
+Create the scene.
 
-Do not invent another product.
+Create the background.
 
-Do not change the brand.
+Create the lighting.
 
-Do not change the logo.
+Create the shadows.
 
-Do not change the product label unnecessarily.
+Create the composition.
 
-Do not change the product type.
+Create the graphic design.
+
+Create the typography.
+
+Create the advertising headline.
+
+Create badges when appropriate.
+
+Create panels when appropriate.
+
+Create banners when appropriate.
+
+Everything must be part of ONE finished generated image.
+
+TEXT IS ALLOWED.
+
+However, text must be professionally designed as part of the artwork.
+
+Never create plain floating text.
+
+Never simply paste text over the product.
+
+Never create random disconnected text.
+
+Never overlap text.
+
+Never overlap text boxes.
+
+Never cover important product details.
+
+Never create duplicate headlines.
+
+Never create meaningless words.
+
+Make the typography look intentionally designed by a professional advertising graphic designer.
+
+The final image must look like a real commercial product poster.
+
+Preserve the actual product.
+
+Preserve the real brand.
+
+Preserve the real logo.
+
+Preserve the real label.
+
+Preserve the real shape.
+
+Preserve the real color.
+
+Preserve recognizable product details.
 
 Do not invent specifications.
 
-Do not invent size.
-
 Do not invent quantity.
+
+Do not invent size.
 
 Do not invent price.
 
 Do not invent certifications.
 
-Do not invent claims.
+Do not invent unsupported claims.
 
-The product must remain clearly recognizable.
+Do not use HTML.
 
-The AI must create the entire finished advertising artwork in one image.
+Do not use JavaScript for artwork.
 
-THIS IS EXTREMELY IMPORTANT:
+Do not use Canvas.
 
-Do NOT create floating text.
+Do not add text after image generation.
 
-Do NOT place random text over the image.
-
-Do NOT create text layers that appear disconnected from the design.
-
-Do NOT overlap text.
-
-Do NOT overlap text boxes.
-
-Do NOT place text over important parts of the product.
-
-Do NOT create duplicate headlines.
-
-Do NOT create random words.
-
-Do NOT place text behind the product unless it is intentionally part of the graphic composition.
-
-All promotional text must be integrated into professional graphic design elements such as:
-
-- banners
-- panels
-- badges
-- labels
-- ribbons
-- cards
-- information boxes
-- graphic shapes
-- typography blocks
-- professional advertising layouts
-
-The text must look like it was designed by a professional graphic designer.
-
-The finished image should look similar to a premium commercial product advertisement.
-
-The product should be the main subject.
-
-Use professional lighting.
-
-Use realistic shadows.
-
-Use a suitable environment.
-
-Use attractive composition.
-
-Use depth.
-
-Use appropriate colors.
-
-Make the result visually strong on a smartphone screen.
-
-Avoid excessive decoration.
-
-Avoid clutter.
-
-Make the product look valuable and desirable.
-
-All text and graphics must be part of the generated image itself.
-
-Do NOT rely on HTML.
-
-Do NOT rely on JavaScript.
-
-Do NOT rely on Canvas.
-
-Do NOT add text after image generation.
+The IMAGE MODEL must create the complete final image itself.
 
 `;
+
 
             const result =
                 await generateImage(
@@ -2095,51 +2411,66 @@ Do NOT add text after image generation.
                     i===0
                 );
 
+
             generatedImages.push(
                 result
             );
 
         }
 
+
         /*
-        แสดงผลงาน
-        */
+         * แสดงผลงาน
+         */
 
         setStatus(
             "กำลังจัดเตรียมผลงาน..."
         );
 
+
         renderResults();
+
 
         loading.style.display =
             "none";
 
+
         results.style.display =
             "block";
+
 
         results.scrollIntoView({
             behavior:"smooth"
         });
 
-    }catch(error){
+
+    }
+
+    catch(error){
 
         loading.style.display =
             "none";
 
+
         errorBox.style.display =
             "block";
+
 
         errorBox.textContent =
             "เกิดข้อผิดพลาด:\n\n"+
             error.message;
 
+
         console.error(error);
 
     }
 
+
     button.disabled =
         false;
+
 }
+
 
 /* =================================================
    เริ่มต้น
