@@ -8,1586 +8,2496 @@
 
 <style>
 *{
-  box-sizing:border-box;
+    box-sizing:border-box;
 }
 
 body{
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif;
-  background:#090909;
-  color:#fff;
+    margin:0;
+    background:#09090b;
+    color:#fff;
+    font-family:-apple-system,BlinkMacSystemFont,
+    "Segoe UI","Noto Sans Thai",sans-serif;
 }
 
-.container{
-  max-width:720px;
-  margin:auto;
-  padding:18px;
-}
-
-.header{
-  text-align:center;
-  margin-bottom:22px;
+header{
+    background:#101012;
+    border-bottom:1px solid #29292d;
+    padding:18px 17px;
 }
 
 .logo{
-  font-size:30px;
-  font-weight:900;
-  letter-spacing:1px;
-  color:#ff2020;
+    font-size:29px;
+    font-weight:900;
+    font-style:italic;
 }
 
 .logo span{
-  color:#fff;
+    color:#e60000;
 }
 
 .subtitle{
-  color:#999;
-  font-size:14px;
-  margin-top:4px;
+    color:#777;
+    font-size:10px;
+    letter-spacing:3px;
+    margin-top:3px;
 }
 
-.card{
-  background:#151515;
-  border:1px solid #292929;
-  border-radius:16px;
-  padding:16px;
-  margin-bottom:16px;
+.container{
+    max-width:720px;
+    margin:auto;
+    padding:18px 15px 70px;
 }
 
-.title{
-  font-size:18px;
-  font-weight:800;
-  margin-bottom:12px;
+.hero{
+    padding:8px 2px 18px;
 }
 
-label{
-  display:block;
-  font-size:14px;
-  color:#ccc;
-  margin-bottom:7px;
+.hero h1{
+    font-size:32px;
+    line-height:1.1;
+    margin:0 0 10px;
+}
+
+.hero h1 span{
+    color:#e60000;
+}
+
+.hero p{
+    color:#999;
+    line-height:1.6;
+    margin:0;
+}
+
+.box{
+    background:#151518;
+    border:1px solid #2a2a2f;
+    border-radius:18px;
+    padding:17px;
+    margin-bottom:14px;
+}
+
+.box h2{
+    font-size:18px;
+    margin:0 0 7px;
+}
+
+.hint{
+    color:#888;
+    font-size:13px;
+    line-height:1.5;
+    margin-top:0;
+}
+
+.photos{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:9px;
+}
+
+.photo{
+    aspect-ratio:1;
+    border:2px dashed #444;
+    border-radius:14px;
+    background:#0d0d0f;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    cursor:pointer;
+    position:relative;
+}
+
+.photo input{
+    display:none;
+}
+
+.photo img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:none;
+}
+
+.photo-text{
+    text-align:center;
+    color:#999;
+    font-size:13px;
+}
+
+.photo-text b{
+    display:block;
+    font-size:28px;
+    color:#fff;
+}
+
+.file-info{
+    position:absolute;
+    left:5px;
+    right:5px;
+    bottom:5px;
+    background:rgba(0,0,0,.78);
+    border-radius:7px;
+    padding:4px;
+    text-align:center;
+    font-size:9px;
+    color:#ddd;
+    display:none;
+}
+
+.file-ok{
+    color:#65e69a;
+}
+
+.file-error{
+    color:#ff6b6b;
 }
 
 input,
 textarea,
 select{
-  width:100%;
-  background:#0d0d0d;
-  border:1px solid #333;
-  color:#fff;
-  border-radius:10px;
-  padding:12px;
-  font-size:15px;
-  outline:none;
+    width:100%;
+    background:#0d0d0f;
+    color:#fff;
+    border:1px solid #3a3a40;
+    border-radius:12px;
+    padding:14px;
+    font-size:16px;
+    outline:none;
+}
+
+textarea{
+    min-height:125px;
+    resize:vertical;
+    line-height:1.6;
 }
 
 input:focus,
 textarea:focus,
 select:focus{
-  border-color:#ff2525;
+    border-color:#e60000;
 }
 
-textarea{
-  min-height:110px;
-  resize:vertical;
-}
-
-.field{
-  margin-bottom:15px;
-}
-
-.photo-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-}
-
-.photo-box{
-  position:relative;
-  aspect-ratio:1/1;
-  border:2px dashed #444;
-  border-radius:12px;
-  overflow:hidden;
-  background:#0d0d0d;
-  cursor:pointer;
-}
-
-.photo-box img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-
-.photo-placeholder{
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  color:#777;
-  text-align:center;
-  padding:8px;
-}
-
-.photo-placeholder .plus{
-  font-size:30px;
-  color:#ff2020;
-  margin-bottom:5px;
-}
-
-.photo-placeholder span{
-  font-size:12px;
-}
-
-.photo-number{
-  position:absolute;
-  top:6px;
-  left:6px;
-  background:#ff2020;
-  color:#fff;
-  border-radius:7px;
-  padding:3px 7px;
-  font-size:11px;
-  font-weight:bold;
-}
-
-input[type="file"]{
-  display:none;
+select{
+    appearance:auto;
 }
 
 .row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
 }
 
-.option-info{
-  color:#888;
-  font-size:12px;
-  margin-top:6px;
-}
-
-.price-box{
-  margin-top:12px;
-  padding:10px 12px;
-  background:#0d0d0d;
-  border-radius:10px;
-  color:#aaa;
-  font-size:13px;
-}
-
-.price-box b{
-  color:#ff3030;
-}
-
-button{
-  width:100%;
-  border:none;
-  border-radius:12px;
-  padding:15px;
-  font-size:16px;
-  font-weight:800;
-  cursor:pointer;
-}
-
-.generate-btn{
-  background:#ff2020;
-  color:#fff;
-}
-
-.generate-btn:disabled{
-  background:#444;
-  color:#888;
-  cursor:not-allowed;
-}
-
-.secondary-btn{
-  background:#292929;
-  color:#fff;
-  margin-top:10px;
-}
-
-.status{
-  display:none;
-  background:#101010;
-  border:1px solid #292929;
-  border-radius:12px;
-  padding:13px;
-  margin-bottom:16px;
-  color:#ccc;
-  font-size:14px;
-}
-
-.status.show{
-  display:block;
-}
-
-.status.error{
-  border-color:#ff3030;
-  color:#ff7070;
-}
-
-.status.success{
-  border-color:#1d7f42;
-  color:#65dc94;
-}
-
-.spinner{
-  display:inline-block;
-  width:15px;
-  height:15px;
-  border:2px solid #555;
-  border-top-color:#fff;
-  border-radius:50%;
-  animation:spin .8s linear infinite;
-  vertical-align:-2px;
-  margin-right:7px;
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg)}
-}
-
-.results{
-  display:none;
-}
-
-.result-card{
-  background:#151515;
-  border:1px solid #292929;
-  border-radius:16px;
-  padding:14px;
-  margin-bottom:16px;
-}
-
-.result-title{
-  font-weight:800;
-  margin-bottom:10px;
-}
-
-.result-image{
-  width:100%;
-  display:block;
-  border-radius:12px;
-  background:#000;
-}
-
-.save-btn{
-  margin-top:10px;
-  background:#292929;
-  color:#fff;
-}
-
-.copy-btn{
-  margin-top:10px;
-  background:#ff2020;
-  color:#fff;
-}
-
-.caption-box{
-  white-space:pre-wrap;
-  background:#0d0d0d;
-  border:1px solid #303030;
-  border-radius:12px;
-  padding:14px;
-  line-height:1.7;
-  color:#ddd;
-  font-size:14px;
+.price{
+    color:#e60000;
+    font-size:14px;
+    font-weight:700;
+    margin-top:9px;
 }
 
 .warning{
-  color:#999;
-  font-size:11px;
-  line-height:1.5;
-  margin-top:8px;
+    color:#aaa;
+    font-size:12px;
+    line-height:1.6;
+    margin-top:10px;
 }
 
-@media(max-width:500px){
-  .container{
-    padding:12px;
-  }
+.main-button{
+    width:100%;
+    border:0;
+    border-radius:15px;
+    padding:17px;
+    background:#e60000;
+    color:#fff;
+    font-size:17px;
+    font-weight:800;
+    cursor:pointer;
+}
 
-  .row{
-    grid-template-columns:1fr;
-  }
+.main-button:disabled{
+    opacity:.45;
+}
 
-  .logo{
-    font-size:25px;
-  }
+.loading{
+    display:none;
+    text-align:center;
+    padding:30px 10px;
+}
+
+.spinner{
+    width:42px;
+    height:42px;
+    border:4px solid #333;
+    border-top-color:#e60000;
+    border-radius:50%;
+    margin:auto;
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.status{
+    color:#aaa;
+    margin-top:15px;
+    line-height:1.6;
+}
+
+.error{
+    display:none;
+    background:#2b1111;
+    border:1px solid #742525;
+    color:#ffbaba;
+    padding:14px;
+    border-radius:12px;
+    margin-top:15px;
+    white-space:pre-wrap;
+    line-height:1.6;
+}
+
+.success{
+    display:none;
+    background:#102519;
+    border:1px solid #23663c;
+    color:#9af0b9;
+    padding:14px;
+    border-radius:12px;
+    margin-top:15px;
+    line-height:1.6;
+}
+
+.results{
+    display:none;
+}
+
+.result-title{
+    font-size:23px;
+    margin:26px 0 12px;
+}
+
+.image-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.image-card{
+    background:#121214;
+    border:1px solid #2a2a2f;
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.image-card.cover{
+    grid-column:1/-1;
+}
+
+.image-card img{
+    display:block;
+    width:100%;
+    height:auto;
+    background:#fff;
+}
+
+.image-info{
+    padding:10px;
+    color:#aaa;
+    font-size:13px;
+}
+
+.save-button{
+    margin-top:8px;
+    width:100%;
+    background:#222;
+    color:#fff;
+    border:1px solid #444;
+    border-radius:9px;
+    padding:11px 12px;
+    font-size:14px;
+    cursor:pointer;
+}
+
+.save-button:active{
+    background:#333;
+}
+
+.copy-button{
+    background:#222;
+    color:#fff;
+    border:1px solid #444;
+    border-radius:9px;
+    padding:9px 12px;
+}
+
+.description-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.small{
+    color:#777;
+    font-size:12px;
+    line-height:1.5;
+}
+
+.count-buttons{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:9px;
+    margin-top:14px;
+}
+
+.count-button{
+    border:1px solid #444;
+    border-radius:14px;
+    background:#0d0d0f;
+    color:#aaa;
+    padding:14px 5px;
+    font-size:18px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.count-button.active{
+    background:#e60000;
+    border-color:#e60000;
+    color:#fff;
+}
+
+.selected-count{
+    color:#e60000;
+    font-weight:700;
+    margin-top:10px;
+}
+
+@media(max-width:520px){
+
+    .image-grid{
+        grid-template-columns:1fr;
+    }
+
+    .image-card.cover{
+        grid-column:auto;
+    }
+
+    .row{
+        grid-template-columns:1fr;
+    }
 }
 </style>
 </head>
 
 <body>
 
+<header>
+
+<div class="logo">
+LUY <span>MOTOR</span>
+</div>
+
+<div class="subtitle">
+AI PRODUCT SELLER
+</div>
+
+</header>
+
 <div class="container">
 
-  <div class="header">
-    <div class="logo">LUY MOTOR <span>AI SELLER</span></div>
-    <div class="subtitle">
-      สร้างภาพโฆษณาสินค้าด้วย AI
-    </div>
-  </div>
+<section class="hero">
 
+<h1>
+สร้างสื่อขายสินค้า<br>
+<span>ด้วย AI</span>
+</h1>
 
-  <!-- รูปสินค้า -->
-  <div class="card">
+<p>
+ใส่รูปสินค้า 3 รูป ชื่อสินค้า และรายละเอียดคร่าว ๆ
+จากนั้น AI จะช่วยทำภาพโฆษณาสินค้าแบบมืออาชีพ
+พร้อมจัดฉาก กราฟิก และข้อความบนภาพให้เหมาะกับสินค้า
+</p>
 
-    <div class="title">📸 รูปสินค้า</div>
+</section>
 
-    <div class="photo-grid">
 
-      <label class="photo-box">
-        <input
-          type="file"
-          accept="image/jpeg,image/png,image/webp"
-          onchange="selectImage(0,this)"
-        >
+<!-- =================================================
+     1 รูปสินค้า
+================================================= -->
 
-        <div id="photo0">
-          <div class="photo-placeholder">
-            <div class="plus">＋</div>
-            <span>รูปที่ 1</span>
-          </div>
-        </div>
+<section class="box">
 
-        <div class="photo-number">1</div>
-      </label>
+<h2>📸 1. ใส่รูปสินค้า 3 รูป</h2>
 
+<p class="hint">
+รองรับเฉพาะ JPG, PNG และ WEBP
+เพื่อป้องกันไฟล์ที่ Image API ไม่สามารถอ่านได้
+</p>
 
-      <label class="photo-box">
-        <input
-          type="file"
-          accept="image/jpeg,image/png,image/webp"
-          onchange="selectImage(1,this)"
-        >
+<div class="photos">
 
-        <div id="photo1">
-          <div class="photo-placeholder">
-            <div class="plus">＋</div>
-            <span>รูปที่ 2</span>
-          </div>
-        </div>
 
-        <div class="photo-number">2</div>
-      </label>
+<label class="photo">
 
+<input
+type="file"
+accept="image/jpeg,image/png,image/webp"
+onchange="selectImage(this,0)"
+>
 
-      <label class="photo-box">
-        <input
-          type="file"
-          accept="image/jpeg,image/png,image/webp"
-          onchange="selectImage(2,this)"
-        >
+<img id="preview0">
 
-        <div id="photo2">
-          <div class="photo-placeholder">
-            <div class="plus">＋</div>
-            <span>รูปที่ 3</span>
-          </div>
-        </div>
+<div id="text0" class="photo-text">
+<b>＋</b>
+รูปที่ 1
+</div>
 
-        <div class="photo-number">3</div>
-      </label>
+<div id="fileInfo0" class="file-info"></div>
 
-    </div>
+</label>
 
-    <div class="warning">
-      รองรับ JPG / PNG / WEBP — ไม่ต้องลดขนาดรูปจาก iPhone
-    </div>
 
-  </div>
+<label class="photo">
 
+<input
+type="file"
+accept="image/jpeg,image/png,image/webp"
+onchange="selectImage(this,1)"
+>
 
-  <!-- รายละเอียดสินค้า -->
-  <div class="card">
+<img id="preview1">
 
-    <div class="title">🛒 รายละเอียดสินค้า</div>
+<div id="text1" class="photo-text">
+<b>＋</b>
+รูปที่ 2
+</div>
 
-    <div class="field">
-      <label>ชื่อสินค้า</label>
+<div id="fileInfo1" class="file-info"></div>
 
-      <input
-        id="productName"
-        type="text"
-        placeholder="เช่น น้ำมันเครื่องมอเตอร์ไซค์..."
-      >
-    </div>
+</label>
 
 
-    <div class="field">
+<label class="photo">
 
-      <label>รายละเอียดสินค้า</label>
+<input
+type="file"
+accept="image/jpeg,image/png,image/webp"
+onchange="selectImage(this,2)"
+>
 
-      <textarea
-        id="productDetails"
-        placeholder="ใส่ข้อมูลสินค้า เช่น ขนาด รุ่น คุณสมบัติ จุดเด่น ราคา หรือข้อมูลที่ต้องการให้ AI รู้"
-      ></textarea>
+<img id="preview2">
 
-    </div>
+<div id="text2" class="photo-text">
+<b>＋</b>
+รูปที่ 3
+</div>
 
-  </div>
+<div id="fileInfo2" class="file-info"></div>
 
+</label>
 
-  <!-- ตั้งค่าภาพ -->
-  <div class="card">
+</div>
 
-    <div class="title">⚙️ ตั้งค่าภาพ</div>
+<p class="small">
+ถ้า iPhone เลือกไฟล์ HEIC/HEIF ให้เปลี่ยนรูปนั้นเป็น JPG
+ก่อนเลือกเข้าโปรแกรม
+</p>
 
-    <div class="row">
+</section>
 
-      <div class="field">
 
-        <label>คุณภาพภาพ</label>
+<!-- =================================================
+     2 ชื่อสินค้า
+================================================= -->
 
-        <select id="quality">
-          <option value="low">ประหยัด</option>
-          <option value="medium" selected>ปกติ — แนะนำ</option>
-          <option value="high">สูง</option>
-        </select>
+<section class="box">
 
-      </div>
+<h2>🏷️ 2. ชื่อสินค้า</h2>
 
+<input
+id="productName"
+placeholder="เช่น น้ำมันเบรก VEL OIL HP BRAKE FLUID DOT 3"
+>
 
-      <div class="field">
+</section>
 
-        <label>จำนวนภาพ</label>
 
-        <select id="imageCount" onchange="updatePrice()">
-          <option value="1">1 รูป</option>
-          <option value="2" selected>2 รูป</option>
-          <option value="3">3 รูป</option>
-          <option value="4">4 รูป</option>
-        </select>
+<!-- =================================================
+     3 รายละเอียด
+================================================= -->
 
-      </div>
+<section class="box">
 
-    </div>
+<h2>📝 3. รายละเอียดคร่าว ๆ</h2>
 
-    <div class="price-box">
-      จำนวนภาพที่สร้าง: <b id="priceText">2 รูป</b>
-    </div>
+<textarea
+id="productDescription"
+placeholder="ใส่ข้อมูลที่พี่รู้ เช่น ยี่ห้อ รุ่น ขนาด จุดเด่น ใช้กับอะไร ราคา หรือข้อมูลอื่น ๆ"
+></textarea>
 
-  </div>
+</section>
 
 
-  <!-- API -->
-  <div class="card">
+<!-- =================================================
+     4 คุณภาพรูป
+================================================= -->
 
-    <div class="title">🔑 OpenAI API Key</div>
+<section class="box">
 
-    <div class="field">
+<h2>🎨 4. คุณภาพรูป</h2>
 
-      <input
-        id="apiKey"
-        type="password"
-        placeholder="sk-..."
-        autocomplete="off"
-      >
+<select id="quality" onchange="updatePrice()">
 
-    </div>
+<option value="medium">
+🟡 ปกติ — แนะนำ
+</option>
 
-    <div class="warning">
-      API Key จะถูกใช้จากเครื่องนี้โดยตรง
-      หากนำเว็บขึ้นสาธารณะ ไม่ควรใส่ API Key จริงในหน้าเว็บ
-    </div>
+<option value="low">
+🟢 ประหยัด
+</option>
 
-  </div>
+<option value="high">
+🔴 สูง
+</option>
 
+</select>
 
-  <div id="status" class="status"></div>
+<div id="priceEstimate" class="price">
+เลือกจำนวนรูปเพื่อดูจำนวนภาพที่จะสร้าง
+</div>
 
+<p class="small">
+ราคาจริงขึ้นกับการใช้ API และขนาดภาพ
+โปรแกรมนี้แสดงเพียงค่าประมาณ
+</p>
 
-  <button
-    id="generateBtn"
-    class="generate-btn"
-    onclick="startGenerate()"
-  >
-    สร้าง 2 รูป + คำบรรยาย
-  </button>
+</section>
 
 
-  <div style="height:12px"></div>
+<!-- =================================================
+     5 จำนวนรูป
+================================================= -->
 
+<section class="box">
 
-  <!-- ผลลัพธ์ -->
-  <div id="results" class="results">
+<h2>🖼️ 5. ต้องการสร้างกี่รูป?</h2>
 
-    <div class="card">
+<p class="hint">
+รูปแรกจะเป็นหน้าปกโฆษณาแบบเต็มรูปแบบ
+AI จะจัดฉาก กราฟิก และข้อความให้เข้ากับสินค้า
+ส่วนรูปที่เหลือเป็นรูปสินค้าเพิ่มเติม
+</p>
 
-      <div class="title">🖼️ ภาพโฆษณา</div>
+<div class="count-buttons">
 
-      <div id="imageResults"></div>
+<button
+type="button"
+class="count-button"
+id="count1"
+onclick="selectImageCount(1)"
+>
+1 รูป
+</button>
 
-    </div>
+<button
+type="button"
+class="count-button active"
+id="count2"
+onclick="selectImageCount(2)"
+>
+2 รูป
+</button>
 
+<button
+type="button"
+class="count-button"
+id="count3"
+onclick="selectImageCount(3)"
+>
+3 รูป
+</button>
 
-    <div class="card">
+<button
+type="button"
+class="count-button"
+id="count4"
+onclick="selectImageCount(4)"
+>
+4 รูป
+</button>
 
-      <div class="title">📝 คำบรรยายสินค้า</div>
+</div>
 
-      <div id="caption" class="caption-box"></div>
+<div
+id="selectedCount"
+class="selected-count"
+>
+เลือก 2 รูป
+</div>
 
-      <button
-        class="copy-btn"
-        onclick="copyDescription()"
-      >
-        📋 คัดลอกคำบรรยาย
-      </button>
+</section>
 
-    </div>
 
-  </div>
+<!-- =================================================
+     6 API
+================================================= -->
+
+<section class="box">
+
+<h2>🔑 6. OpenAI API Key</h2>
+
+<input
+id="apiKey"
+type="password"
+placeholder="ใส่ API Key ของพี่"
+autocomplete="off"
+>
+
+<div class="warning">
+
+API Key จะไม่ถูกเก็บลง localStorage โดยโค้ดนี้
+
+<br><br>
+
+⚠️ เวอร์ชัน GitHub Pages นี้เหมาะสำหรับใช้ส่วนตัว
+ถ้าจะเปิดให้คนอื่นใช้ เราควรย้าย API Key ไป Backend
+เพื่อความปลอดภัย
+
+</div>
+
+</section>
+
+
+<button
+id="generateButton"
+class="main-button"
+onclick="startGenerate()"
+>
+✨ สร้าง 2 รูป + คำบรรยาย
+</button>
+
+
+<div id="loading" class="loading">
+
+<div class="spinner"></div>
+
+<div id="status" class="status">
+กำลังเตรียมระบบ...
+</div>
+
+</div>
+
+
+<div id="error" class="error"></div>
+
+<div id="success" class="success"></div>
+
+
+<section id="results" class="results">
+
+<h2 class="result-title">
+🎨 ผลงานที่สร้าง
+</h2>
+
+<div id="imageGrid" class="image-grid"></div>
+
+
+<section class="box" style="margin-top:15px">
+
+<div class="description-head">
+
+<h2>
+📝 คำบรรยายสินค้า
+</h2>
+
+<button
+class="copy-button"
+onclick="copyDescription()"
+>
+📋 คัดลอก
+</button>
+
+</div>
+
+<textarea
+id="resultDescription"
+readonly
+></textarea>
+
+</section>
+
+</section>
 
 </div>
 
 
 <script>
 
-/* =========================================================
+/* =================================================
    CONFIG
-========================================================= */
+================================================= */
 
 const TEXT_MODEL = "gpt-5.6-luna";
+
 const IMAGE_MODEL = "gpt-image-2";
 
 /*
-  ทุกภาพใช้ขนาดเดียวกัน
-  ไม่มีภาพแรกเป็น portrait อีกแล้ว
-*/
+ * ให้ทุกภาพเป็นขนาดเดียวกัน
+ */
 const IMAGE_SIZE = "1024x1024";
 
 
-/* =========================================================
+/* =================================================
    STATE
-========================================================= */
+================================================= */
 
-/*
-  สำคัญมาก:
-
-  file     = ไฟล์จริงจาก iPhone
-  dataUrl  = ใช้สำหรับให้ Responses API วิเคราะห์รูป
-
-  เราจะไม่เอา dataUrl ไปแปลงผ่าน Canvas
-*/
 let images = [
-  {
-    file:null,
-    dataUrl:null
-  },
-  {
-    file:null,
-    dataUrl:null
-  },
-  {
-    file:null,
-    dataUrl:null
-  }
+    null,
+    null,
+    null
 ];
 
-let selectedImageCount = 2;
+let imageFiles = [
+    null,
+    null,
+    null
+];
+
 let generatedImages = [];
-let generatedCaption = "";
+
+let selectedImageCount = 2;
 
 
-/* =========================================================
-   IMAGE SELECT
-========================================================= */
+/* =================================================
+   จำนวนภาพ
+================================================= */
 
-function selectImage(index, input){
+function selectImageCount(count){
 
-  const file = input.files && input.files[0];
+    selectedImageCount = count;
 
-  if(!file){
-    return;
-  }
+    for(let i=1;i<=4;i++){
 
-  /*
-    รับเฉพาะรูปที่ API รองรับ
-  */
-  const allowedTypes = [
-    "image/jpeg",
-    "image/png",
-    "image/webp"
-  ];
+        const button =
+            document.getElementById("count"+i);
 
-  if(!allowedTypes.includes(file.type)){
+        if(i === count){
 
-    showStatus(
-      "ไฟล์รูปที่เลือกไม่รองรับ กรุณาใช้ JPG, PNG หรือ WEBP",
-      true
-    );
+            button.classList.add("active");
 
-    input.value = "";
-    return;
-  }
+        }else{
 
+            button.classList.remove("active");
 
-  /*
-    เก็บ FILE ต้นฉบับไว้
-
-    ห้ามแปลงผ่าน Canvas
-  */
-  images[index].file = file;
-
-
-  /*
-    สร้าง Data URL เฉพาะสำหรับ preview
-    และส่งให้โมเดลข้อความวิเคราะห์รูป
-  */
-  const reader = new FileReader();
-
-  reader.onload = function(e){
-
-    images[index].dataUrl = e.target.result;
-
-    const box = document.getElementById("photo" + index);
-
-    box.innerHTML = `
-      <img
-        src="${e.target.result}"
-        alt="product image ${index + 1}"
-      >
-    `;
-
-  };
-
-  reader.readAsDataURL(file);
-}
-
-
-/* =========================================================
-   IMAGE COUNT
-========================================================= */
-
-function updatePrice(){
-
-  selectedImageCount =
-    parseInt(
-      document.getElementById("imageCount").value,
-      10
-    );
-
-  document.getElementById("priceText").textContent =
-    selectedImageCount + " รูป";
-
-  document.getElementById("generateBtn").textContent =
-    "สร้าง " +
-    selectedImageCount +
-    " รูป + คำบรรยาย";
-}
-
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-function showStatus(message, error=false){
-
-  const status = document.getElementById("status");
-
-  status.className = "status show";
-
-  if(error){
-    status.classList.add("error");
-  }
-
-  status.innerHTML = message;
-}
-
-
-function showSuccess(message){
-
-  const status = document.getElementById("status");
-
-  status.className = "status show success";
-
-  status.innerHTML = message;
-}
-
-
-/* =========================================================
-   API REQUEST - RESPONSES
-========================================================= */
-
-async function callResponses(apiKey, body){
-
-  const response = await fetch(
-    "https://api.openai.com/v1/responses",
-    {
-      method:"POST",
-
-      headers:{
-        "Content-Type":"application/json",
-        "Authorization":"Bearer " + apiKey
-      },
-
-      body:JSON.stringify(body)
-    }
-  );
-
-
-  const data = await response.json();
-
-
-  if(!response.ok){
-
-    throw new Error(
-      data?.error?.message ||
-      "Responses API error"
-    );
-  }
-
-
-  return data;
-}
-
-
-/* =========================================================
-   EXTRACT RESPONSE TEXT
-========================================================= */
-
-function extractResponseText(data){
-
-  if(data.output_text){
-    return data.output_text;
-  }
-
-
-  let text = "";
-
-  if(Array.isArray(data.output)){
-
-    for(const item of data.output){
-
-      if(!item.content){
-        continue;
-      }
-
-      for(const content of item.content){
-
-        if(
-          content.type === "output_text" &&
-          content.text
-        ){
-          text += content.text;
         }
-
-      }
-
     }
 
-  }
+    document.getElementById("selectedCount").textContent =
+        "เลือก "+count+" รูป";
 
-  return text;
+    document.getElementById("generateButton").textContent =
+        "✨ สร้าง "+count+" รูป + คำบรรยาย";
+
+    updatePrice();
 }
 
 
-/* =========================================================
-   ANALYZE PRODUCT
-========================================================= */
+/* =================================================
+   เลือกรูป
+================================================= */
 
-async function analyzeProduct(apiKey){
+function selectImage(input,index){
 
-  const productName =
-    document.getElementById("productName").value.trim();
+    const file = input.files && input.files[0];
 
-  const productDetails =
-    document.getElementById("productDetails").value.trim();
-
-
-  const content = [];
-
-
-  content.push({
-    type:"input_text",
-    text:`
-วิเคราะห์สินค้าจากรูปภาพที่แนบมา
-
-ชื่อสินค้า:
-${productName || "ไม่ระบุ"}
-
-รายละเอียดจากผู้ใช้:
-${productDetails || "ไม่มี"}
-
-หน้าที่ของคุณ:
-1. ระบุว่าสินค้าคืออะไร
-2. วิเคราะห์รูปร่าง สี ฉลาก โลโก้ บรรจุภัณฑ์ และจุดเด่นที่เห็นจริง
-3. ห้ามแต่งข้อมูลทางเทคนิคที่ไม่เห็นหรือไม่ได้รับจากผู้ใช้
-4. เขียนคำบรรยายขายสินค้าเป็นภาษาไทยประมาณ 250 คำ
-5. สร้างแนวทางภาพโฆษณาที่เหมาะกับสินค้าชิ้นนี้
-6. ภาพโฆษณาต้องดูเหมือนโปสเตอร์ขายสินค้ามืออาชีพ
-7. AI เป็นคนคิดฉาก แสง องค์ประกอบ กราฟิก และตัวหนังสือทั้งหมด
-8. ตัวหนังสือในภาพต้องเป็นส่วนหนึ่งของงานกราฟิก ไม่ใช่ข้อความลอยแยกออกมาภายหลัง
-
-ตอบเป็น JSON เท่านั้นในรูปแบบนี้:
-
-{
-  "product_summary": "...",
-  "description": "...",
-  "cover_headline": "...",
-  "cover_subheadline": "...",
-  "cover_badge": "...",
-  "cover_prompt": "...",
-  "detail_prompts": [
-    "...",
-    "...",
-    "...",
-    "..."
-  ]
-}
-
-detail_prompts ต้องมีอย่างน้อย 4 แนวทาง และแต่ละแนวทางต้องแตกต่างกันอย่างชัดเจน
-`
-  });
-
-
-  /*
-    ใช้ Data URL ของรูปสำหรับการวิเคราะห์
-  */
-  for(let i=0;i<images.length;i++){
-
-    if(images[i].dataUrl){
-
-      content.push({
-        type:"input_image",
-        image_url:images[i].dataUrl,
-        detail:"high"
-      });
-
+    if(!file){
+        return;
     }
-
-  }
-
-
-  const data = await callResponses(
-    apiKey,
-    {
-      model:TEXT_MODEL,
-      store:false,
-
-      input:[
-        {
-          role:"user",
-          content:content
-        }
-      ]
-    }
-  );
-
-
-  const text = extractResponseText(data);
-
-
-  if(!text){
-    throw new Error("AI ไม่ส่งข้อมูลวิเคราะห์กลับมา");
-  }
-
-
-  /*
-    กันกรณี AI ใส่ ```json
-  */
-  let clean = text.trim();
-
-  clean = clean
-    .replace(/^```json/i,"")
-    .replace(/^```/i,"")
-    .replace(/```$/i,"")
-    .trim();
-
-
-  let result;
-
-  try{
-
-    result = JSON.parse(clean);
-
-  }catch(error){
-
-    console.log("AI RAW:", text);
-
-    throw new Error(
-      "AI ส่งข้อมูล JSON กลับมาไม่ถูกต้อง"
-    );
-  }
-
-
-  return result;
-}
-
-
-/* =========================================================
-   IMAGE PROMPTS
-========================================================= */
-
-function buildImagePrompt(
-  analysis,
-  imageNumber
-){
-
-  const common = `
-
-สร้างภาพโฆษณาสินค้าจากรูปอ้างอิงที่แนบมา
-
-สำคัญมาก:
-- สินค้าจริงในภาพต้องเป็นสินค้าตัวเดียวกับรูปอ้างอิง
-- รักษารูปร่าง ขนาด สัดส่วน สี โลโก้ ฉลาก ฝา ขวด กล่อง และรายละเอียดสำคัญของสินค้า
-- ห้ามเปลี่ยนสินค้าเป็นสินค้าคนละรุ่น
-- ห้ามสร้างสินค้าขึ้นมาใหม่จนไม่เหมือนต้นฉบับ
-- สินค้าต้องเป็นพระเอกของภาพ
-- สร้างงานกราฟิกแบบโฆษณาสินค้ามืออาชีพ
-- AI ต้องสร้างฉาก แสง เงา องค์ประกอบ และกราฟิกเอง
-- AI ต้องสร้างตัวหนังสือและคำโฆษณาบนภาพเอง
-- ตัวหนังสือทั้งหมดต้องเป็นส่วนหนึ่งของโปสเตอร์
-- จัด typography ให้สวย อ่านง่าย และไม่บังตัวสินค้า
-- ห้ามใส่ข้อความมั่ว
-- ห้ามใส่ข้อความซ้ำ
-- ห้ามมีตัวหนังสือลอยผิดตำแหน่ง
-- ห้ามใส่ข้อมูลสเปกที่ไม่มีหลักฐาน
-- ไม่ต้องมีพื้นที่ว่างสำหรับการใส่ข้อความภายหลัง
-- ผลลัพธ์ต้องเป็นภาพโปสเตอร์สำเร็จรูปพร้อมนำไปขายสินค้าได้ทันที
-- อัตราส่วนภาพเป็นสี่เหลี่ยมจัตุรัส
-- ภาพสุดท้ายต้องดูเหมือนงานโฆษณาจากแบรนด์มืออาชีพ
-`;
-
-
-  let variation = "";
-
-
-  if(imageNumber === 1){
-
-    variation = `
-
-ภาพที่ 1:
-เป็นภาพ COVER หลักของแคมเปญ
-เน้นความโดดเด่นและความน่าเชื่อถือ
-ใช้มุมกล้องที่ทำให้สินค้าดูพรีเมียม
-สร้าง headline หลักขนาดเด่น
-สร้าง subheadline ที่เกี่ยวข้องกับสินค้า
-สร้าง badge หรือ graphic element ที่เข้ากับสินค้า
-จัดองค์ประกอบเหมือนโปสเตอร์โฆษณาสินค้าจริง
-`;
-
-  }else if(imageNumber === 2){
-
-    variation = `
-
-ภาพที่ 2:
-ต้องแตกต่างจากภาพแรกอย่างชัดเจน
-เปลี่ยนมุมกล้องและองค์ประกอบ
-สร้างฉากใหม่ที่เหมาะกับประเภทสินค้า
-เน้นรายละเอียดของสินค้าและความน่าใช้
-มี typography และกราฟิกในรูปแบบใหม่
-ห้ามทำภาพซ้ำองค์ประกอบของภาพแรก
-`;
-
-  }else if(imageNumber === 3){
-
-    variation = `
-
-ภาพที่ 3:
-ต้องแตกต่างจากสองภาพแรก
-ใช้มุม close-up หรือมุมมองเชิงรายละเอียด
-สร้าง visual ที่ทำให้ลูกค้าเข้าใจจุดเด่นของสินค้า
-ใช้แสงและฉากที่แตกต่าง
-สร้างข้อความโฆษณาใหม่
-ห้ามคัดลอก layout ของภาพก่อนหน้า
-`;
-
-  }else{
-
-    variation = `
-
-ภาพที่ 4:
-ต้องแตกต่างจากภาพก่อนหน้าทั้งหมด
-สร้างฉากการใช้งานหรือ lifestyle ที่เหมาะกับสินค้า
-ให้สินค้ายังคงเป็นพระเอก
-ใช้ composition แบบใหม่
-สร้าง typography และ graphic design ใหม่
-ภาพต้องดูเหมือนโฆษณาคนละช็อตในแคมเปญเดียวกัน
-`;
-  }
-
-
-  return common + variation + `
-
-ข้อมูลจาก AI วิเคราะห์สินค้า:
-
-ชื่อ/สรุป:
-${analysis.product_summary || ""}
-
-Headline:
-${analysis.cover_headline || ""}
-
-Subheadline:
-${analysis.cover_subheadline || ""}
-
-Badge:
-${analysis.cover_badge || ""}
-
-แนวทางหลัก:
-${analysis.cover_prompt || ""}
-
-แนวทางภาพนี้:
-${
-  analysis.detail_prompts &&
-  analysis.detail_prompts[imageNumber - 1]
-    ? analysis.detail_prompts[imageNumber - 1]
-    : ""
-}
-
-คำอธิบายสินค้า:
-${analysis.description || ""}
-`;
-}
-
-
-/* =========================================================
-   GENERATE IMAGE
-========================================================= */
-
-async function generateImage(
-  apiKey,
-  prompt
-){
-
-  const form = new FormData();
-
-
-  form.append(
-    "model",
-    IMAGE_MODEL
-  );
-
-
-  form.append(
-    "prompt",
-    prompt
-  );
-
-
-  form.append(
-    "quality",
-    document.getElementById("quality").value
-  );
-
-
-  form.append(
-    "size",
-    IMAGE_SIZE
-  );
-
-
-  /*
-    สำคัญที่สุดของการแก้ครั้งนี้
-
-    ใช้ FILE ต้นฉบับโดยตรง
-    ไม่ใช้ Canvas
-    ไม่สร้าง Blob ใหม่
-  */
-
-  for(let i=0;i<images.length;i++){
-
-    if(!images[i].file){
-      continue;
-    }
-
-    const file = images[i].file;
-
-
-    form.append(
-      "image[]",
-      file,
-      file.name || `product-${i+1}.jpg`
-    );
-
-  }
-
-
-  const response = await fetch(
-    "https://api.openai.com/v1/images/edits",
-    {
-      method:"POST",
-
-      headers:{
-        "Authorization":"Bearer " + apiKey
-      },
-
-      body:form
-    }
-  );
-
-
-  const data = await response.json();
-
-
-  if(!response.ok){
-
-    throw new Error(
-      data?.error?.message ||
-      "Image API error"
-    );
-
-  }
-
-
-  if(
-    !data.data ||
-    !data.data.length ||
-    !data.data[0].b64_json
-  ){
-
-    throw new Error(
-      "AI ไม่ได้ส่งรูปภาพกลับมา"
-    );
-
-  }
-
-
-  return "data:image/png;base64," +
-    data.data[0].b64_json;
-}
-
-
-/* =========================================================
-   START GENERATE
-========================================================= */
-
-async function startGenerate(){
-
-  const apiKey =
-    document.getElementById("apiKey").value.trim();
-
-
-  const productName =
-    document.getElementById("productName").value.trim();
-
-
-  /*
-    ตรวจสอบรูป
-  */
-
-  const missingImages = images.filter(
-    item => !item.file
-  ).length;
-
-
-  if(missingImages > 0){
-
-    showStatus(
-      "กรุณาใส่รูปสินค้าให้ครบทั้ง 3 รูปก่อนครับ",
-      true
-    );
-
-    return;
-  }
-
-
-  if(!productName){
-
-    showStatus(
-      "กรุณาใส่ชื่อสินค้าก่อนครับ",
-      true
-    );
-
-    return;
-  }
-
-
-  if(!apiKey){
-
-    showStatus(
-      "กรุณาใส่ OpenAI API Key ก่อนครับ",
-      true
-    );
-
-    return;
-  }
-
-
-  const btn =
-    document.getElementById("generateBtn");
-
-
-  btn.disabled = true;
-
-
-  generatedImages = [];
-  generatedCaption = "";
-
-
-  document.getElementById("results").style.display =
-    "none";
-
-
-  try{
-
-    /*
-      STEP 1
-      วิเคราะห์สินค้า
-    */
-
-    showStatus(
-      `<span class="spinner"></span>
-       กำลังให้ AI วิเคราะห์สินค้าและวางคอนเซปต์...`
-    );
-
-
-    const analysis =
-      await analyzeProduct(apiKey);
 
 
     /*
-      เก็บคำบรรยาย
-    */
+     * รับเฉพาะ 3 format
+     */
 
-    generatedCaption =
-      analysis.description || "";
-
-
-    /*
-      STEP 2
-      สร้างภาพทีละใบ
-    */
-
-    for(
-      let i=0;
-      i<selectedImageCount;
-      i++
-    ){
-
-      showStatus(
-        `<span class="spinner"></span>
-         กำลังสร้างภาพ ${i+1} / ${selectedImageCount} ...`
-      );
+    const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+    ];
 
 
-      const prompt =
-        buildImagePrompt(
-          analysis,
-          i + 1
+    if(!allowedTypes.includes(file.type)){
+
+        imageFiles[index] = null;
+        images[index] = null;
+
+        input.value = "";
+
+        showError(
+            "รูปที่ "+(index+1)+
+            " เป็นไฟล์ชนิด \""+
+            (file.type || "ไม่ทราบชนิด")+
+            "\"\n\n"+
+            "โปรแกรมนี้รับเฉพาะ:\n"+
+            "JPG / JPEG\n"+
+            "PNG\n"+
+            "WEBP\n\n"+
+            "กรุณาเลือกรูปนี้ใหม่ครับ"
         );
 
-
-      const image =
-        await generateImage(
-          apiKey,
-          prompt
+        updateFileInfo(
+            index,
+            "ไม่รองรับ: "+
+            (file.type || "ไม่ทราบชนิด"),
+            false
         );
 
-
-      generatedImages.push({
-        src:image,
-        number:i+1
-      });
-
+        return;
     }
 
 
     /*
-      STEP 3
-      แสดงผล
-    */
+     * เก็บ File จริง
+     */
 
-    renderResults();
-
-
-    showSuccess(
-      `สร้างภาพสำเร็จ ${generatedImages.length} รูป พร้อมคำบรรยายสินค้าแล้วครับ`
-    );
+    imageFiles[index] = file;
 
 
-  }catch(error){
+    /*
+     * เก็บ Data URL สำหรับ preview
+     */
 
-    console.error(error);
-
-
-    showStatus(
-      "เกิดข้อผิดพลาด: " +
-      escapeHtml(error.message),
-      true
-    );
+    const reader =
+        new FileReader();
 
 
-  }finally{
+    reader.onload =
+        function(e){
 
-    btn.disabled = false;
-
-    btn.textContent =
-      "สร้าง " +
-      selectedImageCount +
-      " รูป + คำบรรยาย";
-
-  }
-}
+            images[index] =
+                e.target.result;
 
 
-/* =========================================================
-   RENDER RESULTS
-========================================================= */
-
-function renderResults(){
-
-  const results =
-    document.getElementById("results");
-
-  const imageResults =
-    document.getElementById("imageResults");
+            const preview =
+                document.getElementById(
+                    "preview"+index
+                );
 
 
-  imageResults.innerHTML = "";
+            const text =
+                document.getElementById(
+                    "text"+index
+                );
 
 
-  generatedImages.forEach(
-    (item,index)=>{
-
-      const card =
-        document.createElement("div");
-
-      card.className =
-        "result-card";
+            preview.src =
+                e.target.result;
 
 
-      const title =
-        document.createElement("div");
-
-      title.className =
-        "result-title";
+            preview.style.display =
+                "block";
 
 
-      if(index === 0){
-
-        title.textContent =
-          "ภาพที่ 1 — Cover Poster";
-
-      }else{
-
-        title.textContent =
-          "ภาพที่ " + (index + 1);
-
-      }
+            text.style.display =
+                "none";
 
 
-      const img =
-        document.createElement("img");
-
-      img.className =
-        "result-image";
-
-      img.src =
-        item.src;
-
-
-      /*
-        AI ทำข้อความบนภาพทั้งหมดแล้ว
-        ไม่มี Canvas overlay
-      */
-
-
-      const saveBtn =
-        document.createElement("button");
-
-      saveBtn.className =
-        "save-btn";
-
-      saveBtn.textContent =
-        "⬇️ บันทึกภาพ";
-
-
-      saveBtn.onclick =
-        function(){
-
-          saveImage(
-            item.src,
-            index + 1
-          );
+            updateFileInfo(
+                index,
+                file.type+
+                " • "+
+                formatFileSize(file.size),
+                true
+            );
 
         };
 
 
-      card.appendChild(title);
-      card.appendChild(img);
-      card.appendChild(saveBtn);
+    reader.onerror =
+        function(){
 
-      imageResults.appendChild(card);
+            imageFiles[index] = null;
+            images[index] = null;
 
-    }
-  );
+            showError(
+                "ไม่สามารถอ่านรูปที่ "+
+                (index+1)+
+                " ได้ครับ"
+            );
 
-
-  document.getElementById("caption").textContent =
-    generatedCaption;
-
-
-  results.style.display =
-    "block";
+        };
 
 
-  window.scrollTo({
-    top:results.offsetTop - 10,
-    behavior:"smooth"
-  });
+    reader.readAsDataURL(file);
 }
 
 
-/* =========================================================
-   SAVE IMAGE
-========================================================= */
+/* =================================================
+   ข้อมูลไฟล์
+================================================= */
 
-async function saveImage(
-  src,
-  number
+function updateFileInfo(
+    index,
+    text,
+    ok
 ){
 
-  try{
+    const box =
+        document.getElementById(
+            "fileInfo"+index
+        );
+
+    box.textContent =
+        text;
+
+    box.style.display =
+        "block";
+
+    box.className =
+        "file-info "+
+        (ok ? "file-ok" : "file-error");
+}
+
+
+/* =================================================
+   ขนาดไฟล์
+================================================= */
+
+function formatFileSize(bytes){
+
+    if(bytes < 1024){
+        return bytes+" B";
+    }
+
+    if(bytes < 1024*1024){
+        return (
+            (bytes/1024).toFixed(0)+
+            " KB"
+        );
+    }
+
+    return (
+        (bytes/(1024*1024)).toFixed(2)+
+        " MB"
+    );
+}
+
+
+/* =================================================
+   ตรวจไฟล์ก่อนยิง API
+================================================= */
+
+function validateImages(){
+
+    for(let i=0;i<3;i++){
+
+        const file =
+            imageFiles[i];
+
+
+        if(!file){
+
+            return {
+                ok:false,
+
+                message:
+                    "ยังไม่มีรูปสินค้า "+
+                    (i+1)
+            };
+
+        }
+
+
+        const allowed = [
+            "image/jpeg",
+            "image/png",
+            "image/webp"
+        ];
+
+
+        if(!allowed.includes(file.type)){
+
+            return {
+                ok:false,
+
+                message:
+                    "รูปที่ "+(i+1)+
+                    " เป็นไฟล์ "+
+                    (file.type || "ไม่ทราบชนิด")+
+                    "\n\n"+
+                    "กรุณาใช้ JPG, PNG หรือ WEBP"
+            };
+
+        }
+
+
+        /*
+         * ตรวจขนาดไฟล์
+         */
+
+        if(file.size <= 0){
+
+            return {
+                ok:false,
+
+                message:
+                    "รูปที่ "+(i+1)+
+                    " มีขนาดไฟล์ผิดปกติ"
+            };
+
+        }
+
+    }
+
+
+    return {
+        ok:true
+    };
+}
+
+
+/* =================================================
+   ราคา
+================================================= */
+
+function updatePrice(){
+
+    const quality =
+        document.getElementById(
+            "quality"
+        ).value;
+
+
+    let mode = "";
+
+
+    if(quality === "low"){
+
+        mode = "🟢 โหมดประหยัด";
+
+    }
+
+    else if(quality === "high"){
+
+        mode = "🔴 โหมดสูง";
+
+    }
+
+    else{
+
+        mode = "🟡 โหมดปกติ";
+
+    }
+
+
+    document.getElementById(
+        "priceEstimate"
+    ).textContent =
+        mode+
+        " — สร้าง "+
+        selectedImageCount+
+        " รูป";
+}
+
+
+/* =================================================
+   STATUS
+================================================= */
+
+function setStatus(text){
+
+    document.getElementById(
+        "status"
+    ).textContent =
+        text;
+}
+
+
+/* =================================================
+   ERROR
+================================================= */
+
+function showError(text){
+
+    const box =
+        document.getElementById(
+            "error"
+        );
+
+    box.textContent =
+        text;
+
+    box.style.display =
+        "block";
+
+
+    document.getElementById(
+        "success"
+    ).style.display =
+        "none";
+
+
+    box.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+}
+
+
+function clearMessages(){
+
+    document.getElementById(
+        "error"
+    ).style.display =
+        "none";
+
+    document.getElementById(
+        "success"
+    ).style.display =
+        "none";
+}
+
+
+function showSuccess(text){
+
+    const box =
+        document.getElementById(
+            "success"
+        );
+
+    box.textContent =
+        text;
+
+    box.style.display =
+        "block";
+
+    document.getElementById(
+        "error"
+    ).style.display =
+        "none";
+}
+
+
+/* =================================================
+   RESPONSES API
+================================================= */
+
+async function callResponses(
+    apiKey,
+    input
+){
 
     const response =
-      await fetch(src);
+        await fetch(
+            "https://api.openai.com/v1/responses",
+            {
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                        "application/json",
+
+                    "Authorization":
+                        "Bearer "+apiKey
+                },
+
+                body:JSON.stringify({
+
+                    model:TEXT_MODEL,
+
+                    input:input,
+
+                    store:false
+
+                })
+
+            }
+        );
 
 
-    const blob =
-      await response.blob();
+    const raw =
+        await response.text();
 
 
-    const file =
-      new File(
-        [blob],
-        `LUY-MOTOR-AI-${number}.png`,
-        {
-          type:"image/png"
+    let data;
+
+
+    try{
+
+        data =
+            JSON.parse(raw);
+
+    }
+
+    catch{
+
+        throw new Error(
+            "OpenAI ส่งข้อมูลกลับมาไม่ใช่ JSON"
+        );
+
+    }
+
+
+    if(!response.ok){
+
+        throw new Error(
+            data?.error?.message ||
+            "Responses API Error"
+        );
+
+    }
+
+
+    return data;
+}
+
+
+/* =================================================
+   OUTPUT TEXT
+================================================= */
+
+function getOutputText(data){
+
+    if(
+        typeof data.output_text ===
+        "string"
+    ){
+
+        return data.output_text;
+    }
+
+
+    let text = "";
+
+
+    if(Array.isArray(data.output)){
+
+        for(
+            const item of data.output
+        ){
+
+            if(
+                item.type === "message" &&
+                Array.isArray(item.content)
+            ){
+
+                for(
+                    const part of item.content
+                ){
+
+                    if(
+                        part.type === "output_text"
+                    ){
+
+                        text +=
+                            part.text || "";
+
+                    }
+                }
+            }
         }
-      );
+    }
+
+
+    return text.trim();
+}
+
+
+/* =================================================
+   วิเคราะห์สินค้า
+================================================= */
+
+async function analyzeProduct(apiKey){
+
+    const name =
+        document.getElementById(
+            "productName"
+        ).value.trim();
+
+
+    const description =
+        document.getElementById(
+            "productDescription"
+        ).value.trim();
+
+
+    const content = [];
+
+
+    content.push({
+
+        type:"input_text",
+
+        text:`
+
+คุณคือ Creative Director
+และผู้เชี่ยวชาญด้านภาพโฆษณาสินค้าออนไลน์
+ของ LUY MOTOR
+
+วิเคราะห์สินค้าจากรูปจริง 3 รูป
+และข้อมูลที่ผู้ใช้ให้มา
+
+รูปสินค้าคือ SOURCE OF TRUTH
+
+
+หน้าที่:
+
+วิเคราะห์ว่าเป็นสินค้าอะไร
+
+รักษา:
+
+- ยี่ห้อ
+- โลโก้
+- รุ่น
+- สี
+- รูปทรง
+- ฉลาก
+- บรรจุภัณฑ์
+- รายละเอียดที่เห็นจริง
+
+
+ห้ามแต่ง:
+
+- สเปก
+- ราคา
+- ขนาด
+- ปริมาณ
+- มาตรฐาน
+- ใบรับรอง
+- คุณสมบัติ
+- การรับประกัน
+- ข้ออ้างทางเทคนิค
+
+
+ต้องเตรียมแนวทางสำหรับภาพโฆษณา
+
+AI ต้องคิด:
+
+- ฉาก
+- มุมกล้อง
+- แสง
+- เงา
+- background
+- graphic
+- typography
+- headline
+- subheadline
+- badge
+- banner
+- advertising layout
+
+
+ภาพแรก:
+
+เป็น professional product advertisement poster
+
+
+ภาพอื่น:
+
+ต้องแตกต่างจากภาพแรก
+แต่ยังเป็นแคมเปญเดียวกัน
+
+
+ข้อความบนภาพ:
+
+สามารถมีได้
+
+แต่ต้องเป็นส่วนหนึ่งของงานกราฟิก
+
+เช่น:
+
+Banner
+Badge
+Ribbon
+Panel
+Typography Block
+Graphic Shape
+
+
+ห้าม:
+
+- ข้อความลอย
+- ข้อความซ้ำ
+- ข้อความมั่ว
+- กล่องข้อความซ้อน
+- ตัวหนังสือทับสินค้า
+- ตัวหนังสือชนขอบ
+
+
+คำบรรยาย:
+
+ประมาณ 250 คำ
+ภาษาไทย
+เหมาะสำหรับขายสินค้าออนไลน์
+
+
+ตอบ JSON เท่านั้น:
+
+{
+ "product_summary":"",
+ "description":"",
+ "cover_headline":"",
+ "cover_subheadline":"",
+ "cover_badge":"",
+ "cover_prompt":"",
+ "detail_prompts":[
+   "",
+   "",
+   "",
+   ""
+ ]
+}
+
+
+ชื่อสินค้า:
+
+${name}
+
+
+รายละเอียด:
+
+${description}
+
+`
+
+    });
 
 
     /*
-      iPhone รองรับ Share Sheet
-    */
+     * เพิ่มรูป 3 รูป
+     */
 
-    if(
-      navigator.share &&
-      navigator.canShare &&
-      navigator.canShare({
-        files:[file]
-      })
-    ){
+    for(let i=0;i<3;i++){
 
-      await navigator.share({
-        files:[file],
-        title:
-          "LUY MOTOR AI SELLER"
-      });
+        if(!images[i]){
 
-      return;
+            throw new Error(
+                "ไม่มีข้อมูลรูปที่ "+
+                (i+1)+
+                " สำหรับวิเคราะห์"
+            );
+
+        }
+
+
+        content.push({
+
+            type:"input_image",
+
+            image_url:images[i],
+
+            detail:"high"
+
+        });
+
+    }
+
+
+    const data =
+        await callResponses(
+            apiKey,
+            [
+                {
+                    role:"user",
+                    content:content
+                }
+            ]
+        );
+
+
+    let output =
+        getOutputText(data);
+
+
+    if(!output){
+
+        throw new Error(
+            "AI ไม่ส่งผลวิเคราะห์กลับมา"
+        );
+
+    }
+
+
+    output =
+        output
+        .replace(/```json/gi,"")
+        .replace(/```/g,"")
+        .trim();
+
+
+    try{
+
+        return JSON.parse(output);
+
+    }
+
+    catch{
+
+        throw new Error(
+            "AI ส่ง JSON กลับมาไม่ถูกต้อง"
+        );
+
+    }
+}
+
+
+/* =================================================
+   PROMPT ภาพ
+================================================= */
+
+function buildFinalPrompt(
+    basePrompt,
+    index
+){
+
+    let variation = "";
+
+
+    if(index === 0){
+
+        variation = `
+
+THIS IS THE MAIN COVER POSTER.
+
+Create a premium commercial product advertisement.
+
+Make the product the hero.
+
+Use strong visual hierarchy.
+
+Create an attractive advertising scene.
+
+Create integrated typography.
+
+Create a clear headline.
+
+Create a suitable badge or graphic element.
+
+The finished result must look like a professional e-commerce advertisement.
+
+`;
+
+    }
+
+    else if(index === 1){
+
+        variation = `
+
+THIS IS ADVERTISEMENT IMAGE 2.
+
+Create a clearly different composition from the cover.
+
+Use a different camera angle.
+
+Use a different environment or background.
+
+Focus on product quality and details.
+
+Keep the same brand campaign feeling.
+
+Do not repeat the cover layout.
+
+`;
+
+    }
+
+    else if(index === 2){
+
+        variation = `
+
+THIS IS ADVERTISEMENT IMAGE 3.
+
+Create a completely different commercial composition.
+
+Use a close-up, detail shot, or practical environment.
+
+Make the product visually attractive.
+
+Use different lighting and framing from previous images.
+
+Do not repeat the previous layout.
+
+`;
+
+    }
+
+    else{
+
+        variation = `
+
+THIS IS ADVERTISEMENT IMAGE 4.
+
+Create a completely different advertising scene.
+
+Use a practical or lifestyle environment appropriate for the product.
+
+Use new composition, new lighting and new graphic layout.
+
+Do not repeat previous images.
+
+`;
+
+    }
+
+
+    return `
+
+${basePrompt}
+
+
+${variation}
+
+
+FINAL REQUIREMENTS:
+
+The uploaded images are the source of truth.
+
+Preserve the actual product.
+
+Preserve the brand.
+
+Preserve the logo.
+
+Preserve the label.
+
+Preserve the shape.
+
+Preserve the color.
+
+Preserve recognizable details.
+
+Create the entire final artwork yourself.
+
+Create the scene yourself.
+
+Create the background yourself.
+
+Create the lighting yourself.
+
+Create the shadows yourself.
+
+Create the graphic design yourself.
+
+Create the typography yourself.
+
+Create advertising text yourself.
+
+Create badges yourself when appropriate.
+
+Create banners yourself when appropriate.
+
+All text must be integrated into the graphic design.
+
+Do NOT create floating text.
+
+Do NOT simply paste text on top of the product.
+
+Do NOT create random words.
+
+Do NOT duplicate text.
+
+Do NOT overlap text.
+
+Do NOT overlap text boxes.
+
+Do NOT cover important product details.
+
+Do NOT invent specifications.
+
+Do NOT invent prices.
+
+Do NOT invent sizes.
+
+Do NOT invent quantities.
+
+Do NOT invent certifications.
+
+Do NOT invent unsupported claims.
+
+The final result must be ONE finished commercial advertising image.
+
+Do not use HTML.
+
+Do not use JavaScript.
+
+Do not use Canvas.
+
+Do not add text after generation.
+
+The image model must create the complete final artwork itself.
+
+`;
+}
+
+
+/* =================================================
+   GENERATE IMAGE
+================================================= */
+
+async function generateImage(
+    apiKey,
+    prompt,
+    quality
+){
+
+    const validation =
+        validateImages();
+
+
+    if(!validation.ok){
+
+        throw new Error(
+            validation.message
+        );
+
+    }
+
+
+    const form =
+        new FormData();
+
+
+    /*
+     * ส่งไฟล์จริง 3 ไฟล์
+     */
+
+    for(let index=0;index<3;index++){
+
+        const file =
+            imageFiles[index];
+
+
+        /*
+         * Debug ข้อมูลไฟล์
+         */
+
+        console.log(
+            "Sending image:",
+            index+1,
+            {
+                name:file.name,
+                type:file.type,
+                size:file.size
+            }
+        );
+
+
+        form.append(
+            "image[]",
+            file,
+            file.name ||
+            ("product-"+(index+1)+".jpg")
+        );
+
     }
 
 
     /*
-      fallback
-    */
+     * Model
+     */
 
-    const url =
-      URL.createObjectURL(blob);
-
-
-    const a =
-      document.createElement("a");
-
-    a.href = url;
-
-    a.download =
-      `LUY-MOTOR-AI-${number}.png`;
-
-    document.body.appendChild(a);
-
-    a.click();
-
-    a.remove();
-
-    URL.revokeObjectURL(url);
-
-
-  }catch(error){
-
-    alert(
-      "ไม่สามารถบันทึกภาพได้: " +
-      error.message
+    form.append(
+        "model",
+        IMAGE_MODEL
     );
 
-  }
+
+    /*
+     * Prompt
+     */
+
+    form.append(
+        "prompt",
+        prompt
+    );
+
+
+    /*
+     * Quality
+     */
+
+    form.append(
+        "quality",
+        quality
+    );
+
+
+    /*
+     * ทุกภาพเท่ากัน
+     */
+
+    form.append(
+        "size",
+        IMAGE_SIZE
+    );
+
+
+    /*
+     * ไม่มี input_fidelity
+     */
+
+
+    const response =
+        await fetch(
+            "https://api.openai.com/v1/images/edits",
+            {
+
+                method:"POST",
+
+                headers:{
+                    "Authorization":
+                        "Bearer "+apiKey
+                },
+
+                body:form
+
+            }
+        );
+
+
+    const raw =
+        await response.text();
+
+
+    let data;
+
+
+    try{
+
+        data =
+            JSON.parse(raw);
+
+    }
+
+    catch{
+
+        throw new Error(
+            "Image API ส่งข้อมูลกลับมาไม่ใช่ JSON"
+        );
+
+    }
+
+
+    if(!response.ok){
+
+        throw new Error(
+            data?.error?.message ||
+            "Image API Error"
+        );
+
+    }
+
+
+    const b64 =
+        data?.data?.[0]?.b64_json;
+
+
+    if(!b64){
+
+        throw new Error(
+            "Image API ไม่ได้ส่งรูปกลับมา"
+        );
+
+    }
+
+
+    return {
+
+        src:
+            "data:image/png;base64,"+
+            b64
+
+    };
 }
 
 
-/* =========================================================
-   COPY CAPTION
-========================================================= */
+/* =================================================
+   แสดงผล
+================================================= */
+
+function renderResults(){
+
+    const grid =
+        document.getElementById(
+            "imageGrid"
+        );
+
+
+    grid.innerHTML = "";
+
+
+    generatedImages.forEach(
+        (image,index)=>{
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "image-card "+
+                (
+                    index===0
+                    ? "cover"
+                    : ""
+                );
+
+
+            const img =
+                document.createElement(
+                    "img"
+                );
+
+
+            img.src =
+                image.src;
+
+
+            const info =
+                document.createElement(
+                    "div"
+                );
+
+
+            info.className =
+                "image-info";
+
+
+            info.textContent =
+                index===0
+                ? "⭐ หน้าปกโฆษณา"
+                : "🖼️ ภาพเพิ่มเติม "+(index+1);
+
+
+            const save =
+                document.createElement(
+                    "button"
+                );
+
+
+            save.className =
+                "save-button";
+
+
+            save.textContent =
+                "📥 บันทึกภาพ";
+
+
+            save.onclick =
+                function(){
+
+                    saveImage(
+                        image.src,
+                        index
+                    );
+
+                };
+
+
+            info.appendChild(
+                document.createElement("br")
+            );
+
+
+            info.appendChild(
+                save
+            );
+
+
+            card.appendChild(
+                img
+            );
+
+
+            card.appendChild(
+                info
+            );
+
+
+            grid.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =================================================
+   บันทึกภาพ
+================================================= */
+
+async function saveImage(
+    src,
+    index
+){
+
+    try{
+
+        const response =
+            await fetch(src);
+
+
+        const blob =
+            await response.blob();
+
+
+        const fileName =
+            index===0
+            ? "LUYMOTOR_COVER.png"
+            : "LUYMOTOR_IMAGE_"+
+              (index+1)+
+              ".png";
+
+
+        if(
+            navigator.share &&
+            typeof File !== "undefined"
+        ){
+
+            const file =
+                new File(
+                    [blob],
+                    fileName,
+                    {
+                        type:"image/png"
+                    }
+                );
+
+
+            if(
+                !navigator.canShare ||
+                navigator.canShare({
+                    files:[file]
+                })
+            ){
+
+                await navigator.share({
+                    files:[file],
+                    title:"LUY MOTOR"
+                });
+
+
+                return;
+            }
+        }
+
+
+        const blobUrl =
+            URL.createObjectURL(
+                blob
+            );
+
+
+        const link =
+            document.createElement(
+                "a"
+            );
+
+
+        link.href =
+            blobUrl;
+
+
+        link.download =
+            fileName;
+
+
+        document.body.appendChild(
+            link
+        );
+
+
+        link.click();
+
+
+        link.remove();
+
+
+        setTimeout(
+            function(){
+
+                URL.revokeObjectURL(
+                    blobUrl
+                );
+
+            },
+            1000
+        );
+
+    }
+
+    catch(error){
+
+        if(
+            error.name ===
+            "AbortError"
+        ){
+
+            return;
+
+        }
+
+
+        alert(
+            "ไม่สามารถบันทึกภาพได้ครับ\n\n"+
+            error.message
+        );
+
+    }
+}
+
+
+/* =================================================
+   Copy
+================================================= */
 
 async function copyDescription(){
 
-  if(!generatedCaption){
-
-    return;
-  }
-
-
-  try{
-
-    await navigator.clipboard.writeText(
-      generatedCaption
-    );
+    const text =
+        document.getElementById(
+            "resultDescription"
+        ).value;
 
 
-    showSuccess(
-      "คัดลอกคำบรรยายแล้วครับ"
-    );
+    if(!text){
+        return;
+    }
 
 
-  }catch(error){
+    try{
+
+        await navigator.clipboard.writeText(
+            text
+        );
+
+
+        alert(
+            "คัดลอกคำบรรยายแล้วครับ 👍"
+        );
+
+    }
+
+    catch{
+
+        const textarea =
+            document.getElementById(
+                "resultDescription"
+            );
+
+
+        textarea.focus();
+        textarea.select();
+
+
+        alert(
+            "เลือกข้อความไว้แล้ว กดคัดลอกได้เลยครับ"
+        );
+
+    }
+}
+
+
+/* =================================================
+   START
+================================================= */
+
+async function startGenerate(){
+
+    clearMessages();
+
+
+    const apiKey =
+        document.getElementById(
+            "apiKey"
+        ).value.trim();
+
+
+    const name =
+        document.getElementById(
+            "productName"
+        ).value.trim();
+
+
+    const description =
+        document.getElementById(
+            "productDescription"
+        ).value.trim();
+
+
+    const quality =
+        document.getElementById(
+            "quality"
+        ).value;
+
 
     /*
-      fallback สำหรับบาง browser
-    */
+     * API KEY
+     */
 
-    const textarea =
-      document.createElement("textarea");
+    if(!apiKey){
 
-    textarea.value =
-      generatedCaption;
+        showError(
+            "กรุณาใส่ OpenAI API Key ก่อนครับ"
+        );
 
-    document.body.appendChild(textarea);
+        return;
 
-    textarea.select();
-
-    document.execCommand("copy");
-
-    textarea.remove();
+    }
 
 
-    showSuccess(
-      "คัดลอกคำบรรยายแล้วครับ"
-    );
-  }
+    /*
+     * รูป
+     */
+
+    const validation =
+        validateImages();
+
+
+    if(!validation.ok){
+
+        showError(
+            validation.message
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * ชื่อ
+     */
+
+    if(!name){
+
+        showError(
+            "กรุณาใส่ชื่อสินค้าครับ"
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * รายละเอียด
+     */
+
+    if(!description){
+
+        showError(
+            "กรุณาใส่รายละเอียดคร่าว ๆ ครับ"
+        );
+
+        return;
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "generateButton"
+        );
+
+
+    const loading =
+        document.getElementById(
+            "loading"
+        );
+
+
+    const results =
+        document.getElementById(
+            "results"
+        );
+
+
+    button.disabled =
+        true;
+
+
+    loading.style.display =
+        "block";
+
+
+    results.style.display =
+        "none";
+
+
+    generatedImages = [];
+
+
+    try{
+
+        /*
+         * STEP 1
+         */
+
+        setStatus(
+            "1/3 กำลังวิเคราะห์รูปสินค้า..."
+        );
+
+
+        const plan =
+            await analyzeProduct(
+                apiKey
+            );
+
+
+        /*
+         * คำบรรยาย
+         */
+
+        document.getElementById(
+            "resultDescription"
+        ).value =
+            plan.description || "";
+
+
+        /*
+         * Prompts
+         */
+
+        const prompts = [
+
+            plan.cover_prompt,
+
+            ...(Array.isArray(
+                plan.detail_prompts
+            )
+            ? plan.detail_prompts
+            : [])
+
+        ];
+
+
+        if(!prompts[0]){
+
+            throw new Error(
+                "AI ไม่ได้สร้างคำสั่งสำหรับภาพ"
+            );
+
+        }
+
+
+        /*
+         * STEP 2
+         */
+
+        for(
+            let i=0;
+            i<selectedImageCount;
+            i++
+        ){
+
+            setStatus(
+                "2/3 กำลังสร้างภาพ "+
+                (i+1)+
+                " / "+
+                selectedImageCount+
+                "..."
+            );
+
+
+            const basePrompt =
+                prompts[i] ||
+                prompts[
+                    prompts.length-1
+                ];
+
+
+            const finalPrompt =
+                buildFinalPrompt(
+                    basePrompt,
+                    i
+                );
+
+
+            const result =
+                await generateImage(
+                    apiKey,
+                    finalPrompt,
+                    quality
+                );
+
+
+            generatedImages.push(
+                result
+            );
+
+        }
+
+
+        /*
+         * STEP 3
+         */
+
+        setStatus(
+            "3/3 กำลังจัดเตรียมภาพ..."
+        );
+
+
+        renderResults();
+
+
+        loading.style.display =
+            "none";
+
+
+        results.style.display =
+            "block";
+
+
+        showSuccess(
+            "สร้างภาพสำเร็จ "+
+            generatedImages.length+
+            " รูปครับ 🎉"
+        );
+
+
+        results.scrollIntoView({
+            behavior:"smooth"
+        });
+
+    }
+
+    catch(error){
+
+        loading.style.display =
+            "none";
+
+
+        showError(
+            "เกิดข้อผิดพลาด:\n\n"+
+            error.message
+        );
+
+
+        console.error(
+            "LUY MOTOR ERROR:",
+            error
+        );
+
+    }
+
+
+    button.disabled =
+        false;
+
 }
 
 
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHtml(text){
-
-  const div =
-    document.createElement("div");
-
-  div.textContent =
-    text;
-
-  return div.innerHTML;
-}
-
-
-/* =========================================================
+/* =================================================
    INIT
-========================================================= */
+================================================= */
+
+selectImageCount(2);
 
 updatePrice();
 
